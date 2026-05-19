@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fundamento</title>
+    <meta
+      name="description"
+      content="Fundamento je digital-first studio za brand strategiju, web iskustva, motion i produkciju."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-nav" aria-label="Glavna navigacija">
+      <a class="brand-mark" href="#home" aria-label="fundamento početna">
+        <img class="brand-logo brand-logo-light" src="assets/brand/fundamento-logo-light.png" alt="" aria-hidden="true" />
+        <img class="brand-logo brand-logo-dark" src="assets/brand/fundamento-logo-dark.png" alt="" aria-hidden="true" />
+      </a>
+
+      <nav class="nav-tabs" aria-label="Stranice">
+        <a href="projects.html">Projekti</a>
+        <a href="partners.html">Partnerske suradnje</a>
+        <a href="about.html">O nama</a>
+      </nav>
+
+      <a class="nav-cta ink-button" href="#contact">
+        <span>Započni projekt</span>
+        <i class="ink-field" aria-hidden="true"></i>
+      </a>
+
+      <button class="nav-menu" type="button" aria-label="Otvori navigaciju" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <aside class="social-rail" aria-label="Društvene mreže">
+      <a href="https://www.instagram.com/fundamen.to/" target="_blank" rel="noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.5" cy="6.5" r="1"></circle>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/company/fundamento-video-production/?viewAsMember=true" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 9h4v10H5z"></path>
+          <path d="M5 5.5a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"></path>
+          <path d="M12 9h3.8v1.4c.7-1 1.8-1.7 3.4-1.7 2.5 0 4 1.7 4 5V19h-4v-4.8c0-1.2-.5-2-1.6-2-1.2 0-1.8.8-1.8 2V19H12z"></path>
+        </svg>
+      </a>
+    </aside>
+
+    <main class="site-shell" id="home">
+      <section class="hero-section" aria-label="Fundamento hero" data-nav-tone="light">
+        <div class="hero-ambient" aria-hidden="true"></div>
+
+        <div class="hero-copy">
+          <p class="kicker">Digital studio based in Zagreb</p>
+          <h1>
+            <span>Ne prodajemo</span>
+            <span>video,</span>
+            <span>prodajemo</span>
+            <span>prvi dojam.</span>
+          </h1>
+          <div class="hero-actions" aria-label="Hero akcije">
+            <a class="primary-button" href="#contact">Započni projekt</a>
+          </div>
+        </div>
+
+        <div class="hero-media-wrap">
+          <video
+            class="hero-video"
+            src="assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          ></video>
+        </div>
+
+        <div class="hero-wheel" aria-label="Istaknuti projekti">
+          <button class="wheel-control" type="button" data-wheel="prev" aria-label="Prethodni projekt">
+            <span aria-hidden="true">&larr;</span>
+          </button>
+          <div class="project-wheel" id="projectWheel"></div>
+          <button class="wheel-control" type="button" data-wheel="next" aria-label="Sljedeći projekt">
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+
+        <div class="hero-marquee client-logo-marquee" aria-label="Klijenti i partneri">
+          <div class="client-logo-track" aria-hidden="true">
+            <span class="client-logo"><img src="assets/clients/Agencija404.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/EK_HRV.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/CentralCafe.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/FoxFishing.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/infopib%20shift.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/moodmedia.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/krannich.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/splixai.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/entrio.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/forte-solar-logo.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/revita.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/bosnic-logo-2025-xl.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/ambasadorsplit.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/travelCro.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/TDC.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/fesb.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/uhy.svg" alt="" decoding="async" /></span>
+          </div>
+          <div class="client-logo-track" aria-hidden="true">
+            <span class="client-logo"><img src="assets/clients/Agencija404.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/EK_HRV.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/CentralCafe.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/FoxFishing.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/infopib%20shift.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/moodmedia.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/krannich.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/splixai.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/entrio.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/forte-solar-logo.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/revita.svg" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/bosnic-logo-2025-xl.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/ambasadorsplit.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/travelCro.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/TDC.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/fesb.png" alt="" decoding="async" /></span>
+            <span class="client-logo"><img src="assets/clients/uhy.svg" alt="" decoding="async" /></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bento-section" id="projects" data-nav-tone="light">
+        <div class="section-heading">
+          <h2>Partnerske suradnje</h2>
+        </div>
+        <div class="project-bento" id="projectBento" aria-label="Projekti"></div>
+      </section>
+
+      <section class="manifesto-section" id="about" data-nav-tone="light">
+        <p class="scrub-copy" id="scrubCopy">
+          U fundamentu smo fokusirani na vizuale koji donose rezultate. Kroz video i foto produkciju za
+          brendove kojima je bitno kako ih tržište doživljava, koliko im je sadržaj konzistentan i kako
+          vizual podržava percepciju kvalitete. Sadržaj koji stvaramo nema samo vizualnu kvalitetu, nego
+          i jasnu marketinšku funkciju.
+        </p>
+        <a class="manifesto-link" href="about.html">Saznaj više</a>
+
+        <div class="services-heading">
+          <h2>Usluge</h2>
+        </div>
+
+        <div class="accordion" aria-label="Način rada">
+          <article class="accordion-panel is-open" data-service-title="Kreativni koncepti">
+            <img src="https://picsum.photos/seed/creative-concept-room/900/1200" alt="Creative concept room" />
+            <div>
+              <h3>Kreativni koncepti</h3>
+              <p>Faza kreativnih koncepta je početna točka svakog projekta u kojoj definiramo ideju, ton i vizualni smjer. Izrađujemo moodboard, pišemo koncept i scenarij te planiramo sve elemente snimanja uključujući lokacije i casting. Klijent na kraju ove faze dobiva kompletan kreativni dokument koji služi kao osnova za produkciju.</p>
+            </div>
+          </article>
+          <article class="accordion-panel" data-service-title="Produkcija">
+            <img src="https://picsum.photos/seed/production-set-motion/900/1200" alt="Production set detail" />
+            <div>
+              <h3>Produkcija</h3>
+              <p>Faza produkcije obuhvaća sve što se događa na setu, od postavljanja opreme i rasvjete do samog snimanja. Klijent dobiva kompletnu ekipu prilagođenu veličini projekta, vlastitu opremu te organizirano i vremenski isplanirano snimanje prema unaprijed dogovorenom planu. Snimamo reklamne spotove, brand filmove, sadržaj za društvene mreže i fotografiju.</p>
+            </div>
+          </article>
+          <article class="accordion-panel" data-service-title="Postprodukcija">
+            <img src="https://picsum.photos/seed/postproduction-suite/900/1200" alt="Postproduction suite" />
+            <div>
+              <h3>Postprodukcija</h3>
+              <p>Faza postprodukcije obuhvaća montažu, colorgrading, sound design i grafičke obrade snimljenog materijala. Klijent dobiva gotov video isporučen u formatima prilagođenim platformama na kojima će se koristiti. Uslugu nudimo i za materijale koje nismo sami snimili.</p>
+            </div>
+          </article>
+          <article class="accordion-panel" data-service-title="AI">
+            <img src="https://picsum.photos/seed/ai-visual-system/900/1200" alt="AI visual system" />
+            <div>
+              <h3>AI</h3>
+              <p>Faza AI produkcije odnosi se na projekte koji zahtijevaju vizuale koje je skupo ili tehnički teško postići konvencionalnim snimanjem. Koristimo AI alate za generiranje vizuala, automatizaciju dijelova postprodukcije i izradu hibridnog sadržaja koji kombinira snimljeni i generirani materijal.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact" data-nav-tone="dark">
+        <div class="contact-panel">
+          <div class="contact-copy">
+            <p class="kicker">Novi projekt</p>
+            <h2>Što ćemo snimati?</h2>
+            <p class="direct-mail">Radije pišete mailom? Javite se na <a href="mailto:info@fundamen.to">info@fundamen.to</a>.</p>
+          </div>
+
+          <form
+            class="contact-form"
+            action="https://formsubmit.co/info@fundamen.to"
+            method="POST"
+            data-contact-form
+            aria-label="Kontakt forma"
+          >
+            <input type="hidden" name="_subject" value="Novi upit preko Fundamento stranice" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <label class="honey-field" aria-hidden="true" tabindex="-1">
+              Website
+              <input type="text" name="_honey" autocomplete="off" tabindex="-1" />
+            </label>
+
+            <div class="form-progress" aria-live="polite">
+              <span data-form-progress>Korak 1 od 4</span>
+              <div class="form-progress-dots" aria-hidden="true">
+                <span data-form-dot></span>
+                <span data-form-dot></span>
+                <span data-form-dot></span>
+                <span data-form-dot></span>
+              </div>
+            </div>
+
+            <div class="form-steps">
+              <fieldset class="form-step is-active" data-form-step>
+                <legend>Korak 1: Osnovni podaci</legend>
+                <p class="form-step-note">Krenimo s kontakt podacima.</p>
+                <label>
+                  Ime
+                  <input type="text" name="name" autocomplete="name" placeholder="Tvoje ime" required />
+                </label>
+                <label>
+                  Email
+                  <input type="email" name="email" autocomplete="email" placeholder="ime@firma.com" required />
+                </label>
+              </fieldset>
+
+              <fieldset class="form-step" data-form-step hidden>
+                <legend>Korak 2: Opis projekta</legend>
+                <p class="form-step-note">Nekoliko rečenica je dovoljno. Opišite projekt, u kojem formatu i što trebamo postići.</p>
+                <label>
+                  Opis projekta
+                  <textarea name="project" rows="7" placeholder="Opišite projekt." required></textarea>
+                </label>
+              </fieldset>
+
+              <fieldset class="form-step" data-form-step hidden>
+                <legend>Korak 3: Rok i termin</legend>
+                <p class="form-step-note">Ovaj dio je opcionalan. Ako još nemaš rok ili termin, slobodno preskoči.</p>
+                <label>
+                  Rok završetka projekta
+                  <input type="date" name="deadline" data-date-picker data-placeholder="Odaberi datum" />
+                </label>
+                <div class="meeting-field">
+                  <div class="meeting-picker" id="meetingCalendar" aria-label="Opcionalni odabir sastanka">
+                    <label>
+                      Lakše ti je ispričati detalje o projektu? Odaberi termin sastanka.
+                      <input type="date" name="meeting_date" data-meeting-date data-date-picker data-placeholder="Odaberi datum" />
+                    </label>
+                    <label class="meeting-time">
+                      Sat sastanka
+                      <select name="meeting_time" data-meeting-time>
+                        <option value="">Odaberi sat</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <button class="step-skip" type="button" data-form-skip>Preskoči</button>
+              </fieldset>
+
+              <fieldset class="form-step" data-form-step hidden>
+                <legend>Korak 4: Pošalji upit</legend>
+                <p class="form-step-note">Hvala na kontaktu. Odgovor stiže brzo.</p>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="newsletter" />
+                  <span>Želim primiti jedan godišnji newsletter s radovima i novostima.</span>
+                </label>
+              </fieldset>
+            </div>
+
+            <div class="form-actions">
+              <button class="step-button step-button-secondary" type="button" data-form-prev hidden>Natrag</button>
+              <button class="step-button" type="button" data-form-next>Dalje</button>
+              <button class="form-button" type="submit" data-form-submit hidden>Pošalji</button>
+            </div>
+            <div class="form-thanks" data-form-thanks hidden tabindex="-1">
+              <p class="kicker">Upit poslan</p>
+              <strong>Hvala na javljanju.</strong>
+              <span>Upit je poslan na info@fundamen.to. Javit ćemo se uskoro.</span>
+              <button class="step-button step-button-secondary" type="button" data-form-again>Pošalji novi upit</button>
+            </div>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-shell">
+        <div class="footer-grid">
+          <a class="footer-logo" href="#home" aria-label="fundamento početna">
+            <img class="brand-logo brand-logo-light" src="assets/brand/fundamento-logo-light.png" alt="" aria-hidden="true" />
+          </a>
+
+          <div class="footer-company">
+            <h3>Informacije o firmi</h3>
+            <p>
+              Fundamento Creative Studios j.d.o.o.<br />
+              55598169702<br />
+              Druškovec Humski 1<br />
+              Hum na Sutli
+            </p>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Kontakt</h3>
+            <address>
+              <a href="mailto:info@fundamen.to">info@fundamen.to</a><br />
+              <a href="tel:+385921886554">+385 92 188 6554</a>
+            </address>
+
+            <div class="footer-socials" aria-label="Društvene mreže">
+              <a href="https://www.instagram.com/fundamen.to/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <circle cx="17.5" cy="6.5" r="1"></circle>
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/company/fundamento-video-production/?viewAsMember=true" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 9h4v10H5z"></path>
+                  <path d="M5 5.5a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"></path>
+                  <path d="M12 9h3.8v1.4c.7-1 1.8-1.7 3.4-1.7 2.5 0 4 1.7 4 5V19h-4v-4.8c0-1.2-.5-2-1.6-2-1.2 0-1.8.8-1.8 2V19H12z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <nav class="footer-nav" aria-label="Footer navigacija">
+            <a href="projects.html">Projekti</a>
+            <a href="partners.html">Partnerske suradnje</a>
+            <a href="about.html">O nama</a>
+            <a href="#contact">Započni projekt</a>
+            <a href="#privacy" data-privacy-open>Politika privatnosti</a>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Fundamento Creative Studios j.d.o.o. Sva prava pridržana.</p>
+        </div>
+      </div>
+    </footer>
+
+    <aside class="privacy-overlay" id="privacy" aria-hidden="true" aria-labelledby="privacyTitle">
+      <button class="privacy-close" type="button" data-privacy-close aria-label="Zatvori politiku privatnosti">
+        <span aria-hidden="true">x</span>
+      </button>
+
+      <article class="privacy-document" role="dialog" aria-modal="true">
+        <p class="kicker">Privatnost</p>
+        <h2 id="privacyTitle">Politika privatnosti i kolačića</h2>
+
+        <p>
+          Fundamento Creative Studios j.d.o.o. pridaje veliku važnost zaštiti vaših osobnih podataka. Ova
+          Politika privatnosti objašnjava kako prikupljamo, obrađujemo i štitimo vaše podatke putem web
+          stranice www.fundamen.to.
+        </p>
+
+        <h3>1. Opće informacije o voditelju obrade</h3>
+        <p>Voditelj obrade vaših osobnih podataka je:</p>
+        <p>
+          Naziv: Fundamento Creative Studios j.d.o.o.<br />
+          Adresa: Druškovec Humski 1, Hum na Sutli, Hrvatska<br />
+          55598169702<br />
+          E-mail za kontakt: info@fundamen.to
+        </p>
+
+        <h3>2. Koje podatke prikupljamo i u koju svrhu?</h3>
+        <h4>A) Newsletter</h4>
+        <p>Ako se prijavite na naš newsletter, prikupljamo isključivo vašu e-mail adresu.</p>
+        <p>
+          Svrha: Slanje obavijesti o našim projektima, novostima i promotivnih informacija.<br />
+          Pravna osnova: Privola (pristanak). U svakom trenutku se možete odjaviti klikom na poveznicu
+          "Odjava" u dnu svakog e-maila.
+        </p>
+
+        <h4>B) Google Analytics (Kolačići)</h4>
+        <p>Koristimo Google Analytics za analizu posjećenosti naše stranice.</p>
+        <p>
+          Svrha: Razumijevanje načina na koji posjetitelji koriste stranicu kako bismo poboljšali njezinu
+          funkcionalnost i sadržaj.<br />
+          Podaci: Anonimizirana IP adresa, tip preglednika, vrijeme provedeno na stranici i sl.<br />
+          Pravna osnova: Legitimni interes za poboljšanje poslovanja (uz vašu privolu putem kolačića).
+        </p>
+
+        <h3>3. Dijeljenje podataka s trećim stranama</h3>
+        <p>
+          Fundamento Creative Studios j.d.o.o. ne prodaje, ne iznajmljuje niti dijeli vaše osobne podatke s
+          trećim stranama u njihove marketinške svrhe. Vaši podaci su sigurni i koriste se isključivo za gore
+          navedene svrhe. Iznimno, podaci se mogu dostaviti nadležnim javnim tijelima ako je to naša zakonska
+          obveza.
+        </p>
+
+        <h3>4. Kolačići (Cookies)</h3>
+        <p>Web stranica koristi kolačiće kako bi osigurala najbolje korisničko iskustvo.</p>
+        <p>
+          Nužni kolačići: Neophodni za rad stranice i ne mogu se isključiti.<br />
+          Analitički kolačići (Google Analytics): Pomažu nam pratiti statistiku posjeta.
+        </p>
+        <p>
+          Postavke kolačića možete kontrolirati i konfigurirati u vašem web pregledniku. Isključivanje kolačića
+          može ograničiti određene funkcionalnosti stranice.
+        </p>
+
+        <h3>5. Razdoblje pohrane</h3>
+        <p>
+          Vašu e-mail adresu za newsletter čuvamo sve dok ne povučete privolu (odjavite se). Podaci prikupljeni
+          putem Google Analyticsa čuvaju se u skladu s pravilima tog servisa (obično 14 do 26 mjeseci).
+        </p>
+
+        <h3>6. Vaša prava prema GDPR-u</h3>
+        <p>U skladu s Općom uredbom o zaštiti podataka, imate sljedeća prava:</p>
+        <p>
+          Pravo na pristup: Pravo dobiti potvrdu obrađuju li se vaši podaci.<br />
+          Pravo na ispravak: Pravo na dopunu ili izmjenu netočnih podataka.<br />
+          Pravo na brisanje: Pravo na "zaborav" (brisanje podataka ako više nisu nužni).<br />
+          Pravo na prigovor: Pravo na prigovor protiv obrade podataka.<br />
+          Pravo na prenosivost: Pravo na prijenos podataka drugom voditelju obrade.
+        </p>
+        <p>Za ostvarivanje bilo kojeg od ovih prava, javite nam se na info@fundamen.to.</p>
+
+        <h3>7. Pravo na pritužbu nadležnom tijelu</h3>
+        <p>
+          Ako smatrate da je obrada vaših podataka protivna GDPR-u, imate pravo podnijeti pritužbu nadzornom
+          tijelu:
+        </p>
+        <p>
+          Agencija za zaštitu osobnih podataka (AZOP)<br />
+          Selska cesta 136, 10000 Zagreb<br />
+          Web: www.azop.hr
+        </p>
+      </article>
+    </aside>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
