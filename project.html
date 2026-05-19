@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fundamento projekt</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=layout-20260519-rhythm" />
     <style>
       @font-face {
         font-family: "Aeonik Pro";
@@ -69,6 +69,14 @@
         --font-display: "Arlon", "Aeonik Pro", ui-sans-serif, system-ui, sans-serif;
         --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
         --ease-smooth: cubic-bezier(0.19, 1, 0.22, 1);
+        --nav-height: 82px;
+        --page-gutter: clamp(22px, 5vw, 92px);
+        --content-max: 1720px;
+        --layout-gutter: max(var(--page-gutter), calc((100vw - var(--content-max)) / 2));
+        --page-top-gap: clamp(56px, 6vw, 92px);
+        --page-bottom-gap: clamp(44px, 5vw, 78px);
+        --eyebrow-title-gap: clamp(12px, 1.15vw, 18px);
+        --title-copy-gap: clamp(18px, 1.8vw, 28px);
       }
 
       * {
@@ -129,7 +137,7 @@
       }
 
       .site-footer {
-        padding: clamp(42px, 5vw, 76px) clamp(18px, 5vw, 84px) 42px;
+        padding: var(--page-bottom-gap) var(--layout-gutter) 42px;
         overflow: hidden;
         background: var(--brand-dark-bg);
         color: var(--bone);
@@ -362,7 +370,7 @@
         grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
         align-items: start;
         gap: clamp(28px, 5vw, 86px);
-        padding: clamp(96px, 8vw, 132px) clamp(18px, 5vw, 84px) clamp(44px, 5vw, 76px);
+        padding: calc(var(--nav-height) + var(--page-top-gap)) var(--layout-gutter) var(--page-bottom-gap);
       }
 
       .case-copy {
@@ -380,6 +388,11 @@
         text-transform: uppercase;
       }
 
+      .case-kicker,
+      .section-kicker {
+        margin-bottom: var(--eyebrow-title-gap);
+      }
+
       h1,
       h2 {
         margin: 0;
@@ -392,7 +405,6 @@
       }
 
       h1 {
-        margin-top: 18px;
         font-size: clamp(3.2rem, 7vw, 8.8rem);
       }
 
@@ -402,7 +414,7 @@
 
       .case-summary {
         max-width: 58ch;
-        margin: clamp(22px, 3vw, 42px) 0 0;
+        margin: var(--title-copy-gap) 0 0;
         color: var(--muted);
         font-size: clamp(1.05rem, 1.45vw, 1.55rem);
         font-weight: 500;
@@ -413,7 +425,7 @@
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
-        margin-top: clamp(28px, 4vw, 56px);
+        margin-top: var(--title-copy-gap);
         font-family: var(--font-mono);
       }
 
@@ -478,7 +490,7 @@
       }
 
       .case-section {
-        padding: clamp(64px, 8vw, 118px) clamp(18px, 5vw, 84px) clamp(44px, 5vw, 78px);
+        padding: clamp(64px, 8vw, 118px) var(--layout-gutter) var(--page-bottom-gap);
       }
 
       .section-head {
@@ -623,7 +635,7 @@
         .case-hero {
           align-items: start;
           min-height: auto;
-          padding-top: 88px;
+          padding-top: calc(var(--nav-height) + var(--page-top-gap));
         }
 
         .case-hero-media {
@@ -674,13 +686,21 @@
       }
 
       @media (max-width: 560px) {
+        :root {
+          --nav-height: 72px;
+          --page-top-gap: 42px;
+          --page-bottom-gap: 56px;
+          --eyebrow-title-gap: 10px;
+          --title-copy-gap: 16px;
+        }
+
         .case-hero {
           gap: 28px;
-          padding: 78px 14px 36px;
+          padding: calc(var(--nav-height) + var(--page-top-gap)) var(--layout-gutter) var(--page-bottom-gap);
         }
 
         .case-section {
-          padding: 62px 14px 48px;
+          padding: 62px var(--layout-gutter) var(--page-bottom-gap);
         }
 
         h1 {
@@ -710,7 +730,7 @@
         }
 
         .site-footer {
-          padding: 42px 24px 42px;
+          padding: var(--page-bottom-gap) var(--layout-gutter) 42px;
         }
       }
 
@@ -786,8 +806,8 @@
       </a>
 
       <nav class="nav-tabs" aria-label="Stranice">
-        <a href="projects.html">Projekti</a>
-        <a href="partners.html">Partnerske suradnje</a>
+        <a href="projects.html">Radovi</a>
+        <a href="partners.html">Partnerski brendovi</a>
         <a href="about.html">O nama</a>
       </nav>
 
@@ -927,8 +947,8 @@
           </div>
 
           <nav class="footer-nav" aria-label="Footer navigacija">
-            <a href="projects.html">Projekti</a>
-            <a href="partners.html">Partnerske suradnje</a>
+            <a href="projects.html">Radovi</a>
+            <a href="partners.html">Partnerski brendovi</a>
             <a href="about.html">O nama</a>
             <a href="index.html#contact">Započni projekt</a>
             <a href="#privacy" data-privacy-open>Politika privatnosti</a>
@@ -1002,7 +1022,7 @@
         };
       }
 
-      function partnerProject({ slug, title, client, startYear, services, summary, hero }) {
+      function partnerProject({ slug, title, client, startYear, services, format, summary, hero }) {
         return {
           kind: "partner",
           slug,
@@ -1010,7 +1030,7 @@
           client,
           startYear,
           services,
-          type: services.join(", "),
+          type: format,
           summary,
           hero,
           social: verticalContent(slug),
@@ -1086,47 +1106,52 @@
         }),
         partnerProject({
           slug: "forte-solar",
-          title: "Forte Solar",
-          client: "Forte Solar",
+          title: "FORTE SOLAR",
+          client: "FORTE SOLAR",
           startYear: "2025",
           services: ["Video produkcija", "Foto sadržaj", "Social cutdowni", "BTS"],
-          summary: "Vodeći graditelji solarnih sustava na Jadranu.",
+          format: "Izgradnja",
+          summary: "Vodeći graditelj solarnih elektrana.",
           hero: { type: "video", src: forteVideo, orientation: "horizontal", alt: "Forte Solar hero video" },
         }),
         partnerProject({
           slug: "revita-clinic",
-          title: "Revita Clinic",
-          client: "Revita Clinic",
+          title: "REVITA CLINIC",
+          client: "REVITA CLINIC",
           startYear: "2025",
           services: ["Video produkcija", "Foto sadržaj", "Digitalni vizuali"],
-          summary: "5* boutique hotel i klinika biološke dugovječnosti.",
+          format: "Hospitality",
+          summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
           hero: { type: "video", src: "assets/videos/project-02.mp4", orientation: "horizontal", alt: "Revita Clinic hero video" },
         }),
         partnerProject({
           slug: "central-cafe",
-          title: "Central Cafe",
-          client: "Central Cafe",
+          title: "CENTRAL CAFE",
+          client: "CENTRAL CAFE",
           startYear: "2025",
           services: ["Foto sadržaj", "Video produkcija", "Social media materijali"],
-          summary: "Obiteljska slastičarnica i kavarnica s preko 20 godina iskustva.",
+          format: "Hospitality",
+          summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
           hero: { type: "video", src: "assets/videos/project-03.mp4", orientation: "horizontal", alt: "Central Cafe hero video" },
         }),
         partnerProject({
           slug: "vw-bosnic",
-          title: "VW Bosnić",
-          client: "VW Bosnić",
+          title: "VW BOSNIĆ",
+          client: "VW BOSNIĆ",
           startYear: "2024",
           services: ["Produkcija", "Postprodukcija", "Kampanjski vizuali"],
-          summary: "Ovlašteni VW servis i prodaja automobila.",
+          format: "Automotive",
+          summary: "Ovlašteni Volkswagen i Škoda servis s više od tri desetljeća iskustva.",
           hero: { type: "video", src: "assets/videos/project-04.mp4", orientation: "horizontal", alt: "VW Bosnić hero video" },
         }),
         partnerProject({
           slug: "hotel-ambasador",
-          title: "Hotel Ambasador",
-          client: "Hotel Ambasador",
+          title: "HOTEL AMBASADOR",
+          client: "HOTEL AMBASADOR",
           startYear: "2026",
           services: ["Hospitality vizuali", "Foto sadržaj", "Video produkcija"],
-          summary: "5* hotel located on Splits west coast.",
+          format: "Hospitality",
+          summary: "Hotel s 5 zvjezdica s pogledom na Jadran, mediteranskim restoranom i spa centrom.",
           hero: { type: "video", src: "assets/videos/project-02.mp4", orientation: "horizontal", alt: "Hotel Ambasador hero video" },
         }),
       ];
@@ -1218,14 +1243,14 @@
       document.title = `${project.title} | Fundamento`;
       const isPartner = project.kind === "partner";
 
-      document.querySelector("#projectKicker").textContent = isPartner ? "Partnerska suradnja" : `${project.client} / ${project.year}`;
+      document.querySelector("#projectKicker").textContent = isPartner ? "Partnerski brend" : `${project.client} / ${project.year}`;
       document.querySelector("#projectTitle").textContent = project.title;
       document.querySelector("#projectSummary").textContent = project.summary;
       document.querySelector("#projectYearLabel").textContent = isPartner ? "Početak suradnje" : "Godina";
-      document.querySelector("#projectTypeLabel").textContent = isPartner ? "Usluge" : "Tip";
+      document.querySelector("#projectTypeLabel").textContent = isPartner ? "Kategorija" : "Tip";
       document.querySelector("#projectClientLabel").textContent = "Klijent";
       document.querySelector("#projectYear").textContent = isPartner ? project.startYear : project.year;
-      document.querySelector("#projectType").textContent = isPartner ? project.services.join(", ") : project.type;
+      document.querySelector("#projectType").textContent = project.type;
       document.querySelector("#projectCollaboration").textContent = project.client;
       document.querySelector("#projectHeroMedia").innerHTML = heroMarkup(project.hero);
       renderOptionalSection("#socialSection", "#projectSocial", project.social, "vertical-video-grid");

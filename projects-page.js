@@ -70,58 +70,58 @@ const highlightProjects = [
 const partnerProjects = [
   {
     slug: "forte-solar",
-    title: "Forte Solar",
-    client: "Forte Solar",
+    title: "FORTE SOLAR",
+    client: "FORTE SOLAR",
     startYear: "2025",
     services: ["Video produkcija", "Foto sadržaj", "Social cutdowni", "BTS"],
-    format: "Construction",
+    format: "Izgradnja",
     video: "assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
     image: "https://picsum.photos/seed/forte-solar-brand/1200/900",
-    summary: "Vodeći graditelji solarnih sustava na Jadranu.",
+    summary: "Vodeći graditelj solarnih elektrana.",
   },
   {
     slug: "revita-clinic",
-    title: "Revita Clinic",
-    client: "Revita Clinic",
+    title: "REVITA CLINIC",
+    client: "REVITA CLINIC",
     startYear: "2025",
     services: ["Video produkcija", "Foto sadržaj", "Digitalni vizuali"],
     format: "Hospitality",
     video: "assets/videos/project-02.mp4",
     image: "https://picsum.photos/seed/revita-clinic-digital/1200/900",
-    summary: "5* boutique hotel i klinika biološke dugovječnosti.",
+    summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
   },
   {
     slug: "central-cafe",
-    title: "Central Cafe",
-    client: "Central Cafe",
+    title: "CENTRAL CAFE",
+    client: "CENTRAL CAFE",
     startYear: "2025",
     services: ["Foto sadržaj", "Video produkcija", "Social media materijali"],
     format: "Hospitality",
     video: "assets/videos/project-03.mp4",
     image: "https://picsum.photos/seed/central-cafe-campaign/1200/900",
-    summary: "Obiteljska slastičarnica i kavarnica s preko 20 godina iskustva.",
+    summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
   },
   {
     slug: "vw-bosnic",
-    title: "VW Bosnić",
-    client: "VW Bosnić",
+    title: "VW BOSNIĆ",
+    client: "VW BOSNIĆ",
     startYear: "2024",
     services: ["Produkcija", "Postprodukcija", "Kampanjski vizuali"],
     format: "Automotive",
     video: "assets/videos/project-04.mp4",
     image: "https://picsum.photos/seed/vw-bosnic-production/1200/900",
-    summary: "Ovlašteni VW servis i prodaja automobila.",
+    summary: "Ovlašteni Volkswagen i Škoda servis s više od tri desetljeća iskustva.",
   },
   {
     slug: "hotel-ambasador",
-    title: "Hotel Ambasador",
-    client: "Hotel Ambasador",
+    title: "HOTEL AMBASADOR",
+    client: "HOTEL AMBASADOR",
     startYear: "2026",
     services: ["Hospitality vizuali", "Foto sadržaj", "Video produkcija"],
     format: "Hospitality",
     video: "assets/videos/project-02.mp4",
     image: "https://picsum.photos/seed/hotel-ambasador-visuals/1200/900",
-    summary: "5* hotel located on Splits west coast.",
+    summary: "Hotel s 5 zvjezdica s pogledom na Jadran, mediteranskim restoranom i spa centrom.",
   },
   {
     slug: "",
@@ -214,8 +214,8 @@ function rowMeta(project, kind) {
   if (kind === "partner") {
     return [
       ["Klijent", project.client],
+      ["Kategorija", project.format],
       ["Početak suradnje", project.startYear],
-      ["Usluge", project.services.join(", ")],
     ];
   }
 
@@ -301,8 +301,8 @@ function renderProjectRows() {
 
   if (mode === "partner") {
     list.innerHTML = renderProjectGroup({
-      kicker: "Partnerstva",
-      title: "Partnerske suradnje",
+      kicker: "Partnerski brendovi",
+      title: "PARTNERSKI BRENDOVI",
       projects: partnerProjects,
       kind: "partner",
     });
@@ -311,7 +311,7 @@ function renderProjectRows() {
 
   list.innerHTML = renderProjectGroup({
     kicker: "Selekcija",
-    title: "Odabrani radovi",
+    title: "ODABRANI RADOVI",
     projects: highlightProjects,
     kind: "highlight",
   });
