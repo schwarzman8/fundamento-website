@@ -1,7 +1,8 @@
 const highlightProjects = [
   {
     title: "Travel Croatia",
-    type: "Tourism",
+    type: "Destination video",
+    industry: "Tourism",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TravelCroatia_FamAftermovie_UHD_16x9_web.mp4",
     summary: "Destinacijski hero video s vertikalnim cutdownima, fotografijama atmosfere i BTS materijalima.",
@@ -9,23 +10,26 @@ const highlightProjects = [
   },
   {
     title: "SplxAI",
-    type: "AI / Technology",
+    type: "Pitch video",
+    industry: "AI / Technology",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/SPLXAI_PitchVideo_25fps_9x16_UHD_TL5_web.mp4",
     summary: "Hero video i BTS materijali za tehnološki brand s preciznim, jasnim vizualnim tonom.",
     slug: "splxai",
   },
   {
-    title: "Tomić Winary",
-    type: "Wine / Hospitality",
+    title: "Tomić Winery",
+    type: "Brand film",
+    industry: "Wine / Hospitality",
     year: "2023",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.mp4",
     summary: "16:9 hero film s kratkim opisom suradnje i fokusom na atmosferu proizvoda.",
     slug: "tomicwinary",
   },
   {
-    title: "Forte Solar TVC 1",
-    type: "Construction",
+    title: "Forte Solar TV reklama",
+    type: "TV reklama",
+    industry: "Renewable Energy",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
     summary: "Prvi TVC format za Forte Solar, objedinjen unutar glavne Forte Solar projekt stranice.",
@@ -33,15 +37,17 @@ const highlightProjects = [
   },
   {
     title: "Trogir Diving Center",
-    type: "Tourism",
+    type: "Documentary video",
+    industry: "Tourism / Diving",
     year: "2024",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TDC_Documentary_25fps_16x9_UHD_TL5_ENG_1_web.mp4",
     summary: "16:9 hero video, horizontalni formati i BTS materijali za diving iskustvo.",
     slug: "trogir-diving-center",
   },
   {
-    title: "Forte Solar TVC 2",
-    type: "Construction",
+    title: "Forte Solar TV reklama",
+    type: "TV reklama",
+    industry: "Renewable Energy",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/ForteSolar_TVC_01_UHD_16x9_30fps_TL1_web.mp4",
     summary: "Drugi TVC format za Forte Solar, objedinjen unutar glavne Forte Solar projekt stranice.",
@@ -52,7 +58,7 @@ const highlightProjects = [
 const partnerProjects = [
   {
     title: "FORTE SOLAR",
-    type: "Izgradnja",
+    type: "Renewable Energy",
     year: "2025",
     video: "assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
     image: "https://picsum.photos/seed/forte-solar-brand/1200/900",
@@ -60,7 +66,7 @@ const partnerProjects = [
   },
   {
     title: "REVITA CLINIC",
-    type: "Hospitality",
+    type: "Medical Wellness / Hospitality",
     year: "2025",
     video: "assets/videos/project-02.mp4",
     image: "https://picsum.photos/seed/revita-clinic-digital/1200/900",
@@ -75,7 +81,7 @@ const partnerProjects = [
     summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
   },
   {
-    title: "VW BOSNIĆ",
+    title: "VOLKSWAGEN BOSNIĆ",
     type: "Automotive",
     year: "2024",
     video: "assets/videos/project-04.mp4",
@@ -99,6 +105,32 @@ const partnerProjects = [
     summary: "Rezervirano mjesto za sljedeću partnersku suradnju.",
     reserved: true,
   },
+];
+
+const clientLogos = [
+  { name: "Agencija 404", src: "assets/clients/Agencija404.svg" },
+  { name: "Europska komisija", src: "assets/clients/EK_HRV.png" },
+  { name: "Central Cafe", src: "assets/clients/CentralCafe.png" },
+  { name: "Fox Fishing", src: "assets/clients/FoxFishing.png" },
+  { name: "Hotel Aleksander", src: "assets/clients/hotel-aleksander.png" },
+  { name: "Maslina Resort", src: "assets/clients/maslina-resort.png" },
+  { name: "Infobip Shift", src: "assets/clients/infopib shift.png" },
+  { name: "Mood Media", src: "assets/clients/moodmedia.png" },
+  { name: "Rosetta Stone", src: "assets/clients/rosetta-stone-logo.png" },
+  { name: "Vrh komunikacije", src: "assets/clients/vrh-komunikacije.png" },
+  { name: "Krannich", src: "assets/clients/krannich.svg" },
+  { name: "SPLX AI", src: "assets/clients/splixai.svg" },
+  { name: "Entrio", src: "assets/clients/entrio.svg" },
+  { name: "Forte Solar", src: "assets/clients/forte-solar-logo.svg" },
+  { name: "Revita Clinic", src: "assets/clients/revita.svg" },
+  { name: "Volkswagen Bosnić", src: "assets/clients/bosnic-logo-2025-xl.png" },
+  { name: "Hotel Ambasador", src: "assets/clients/ambasadorsplit.png" },
+  { name: "Travel Croatia", src: "assets/clients/travelCro.png" },
+  { name: "Trogir Diving Center", src: "assets/clients/TDC.png" },
+  { name: "FESB", src: "assets/clients/fesb.png" },
+  { name: "UHY", src: "assets/clients/uhy.svg" },
+  { name: "YPO", src: "assets/clients/Clients_og/YPO_logo-white.png" },
+  { name: "STC", src: "assets/clients/Clients_og/stc.jpg", preserveColor: true },
 ];
 
 const HIGHLIGHT_QUEUE_KEY = "fundamento.highlightQueue";
@@ -658,6 +690,116 @@ function setupHeroHoverReadiness() {
   document.body.dataset.heroReady = "true";
 }
 
+function setupClientLogoMarquee() {
+  const marquee = document.querySelector("[data-logo-marquee]");
+  const track = marquee?.querySelector("[data-logo-track]");
+  if (!marquee || !track || !clientLogos.length) return;
+
+  const createSequence = () => {
+    const sequence = document.createElement("div");
+    sequence.className = "client-logo-sequence";
+    sequence.setAttribute("aria-hidden", "true");
+
+    clientLogos.forEach((logo) => {
+      const slot = document.createElement("span");
+      slot.className = "client-logo";
+      if (logo.preserveColor) slot.dataset.logoColor = "preserve";
+
+      const image = document.createElement("img");
+      image.src = logo.src;
+      image.alt = "";
+      image.decoding = "async";
+      image.loading = "eager";
+      image.draggable = false;
+      image.addEventListener("load", measure, { once: true });
+
+      slot.append(image);
+      sequence.append(slot);
+    });
+
+    return sequence;
+  };
+
+  let offset = 0;
+  let loopWidth = 0;
+  let lastTime = performance.now();
+  let pointerId = null;
+  let dragX = 0;
+  const speed = 0.036;
+
+  const normalizeOffset = () => {
+    if (!loopWidth) return;
+    offset = ((offset % loopWidth) + loopWidth) % loopWidth;
+  };
+
+  const measure = () => {
+    const firstSequence = track.querySelector(".client-logo-sequence");
+    const gap = Number.parseFloat(getComputedStyle(track).columnGap || "0") || 0;
+    loopWidth = firstSequence ? firstSequence.getBoundingClientRect().width + gap : 0;
+    normalizeOffset();
+  };
+
+  const render = () => {
+    track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+  };
+
+  const tick = (time) => {
+    const delta = Math.min(48, time - lastTime);
+    lastTime = time;
+
+    if (pointerId === null && !marquee.matches(":hover")) {
+      offset += delta * speed;
+      normalizeOffset();
+      render();
+    }
+
+    requestAnimationFrame(tick);
+  };
+
+  marquee.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    pointerId = event.pointerId;
+    dragX = event.clientX;
+    marquee.classList.add("is-dragging");
+    marquee.setPointerCapture?.(event.pointerId);
+  });
+
+  const drag = (event) => {
+    if (pointerId !== event.pointerId) return;
+    event.preventDefault();
+    const deltaX = event.clientX - dragX;
+    dragX = event.clientX;
+    offset -= deltaX;
+    normalizeOffset();
+    render();
+  };
+
+  window.addEventListener("pointermove", drag);
+
+  const releaseDrag = (event) => {
+    if (pointerId !== event.pointerId) return;
+    pointerId = null;
+    marquee.classList.remove("is-dragging");
+    marquee.releasePointerCapture?.(event.pointerId);
+  };
+
+  marquee.addEventListener("pointerup", releaseDrag);
+  marquee.addEventListener("pointercancel", releaseDrag);
+  marquee.addEventListener("lostpointercapture", releaseDrag);
+  window.addEventListener("pointerup", releaseDrag);
+  window.addEventListener("pointercancel", releaseDrag);
+  window.addEventListener("resize", measure);
+
+  track.replaceChildren(createSequence(), createSequence());
+
+  requestAnimationFrame(() => {
+    measure();
+    render();
+    requestAnimationFrame(tick);
+  });
+}
+
 function setupInkButtons() {
   document.querySelectorAll(".ink-button").forEach((button) => {
     let trailX = 0;
@@ -1068,7 +1210,7 @@ function setupChromeState() {
 
   const navColorsBySection = {
     home: { bg: "#030303", fg: "#f3efe7" },
-    projects: { bg: "#fbfaf6", fg: "#030303" },
+    projects: { bg: "#030303", fg: "#f3efe7" },
     gallery: { bg: "#030303", fg: "#f3efe7" },
     about: { bg: "#030303", fg: "#f3efe7" },
     contact: { bg: "#ffffff", fg: "#030303" },
@@ -1660,6 +1802,7 @@ renderWheel();
 renderBento();
 setupHeroVideo();
 setupHeroHoverReadiness();
+setupClientLogoMarquee();
 setupInkButtons();
 setupPrivacyOverlay();
 setupMobileNav();

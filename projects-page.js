@@ -4,7 +4,8 @@ const highlightProjects = [
     title: "Travel Croatia",
     client: "Travel Croatia",
     collaboration: "Projektna",
-    format: "Tourism",
+    industry: "Tourism",
+    format: "Destination video",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TravelCroatia_FamAftermovie_UHD_16x9_web.mp4",
     image: "https://picsum.photos/seed/travel-croatia-project/1200/900",
@@ -15,7 +16,8 @@ const highlightProjects = [
     title: "SplxAI",
     client: "SplxAI",
     collaboration: "Projektna",
-    format: "AI / Technology",
+    industry: "AI / Technology",
+    format: "Pitch video",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/SPLXAI_PitchVideo_25fps_9x16_UHD_TL5_web.mp4",
     image: "https://picsum.photos/seed/splxai-project/1200/900",
@@ -23,10 +25,11 @@ const highlightProjects = [
   },
   {
     slug: "tomicwinary",
-    title: "Tomić Winary",
-    client: "Tomić Winary",
+    title: "Tomić Winery",
+    client: "Tomić Winery",
     collaboration: "Projektna",
-    format: "Wine / Hospitality",
+    industry: "Wine / Hospitality",
+    format: "Brand film",
     year: "2023",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.mp4",
     image: "https://picsum.photos/seed/tomicwinary-project/1200/900",
@@ -34,10 +37,11 @@ const highlightProjects = [
   },
   {
     slug: "forte-solar-tvc-1",
-    title: "Forte Solar TVC 1",
+    title: "Forte Solar TV reklama",
     client: "Forte Solar",
     collaboration: "Projektna",
-    format: "Construction / TVC",
+    industry: "Renewable Energy",
+    format: "TV reklama",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
     image: "https://picsum.photos/seed/forte-solar-tvc-1-project/1200/900",
@@ -48,7 +52,8 @@ const highlightProjects = [
     title: "Trogir Diving Center",
     client: "Trogir Diving Center",
     collaboration: "Projektna",
-    format: "Tourism / Diving",
+    industry: "Tourism / Diving",
+    format: "Documentary video",
     year: "2024",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TDC_Documentary_25fps_16x9_UHD_TL5_ENG_1_web.mp4",
     image: "https://picsum.photos/seed/trogir-diving-center-project/1200/900",
@@ -56,10 +61,11 @@ const highlightProjects = [
   },
   {
     slug: "forte-solar-tvc-2",
-    title: "Forte Solar TVC 2",
+    title: "Forte Solar TV reklama",
     client: "Forte Solar",
     collaboration: "Projektna",
-    format: "Construction / TVC",
+    industry: "Renewable Energy",
+    format: "TV reklama",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/ForteSolar_TVC_01_UHD_16x9_30fps_TL1_web.mp4",
     image: "https://picsum.photos/seed/forte-solar-tvc-2-project/1200/900",
@@ -74,7 +80,8 @@ const partnerProjects = [
     client: "FORTE SOLAR",
     startYear: "2025",
     services: ["Video produkcija", "Foto sadržaj", "Social cutdowni", "BTS"],
-    format: "Izgradnja",
+    industry: "Renewable Energy",
+    format: "Partnerska suradnja",
     video: "assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
     image: "https://picsum.photos/seed/forte-solar-brand/1200/900",
     summary: "Vodeći graditelj solarnih elektrana.",
@@ -85,7 +92,8 @@ const partnerProjects = [
     client: "REVITA CLINIC",
     startYear: "2025",
     services: ["Video produkcija", "Foto sadržaj", "Digitalni vizuali"],
-    format: "Hospitality",
+    industry: "Medical Wellness / Hospitality",
+    format: "Partnerska suradnja",
     video: "assets/videos/project-02.mp4",
     image: "https://picsum.photos/seed/revita-clinic-digital/1200/900",
     summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
@@ -96,18 +104,20 @@ const partnerProjects = [
     client: "CENTRAL CAFE",
     startYear: "2025",
     services: ["Foto sadržaj", "Video produkcija", "Social media materijali"],
-    format: "Hospitality",
+    industry: "Hospitality",
+    format: "Partnerska suradnja",
     video: "assets/videos/project-03.mp4",
     image: "https://picsum.photos/seed/central-cafe-campaign/1200/900",
     summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
   },
   {
     slug: "vw-bosnic",
-    title: "VW BOSNIĆ",
-    client: "VW BOSNIĆ",
+    title: "VOLKSWAGEN BOSNIĆ",
+    client: "VOLKSWAGEN BOSNIĆ",
     startYear: "2024",
     services: ["Produkcija", "Postprodukcija", "Kampanjski vizuali"],
-    format: "Automotive",
+    industry: "Automotive",
+    format: "Partnerska suradnja",
     video: "assets/videos/project-04.mp4",
     image: "https://picsum.photos/seed/vw-bosnic-production/1200/900",
     summary: "Ovlašteni Volkswagen i Škoda servis s više od tri desetljeća iskustva.",
@@ -118,7 +128,8 @@ const partnerProjects = [
     client: "HOTEL AMBASADOR",
     startYear: "2026",
     services: ["Hospitality vizuali", "Foto sadržaj", "Video produkcija"],
-    format: "Hospitality",
+    industry: "Hospitality",
+    format: "Partnerska suradnja",
     video: "assets/videos/project-02.mp4",
     image: "https://picsum.photos/seed/hotel-ambasador-visuals/1200/900",
     summary: "Hotel s 5 zvjezdica s pogledom na Jadran, mediteranskim restoranom i spa centrom.",
@@ -129,7 +140,8 @@ const partnerProjects = [
     client: "Ime tvog brenda",
     startYear: "-",
     services: ["-"],
-    format: "Dolazi uskoro",
+    industry: "Dolazi uskoro",
+    format: "Partnerska suradnja",
     video: "assets/videos/project-03.mp4",
     image: "https://picsum.photos/seed/fundamento-placeholder-project/1200/900",
     summary: "Rezervirano mjesto za sljedeću partnersku suradnju.",
@@ -214,15 +226,17 @@ function rowMeta(project, kind) {
   if (kind === "partner") {
     return [
       ["Klijent", project.client],
-      ["Kategorija", project.format],
+      ["Industrija", project.industry],
+      ["Tip", project.format],
       ["Početak suradnje", project.startYear],
     ];
   }
 
   return [
     ["Klijent", project.client],
-    ["Godina", project.year],
+    ["Industrija", project.industry],
     ["Tip", project.format],
+    ["Godina", project.year],
   ];
 }
 
@@ -258,7 +272,7 @@ function renderProjectRow(project, index, kind) {
         `
     }
     <span class="project-index-card-copy">
-      <small>${project.format}</small>
+      <small>${kind === "partner" ? project.industry : project.format}</small>
       <strong>${project.title}</strong>
     </span>
   `;
@@ -302,7 +316,7 @@ function renderProjectRows() {
   if (mode === "partner") {
     list.innerHTML = renderProjectGroup({
       kicker: "Partnerski brendovi",
-      title: "PARTNERSKI BRENDOVI",
+      title: "Partnerski brendovi",
       projects: partnerProjects,
       kind: "partner",
     });
@@ -311,7 +325,7 @@ function renderProjectRows() {
 
   list.innerHTML = renderProjectGroup({
     kicker: "Selekcija",
-    title: "ODABRANI RADOVI",
+    title: "Odabrani radovi",
     projects: highlightProjects,
     kind: "highlight",
   });
