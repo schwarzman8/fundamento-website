@@ -135,19 +135,6 @@ const partnerProjects = [
     image: "https://picsum.photos/seed/hotel-ambasador-visuals/1200/900",
     summary: "Hotel s 5 zvjezdica s pogledom na Jadran, mediteranskim restoranom i spa centrom.",
   },
-  {
-    slug: "",
-    title: "Rezervirano",
-    client: "Ime tvog brenda",
-    startYear: "-",
-    services: ["-"],
-    industry: "Dolazi uskoro",
-    format: "Partnerska suradnja",
-    video: "assets/videos/project-03.mp4",
-    image: "https://picsum.photos/seed/fundamento-placeholder-project/1200/900",
-    summary: "Rezervirano mjesto za sljedeću partnersku suradnju.",
-    reserved: true,
-  },
 ];
 
 const PROJECT_RETURN_PENDING_KEY = "fundamento.projectReturnPending";
@@ -241,6 +228,17 @@ function rowMeta(project, kind) {
   ];
 }
 
+function sortProjectsByProductionYear(projects) {
+  return projects
+    .map((project, index) => ({ project, index }))
+    .sort((a, b) => {
+      const yearA = Number(a.project.year || a.project.startYear || 0);
+      const yearB = Number(b.project.year || b.project.startYear || 0);
+      return yearB - yearA || a.index - b.index;
+    })
+    .map(({ project }) => project);
+}
+
 function renderProjectRow(project, index, kind) {
   const url = projectUrl(project);
   const side = index % 2 === 0 ? "left" : "right";
@@ -328,7 +326,7 @@ function renderProjectRows() {
   list.innerHTML = renderProjectGroup({
     kicker: "Selekcija",
     title: "Odabrani radovi",
-    projects: highlightProjects,
+    projects: sortProjectsByProductionYear(highlightProjects),
     kind: "highlight",
   });
 }

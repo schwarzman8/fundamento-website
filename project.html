@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fundamento projekt</title>
-    <link rel="stylesheet" href="styles.css?v=original-media-20260520" />
+    <link rel="stylesheet" href="styles.css?v=heading-scale-20260521" />
     <style>
       @font-face {
         font-family: "Aeonik Pro";
@@ -476,6 +476,18 @@
         transform: scale(1.01);
       }
 
+      .media-shell video:fullscreen,
+      .media-shell video:-webkit-full-screen,
+      .media-video-lightbox video:fullscreen,
+      .media-video-lightbox video:-webkit-full-screen {
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #000 !important;
+        object-fit: contain !important;
+        filter: none !important;
+        transform: none !important;
+      }
+
       .case-hero-media.media-shell img,
       .case-hero-media.media-shell video {
         min-height: min(70svh, 760px);
@@ -641,6 +653,48 @@
         transform: translate3d(-50%, -50%, 0) scale(1.04);
       }
 
+      .media-fullscreen {
+        position: absolute;
+        z-index: 4;
+        right: 18px;
+        bottom: 18px;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(243, 239, 231, 0.32);
+        border-radius: 999px;
+        padding: 0;
+        place-items: center;
+        background: rgba(3, 3, 3, 0.32);
+        color: var(--bone);
+        opacity: 0.88;
+        cursor: pointer;
+        transform: translate3d(0, 0, 0);
+        transition:
+          background 260ms ease,
+          color 260ms ease,
+          opacity 260ms ease,
+          transform 540ms var(--ease-smooth);
+      }
+
+      .media-fullscreen:hover,
+      .media-fullscreen:focus-visible {
+        background: var(--bone);
+        color: var(--black);
+        opacity: 1;
+        transform: translate3d(4px, -4px, 0);
+      }
+
+      .media-fullscreen svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+
       .horizontal-video-strip {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -656,13 +710,15 @@
       }
 
       .vertical-video-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: clamp(12px, 1.4vw, 22px);
+        --video-gap: clamp(12px, 1.4vw, 22px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--video-gap);
       }
 
       .vertical-video-grid .media-item {
-        grid-column: auto;
+        flex: 0 0 calc((100% - var(--video-gap) - var(--video-gap) - var(--video-gap)) / 4);
         aspect-ratio: 9 / 16;
       }
 
@@ -705,7 +761,7 @@
       }
 
       .bts-grid .media-shell img {
-        filter: grayscale(1) contrast(1.08);
+        filter: grayscale(1) contrast(1.08) !important;
       }
 
       .media-lightbox {
@@ -732,6 +788,26 @@
         border-radius: 0;
         object-fit: contain;
         filter: none;
+      }
+
+      .media-video-lightbox {
+        width: min(94vw, 1680px);
+        height: min(90svh, 945px);
+      }
+
+      .media-video-lightbox[data-orientation="vertical"] {
+        width: min(92vw, 506px);
+        height: min(90svh, 900px);
+      }
+
+      .media-video-lightbox video {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        background: transparent;
+        object-fit: contain;
+        filter: none;
+        transform: none;
       }
 
       .media-lightbox-close {
@@ -773,6 +849,12 @@
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-width: 1.9;
+      }
+
+      html.is-media-locked,
+      body.is-media-locked {
+        overflow: hidden;
+        overscroll-behavior: none;
       }
 
       @keyframes reveal-media {
@@ -846,6 +928,11 @@
         .media-item.is-small {
           aspect-ratio: 4 / 5;
         }
+
+        .vertical-video-grid .media-item {
+          aspect-ratio: 9 / 16;
+          flex-basis: calc((100% - var(--video-gap)) / 2);
+        }
       }
 
       @media (max-width: 820px) {
@@ -907,6 +994,10 @@
 
         .media-shell {
           border-radius: 22px;
+        }
+
+        .vertical-video-grid .media-item {
+          flex-basis: 100%;
         }
 
         .footer-grid {
@@ -1004,6 +1095,34 @@
 
       h1 {
         font-weight: 700;
+      }
+
+      /* Match project-detail headings to the site-wide main-page scale. */
+      h1 {
+        font-size: clamp(2.85rem, min(4.05vw, 6vh), 5.15rem) !important;
+        line-height: 1.06 !important;
+      }
+
+      h2,
+      .privacy-document h2 {
+        font-size: clamp(2.25rem, 3.45vw, 4.45rem) !important;
+        line-height: 1.08 !important;
+      }
+
+      .privacy-document h3 {
+        font-size: clamp(1.35rem, 2.35vw, 2.8rem) !important;
+        line-height: 1.08 !important;
+      }
+
+      @media (max-width: 820px) {
+        h1 {
+          font-size: clamp(2.15rem, 10vw, 3.35rem) !important;
+        }
+
+        h2,
+        .privacy-document h2 {
+          font-size: clamp(1.95rem, 9.2vw, 3rem) !important;
+        }
       }
     </style>
   </head>
@@ -1125,6 +1244,16 @@
           </svg>
         </button>
         <img alt="" />
+      </dialog>
+
+      <dialog class="media-lightbox media-video-lightbox" id="videoLightbox" aria-label="Uvećani video">
+        <button class="media-lightbox-close" type="button" aria-label="Zatvori video">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 7 17 17" />
+            <path d="M17 7 7 17" />
+          </svg>
+        </button>
+        <video controls playsinline preload="metadata"></video>
       </dialog>
     </main>
 
@@ -1504,9 +1633,10 @@
       const returnUrl = localStorage.getItem("fundamento.projectReturnUrl");
       const returnScroll = localStorage.getItem("fundamento.projectReturnScroll");
 
-      function mediaMarkup(item, projectSlug, index) {
+      function mediaMarkup(item, projectSlug, index, options = {}) {
         const label = item.caption ? `<p class="media-caption">${item.caption}</p>` : "";
         const className = `media-shell media-item is-${item.orientation || "horizontal"}`;
+        const allowFullscreenVideo = options.allowFullscreenVideo !== false;
         const placement = [item.column ? `grid-column: ${item.column}` : "", item.row ? `grid-row: ${item.row}` : ""]
           .filter(Boolean)
           .join("; ");
@@ -1514,6 +1644,19 @@
 
         if (item.type === "video") {
           const source = item.src || item.video || project.hero.src;
+          const orientation = item.orientation || "horizontal";
+          const fullscreenButton = allowFullscreenVideo
+            ? `
+              <button class="media-fullscreen" type="button" data-fullscreen-video-src="${source}" data-video-orientation="${orientation}" aria-label="Otvori video preko cijelog ekrana">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 3H3v5" />
+                  <path d="M16 3h5v5" />
+                  <path d="M21 16v5h-5" />
+                  <path d="M3 16v5h5" />
+                </svg>
+              </button>
+            `
+            : "";
           return `
             <figure class="${className}" style="${style}">
               <video src="${source}" muted loop playsinline preload="metadata"></video>
@@ -1522,6 +1665,7 @@
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </button>
+              ${fullscreenButton}
               ${label}
             </figure>
           `;
@@ -1562,7 +1706,11 @@
 
         section.hidden = false;
         container.className = className || container.className;
-        container.innerHTML = media.map((item, index) => mediaMarkup(item, project.slug, index)).join("");
+        container.dataset.count = String(media.length);
+        container.dataset.remainder = String(media.length % 4);
+        container.innerHTML = media
+          .map((item, index) => mediaMarkup(item, project.slug, index, { allowFullscreenVideo: containerId !== "#projectBts" }))
+          .join("");
       }
 
       function setupMobileNav() {
@@ -1596,6 +1744,32 @@
         });
       }
 
+      let lockedScrollY = 0;
+
+      function lockPageScroll() {
+        if (document.body.classList.contains("is-media-locked")) return;
+        lockedScrollY = window.scrollY || window.pageYOffset || 0;
+        document.documentElement.classList.add("is-media-locked");
+        document.body.classList.add("is-media-locked");
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${lockedScrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.width = "100%";
+      }
+
+      function unlockPageScroll() {
+        if (!document.body.classList.contains("is-media-locked")) return;
+        document.documentElement.classList.remove("is-media-locked");
+        document.body.classList.remove("is-media-locked");
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.width = "";
+        window.scrollTo(0, lockedScrollY);
+      }
+
       function setupMediaLightbox() {
         const dialog = document.querySelector("#mediaLightbox");
         if (!dialog) return;
@@ -1608,6 +1782,7 @@
             image.alt = button.querySelector("img")?.alt || "";
             if (typeof dialog.showModal === "function") {
               dialog.showModal();
+              lockPageScroll();
             } else {
               window.open(button.dataset.fullscreenSrc, "_blank", "noopener");
             }
@@ -1621,6 +1796,48 @@
         dialog.addEventListener("close", () => {
           image.removeAttribute("src");
           image.alt = "";
+          unlockPageScroll();
+        });
+      }
+
+      function setupVideoLightbox() {
+        const dialog = document.querySelector("#videoLightbox");
+        if (!dialog) return;
+        const video = dialog.querySelector("video");
+        const closeButton = dialog.querySelector(".media-lightbox-close");
+
+        const openVideo = (button) => {
+          const source = button.dataset.fullscreenVideoSrc;
+          if (!source) return;
+
+          dialog.dataset.orientation = button.dataset.videoOrientation || "horizontal";
+          video.src = source;
+          video.controls = true;
+          video.muted = false;
+
+          if (typeof dialog.showModal === "function") {
+            dialog.showModal();
+            lockPageScroll();
+            video.play().catch(() => {});
+          } else {
+            window.open(source, "_blank", "noopener");
+          }
+        };
+
+        document.querySelectorAll(".media-fullscreen[data-fullscreen-video-src]").forEach((button) => {
+          button.addEventListener("click", () => openVideo(button));
+        });
+
+        closeButton?.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+        dialog.addEventListener("close", () => {
+          video.pause();
+          video.removeAttribute("src");
+          video.load();
+          delete dialog.dataset.orientation;
+          unlockPageScroll();
         });
       }
 
@@ -1637,6 +1854,7 @@
 
           const toggleVideo = () => {
             if (video.paused) {
+              video.controls = false;
               video.play().catch(() => {});
             } else {
               video.pause();
@@ -1674,6 +1892,7 @@
       renderOptionalSection("#btsSection", "#projectBts", project.bts, "bts-grid");
       setupMobileNav();
       setupMediaLightbox();
+      setupVideoLightbox();
       setupVideoCards();
 
       if (returnUrl && returnScroll && backLink) {

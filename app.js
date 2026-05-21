@@ -97,15 +97,6 @@ const partnerProjects = [
     image: "https://picsum.photos/seed/hotel-ambasador-visuals/1200/900",
     summary: "Hotel s 5 zvjezdica s pogledom na Jadran, mediteranskim restoranom i spa centrom.",
   },
-  {
-    title: "Rezervirano",
-    type: "Dolazi uskoro",
-    year: "2025",
-    video: "assets/videos/project-03.mp4",
-    image: "https://picsum.photos/seed/fundamento-placeholder-project/1200/900",
-    summary: "Rezervirano mjesto za sljedeću partnersku suradnju.",
-    reserved: true,
-  },
 ];
 
 const clientLogos = [
