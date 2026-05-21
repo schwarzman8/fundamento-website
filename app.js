@@ -23,6 +23,7 @@ const highlightProjects = [
     industry: "Wine / Hospitality",
     year: "2023",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.mp4",
+    poster: "assets/partners/tomic%20winery/optimized/tomic-winery-poster.jpg",
     summary: "16:9 hero film s kratkim opisom suradnje i fokusom na atmosferu proizvoda.",
     slug: "tomicwinary",
   },
@@ -61,7 +62,8 @@ const partnerProjects = [
     type: "Renewable Energy",
     year: "2025",
     video: "assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
-    image: "https://picsum.photos/seed/forte-solar-brand/1200/900",
+    image: "assets/partners/fortesolar/optimized/photos/forte-solar-still-01.jpg",
+    preferImage: true,
     summary: "Vodeći graditelj solarnih elektrana.",
   },
   {
@@ -123,6 +125,7 @@ const clientLogos = [
   { name: "UHY", src: "assets/clients/uhy.svg", visualScale: 1.06 },
   { name: "YPO", src: "assets/clients/Clients_og/YPO_logo-white.png", visualScale: 1.08, heightBleed: "6px" },
   { name: "STC", src: "assets/clients/Clients_og/stc-white.png", visualScale: 1.16, heightBleed: "10px" },
+  { name: "Hedera", src: "assets/clients/Clients_og/hedera.webp", visualScale: 1.18, heightBleed: "8px", upscale: 1.48 },
 ];
 
 const HIGHLIGHT_QUEUE_KEY = "fundamento.highlightQueue";
@@ -198,6 +201,15 @@ const miniGalleries = [
 
 function isTouchLayout() {
   return window.matchMedia("(hover: none), (pointer: coarse), (max-width: 820px)").matches;
+}
+
+function playVideoWithSound(video) {
+  if (!video) return Promise.resolve();
+  video.muted = false;
+  video.defaultMuted = false;
+  video.volume = 1;
+  video.removeAttribute("muted");
+  return video.play();
 }
 
 function wrapIndex(index, length = highlightProjects.length) {
@@ -313,7 +325,7 @@ function renderWheel() {
     .map(
       (project, index) => `
         <article class="wheel-project is-hidden" data-index="${index}" aria-label="${project.title}, ${project.type}">
-          <video src="${project.video}" playsinline preload="metadata"></video>
+          <video src="${project.video}"${project.poster ? ` poster="${project.poster}"` : ""} playsinline preload="metadata"></video>
           <button class="wheel-play-button" type="button" aria-label="Pokreni video ${project.title}">
             <span aria-hidden="true"></span>
           </button>
@@ -354,7 +366,7 @@ function renderWheel() {
       }
 
       if (video.paused || video.ended) {
-        video.play().catch(() => {});
+        playVideoWithSound(video).catch(() => {});
       } else {
         video.pause();
       }
@@ -561,7 +573,7 @@ function renderBento() {
         projectBento.querySelectorAll(".bento-card:not(.is-expanded)").forEach((item) => {
           item.classList.add("is-minimized");
         });
-        video?.play();
+        playVideoWithSound(video).catch(() => {});
       });
       centerExpandedCard(card);
     };
@@ -590,7 +602,7 @@ function renderBento() {
 
     if (video) {
       card.addEventListener("mouseenter", () => {
-        video.play();
+        playVideoWithSound(video).catch(() => {});
       });
       card.addEventListener("mouseleave", () => {
         if (!card.classList.contains("is-expanded")) {
@@ -667,9 +679,15 @@ function setupHeroVideo() {
   if (!heroMedia || !heroVideo) return;
 
   heroVideo.muted = true;
+  heroVideo.defaultMuted = true;
   heroVideo.loop = true;
   heroVideo.playsInline = true;
   heroVideo.autoplay = true;
+  heroVideo.controls = false;
+  heroVideo.disablePictureInPicture = true;
+  heroVideo.setAttribute("controlslist", "nodownload nofullscreen noremoteplayback");
+  heroVideo.setAttribute("data-showreel-video", "true");
+  heroVideo.removeAttribute("controls");
   heroVideo.preload = "auto";
   heroVideo.play().catch(() => {});
 }
@@ -684,12 +702,18 @@ function setupClientLogoMarquee() {
   const track = marquee?.querySelector("[data-logo-track]");
   if (!marquee || !track || !clientLogos.length) return;
 
+  const logos = [...clientLogos];
+  for (let index = logos.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [logos[index], logos[swapIndex]] = [logos[swapIndex], logos[index]];
+  }
+
   const createSequence = () => {
     const sequence = document.createElement("div");
     sequence.className = "client-logo-sequence";
     sequence.setAttribute("aria-hidden", "true");
 
-    clientLogos.forEach((logo) => {
+    logos.forEach((logo) => {
       const slot = document.createElement("span");
       slot.className = "client-logo";
       if (logo.preserveColor) slot.dataset.logoColor = "preserve";
@@ -787,6 +811,7 @@ function setupClientLogoMarquee() {
 
   requestAnimationFrame(() => {
     measure();
+    offset = loopWidth ? Math.random() * loopWidth : 0;
     render();
     requestAnimationFrame(tick);
   });
@@ -1103,7 +1128,7 @@ function setupMediaCards() {
           entries.forEach((entry) => {
             const video = entry.target;
             if (entry.isIntersecting) {
-              video.play().catch(() => {});
+              playVideoWithSound(video).catch(() => {});
             } else {
               video.pause();
             }
@@ -1123,7 +1148,7 @@ function setupMediaCards() {
       return;
     }
 
-    card.addEventListener("mouseenter", () => video.play());
+    card.addEventListener("mouseenter", () => playVideoWithSound(video).catch(() => {}));
     card.addEventListener("mouseleave", () => {
       video.pause();
       video.currentTime = 0;
@@ -1149,12 +1174,14 @@ function setupMiniGalleries() {
 
       media.src = current.src;
       if (current.type === "video") {
-        media.muted = true;
+        media.muted = false;
+        media.defaultMuted = false;
+        media.volume = 1;
         media.loop = true;
         media.playsInline = true;
         media.preload = "metadata";
         if (isTouchLayout() || card.matches(":hover")) {
-          media.play().catch(() => {});
+          playVideoWithSound(media).catch(() => {});
         }
       } else {
         media.alt = current.alt;
@@ -1185,7 +1212,7 @@ function setupMiniGalleries() {
       threshold: 34,
     });
 
-    card.addEventListener("mouseenter", () => card.querySelector(":scope > video")?.play().catch(() => {}));
+    card.addEventListener("mouseenter", () => playVideoWithSound(card.querySelector(":scope > video")).catch(() => {}));
     card.addEventListener("mouseleave", () => {
       const video = card.querySelector(":scope > video");
       if (!video) return;
@@ -1343,7 +1370,7 @@ function setupForms() {
       `Stranica: ${window.location.href}`,
     ].join("\n");
 
-  const contactSuccessMessage = "Hvala na javljanju. Upit je poslan na info@fundamen.to i javit ćemo se uskoro.";
+  const contactSuccessMessage = "Mail je na putu, javit ćemo se uskoro.";
   const contactErrorMessage =
     "Slanje nije potvrđeno. Otvorili smo email s istim podacima kako biste ga mogli poslati direktno na info@fundamen.to.";
 
@@ -1354,12 +1381,14 @@ function setupForms() {
   };
 
   const setContactSubmitted = (form, isSubmitted) => {
+    const panel = form.closest(".contact-panel");
     const thanks = form.querySelector("[data-form-thanks]");
     const progress = form.querySelector(".form-progress");
     const steps = form.querySelector(".form-steps");
     const actions = form.querySelector(".form-actions");
 
     form.dataset.formSubmitted = isSubmitted ? "true" : "false";
+    if (panel) panel.dataset.formSubmitted = isSubmitted ? "true" : "false";
 
     if (thanks) {
       thanks.hidden = !isSubmitted;
@@ -1455,6 +1484,10 @@ function setupForms() {
 
     againButton?.addEventListener("click", () => {
       setContactSubmitted(form, false);
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Pošalji";
+      }
       form.reset();
       resetDatePlaceholders(form);
       showStep(0);
@@ -1508,7 +1541,7 @@ function setupForms() {
       }
 
       if (honey) {
-        setStatus(contactSuccessMessage, "success");
+        setStatus("", "success");
         setContactSubmitted(form, true);
         return;
       }
@@ -1561,7 +1594,7 @@ function setupForms() {
           }
 
           didSubmit = true;
-          setStatus(contactSuccessMessage, "success");
+          setStatus("", "success");
           setContactSubmitted(form, true);
         } catch {
           const subject = "Novi upit preko Fundamento stranice";

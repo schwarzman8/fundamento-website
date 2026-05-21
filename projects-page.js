@@ -32,6 +32,7 @@ const highlightProjects = [
     format: "Brand film",
     year: "2023",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.mp4",
+    poster: "assets/partners/tomic%20winery/optimized/tomic-winery-poster.jpg",
     image: "https://picsum.photos/seed/tomicwinary-project/1200/900",
     summary: "16:9 hero video koji gradi dojam prostora, proizvoda i ritma brenda.",
   },
@@ -179,6 +180,15 @@ function projectUrl(project) {
   return `project.html?project=${project.slug}`;
 }
 
+function playVideoWithSound(video) {
+  if (!video) return Promise.resolve();
+  video.muted = false;
+  video.defaultMuted = false;
+  video.volume = 1;
+  video.removeAttribute("muted");
+  return video.play();
+}
+
 function setupMobileNav() {
   const nav = document.querySelector(".site-nav");
   const button = document.querySelector(".nav-menu");
@@ -243,9 +253,10 @@ function renderProjectRow(project, index, kind) {
   const url = projectUrl(project);
   const side = index % 2 === 0 ? "left" : "right";
   const hasVideo = (index % 2 === 0 || kind === "highlight") && !project.preferImage;
+  const poster = project.poster ? ` poster="${project.poster}"` : "";
   const media =
     hasVideo
-      ? `<video src="${project.video}" muted loop playsinline preload="metadata"></video>`
+      ? `<video src="${project.video}"${poster} muted loop playsinline preload="metadata"></video>`
       : `<img src="${project.image}" alt="${project.title}" />`;
   const meta = rowMeta(project, kind)
     .map(
@@ -361,7 +372,7 @@ function setupProjectVideos() {
     const video = card.querySelector("video");
     if (!video) return;
 
-    card.addEventListener("mouseenter", () => video.play().catch(() => {}));
+    card.addEventListener("mouseenter", () => playVideoWithSound(video).catch(() => {}));
     card.addEventListener("mouseleave", () => {
       video.pause();
       video.currentTime = 0;
