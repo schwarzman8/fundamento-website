@@ -69,7 +69,7 @@ const partnerProjects = [
     type: "Medical Wellness / Hospitality",
     year: "2025",
     video: "assets/videos/project-02.mp4",
-    image: "https://picsum.photos/seed/revita-clinic-digital/1200/900",
+    image: "assets/partners/Revita%20Clinic/optimized/photos/revita-photo-17.jpg",
     summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
   },
   {
@@ -77,7 +77,8 @@ const partnerProjects = [
     type: "Hospitality",
     year: "2025",
     video: "assets/videos/project-03.mp4",
-    image: "https://picsum.photos/seed/central-cafe-campaign/1200/900",
+    image: "assets/partners/Central%20Cafe/optimized/photos/central-photo-03.jpg",
+    preferImage: true,
     summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
   },
   {
@@ -108,29 +109,29 @@ const partnerProjects = [
 ];
 
 const clientLogos = [
-  { name: "Agencija 404", src: "assets/clients/Agencija404.svg" },
-  { name: "Europska komisija", src: "assets/clients/EK_HRV.png" },
-  { name: "Central Cafe", src: "assets/clients/CentralCafe.png" },
-  { name: "Fox Fishing", src: "assets/clients/FoxFishing.png" },
-  { name: "Hotel Aleksander", src: "assets/clients/hotel-aleksander.png" },
-  { name: "Maslina Resort", src: "assets/clients/maslina-resort.png" },
-  { name: "Infobip Shift", src: "assets/clients/infopib shift.png" },
-  { name: "Mood Media", src: "assets/clients/moodmedia.png" },
-  { name: "Rosetta Stone", src: "assets/clients/rosetta-stone-logo.png" },
-  { name: "Vrh komunikacije", src: "assets/clients/vrh-komunikacije.png" },
-  { name: "Krannich", src: "assets/clients/krannich.svg" },
-  { name: "SPLX AI", src: "assets/clients/splixai.svg" },
-  { name: "Entrio", src: "assets/clients/entrio.svg" },
-  { name: "Forte Solar", src: "assets/clients/forte-solar-logo.svg" },
-  { name: "Revita Clinic", src: "assets/clients/revita.svg" },
-  { name: "Volkswagen Bosnić", src: "assets/clients/bosnic-logo-2025-xl.png" },
-  { name: "Hotel Ambasador", src: "assets/clients/ambasadorsplit.png" },
-  { name: "Travel Croatia", src: "assets/clients/travelCro.png" },
-  { name: "Trogir Diving Center", src: "assets/clients/TDC.png" },
-  { name: "FESB", src: "assets/clients/fesb.png" },
-  { name: "UHY", src: "assets/clients/uhy.svg" },
-  { name: "YPO", src: "assets/clients/Clients_og/YPO_logo-white.png" },
-  { name: "STC", src: "assets/clients/Clients_og/stc.jpg", preserveColor: true },
+  { name: "Agencija 404", src: "assets/clients/Agencija404.svg", visualScale: 1.22, heightBleed: "10px" },
+  { name: "Europska komisija", src: "assets/clients/EK_HRV.png", visualScale: 1.04 },
+  { name: "Central Cafe", src: "assets/clients/CentralCafe.png", visualScale: 0.92 },
+  { name: "Fox Fishing", src: "assets/clients/FoxFishing.png", visualScale: 0.7 },
+  { name: "Hotel Aleksander", src: "assets/clients/hotel-aleksander.png", visualScale: 1.58, heightBleed: "18px" },
+  { name: "Maslina Resort", src: "assets/clients/maslina-resort.png", visualScale: 1.1, heightBleed: "6px" },
+  { name: "Infobip Shift", src: "assets/clients/infopib shift.png", visualScale: 1.1, heightBleed: "6px" },
+  { name: "Mood Media", src: "assets/clients/moodmedia.png", visualScale: 1.02 },
+  { name: "Rosetta Stone", src: "assets/clients/rosetta-stone-logo.png", visualScale: 1.18, heightBleed: "8px" },
+  { name: "Vrh komunikacije", src: "assets/clients/vrh-komunikacije.png", visualScale: 1.12 },
+  { name: "Krannich", src: "assets/clients/krannich.svg", visualScale: 1.05 },
+  { name: "SPLX AI", src: "assets/clients/splixai.svg", visualScale: 1.06 },
+  { name: "Entrio", src: "assets/clients/entrio.svg", visualScale: 1.55, heightBleed: "10px", upscale: 1.45 },
+  { name: "Forte Solar", src: "assets/clients/forte-solar-logo.svg", visualScale: 1.36, heightBleed: "14px" },
+  { name: "Revita Clinic", src: "assets/clients/revita.svg", visualScale: 1.16, heightBleed: "8px" },
+  { name: "Volkswagen Bosnić", src: "assets/clients/bosnic-logo-2025-xl.png", visualScale: 1.5, heightBleed: "28px" },
+  { name: "Hotel Ambasador", src: "assets/clients/ambasadorsplit.png", visualScale: 1.02, heightBleed: "6px" },
+  { name: "Travel Croatia", src: "assets/clients/travelCro.png", visualScale: 0.94 },
+  { name: "Trogir Diving Center", src: "assets/clients/TDC.png", visualScale: 1.52, heightBleed: "30px" },
+  { name: "FESB", src: "assets/clients/fesb.png", visualScale: 0.96 },
+  { name: "UHY", src: "assets/clients/uhy.svg", visualScale: 1.06 },
+  { name: "YPO", src: "assets/clients/Clients_og/YPO_logo-white.png", visualScale: 1.08, heightBleed: "6px" },
+  { name: "STC", src: "assets/clients/Clients_og/stc-white.png", visualScale: 1.16, heightBleed: "10px" },
 ];
 
 const HIGHLIGHT_QUEUE_KEY = "fundamento.highlightQueue";
@@ -413,8 +414,9 @@ function updateWheel() {
 
 function renderBento() {
   const cards = partnerProjects.map((project, index) => {
+    const useVideo = index % 2 === 0 && !project.preferImage;
     const media =
-      index % 2 === 0
+      useVideo
         ? `<video src="${project.video}" muted loop playsinline preload="metadata"></video>`
         : `<img src="${project.image}" alt="${project.title}" />`;
 
@@ -673,16 +675,12 @@ function setupWheelGestures() {
 function setupHeroVideo() {
   if (!heroMedia || !heroVideo) return;
 
-  if (isTouchLayout()) {
-    heroVideo.play().catch(() => {});
-    return;
-  }
-
-  heroMedia.addEventListener("mouseenter", () => heroVideo.play());
-  heroMedia.addEventListener("mouseleave", () => {
-    heroVideo.pause();
-    heroVideo.currentTime = 0;
-  });
+  heroVideo.muted = true;
+  heroVideo.loop = true;
+  heroVideo.playsInline = true;
+  heroVideo.autoplay = true;
+  heroVideo.preload = "auto";
+  heroVideo.play().catch(() => {});
 }
 
 function setupHeroHoverReadiness() {
@@ -704,6 +702,9 @@ function setupClientLogoMarquee() {
       const slot = document.createElement("span");
       slot.className = "client-logo";
       if (logo.preserveColor) slot.dataset.logoColor = "preserve";
+      if (logo.visualScale) slot.style.setProperty("--logo-scale", logo.visualScale);
+      if (logo.heightBleed) slot.style.setProperty("--logo-height-bleed", logo.heightBleed);
+      if (logo.upscale) slot.style.setProperty("--logo-upscale", logo.upscale);
 
       const image = document.createElement("img");
       image.src = logo.src;
@@ -1410,6 +1411,7 @@ function setupForms() {
     const showStep = (index) => {
       currentStep = Math.max(0, Math.min(index, steps.length - 1));
       form.dataset.formStepCurrent = String(currentStep);
+      form.style.setProperty("--form-progress-ratio", String((currentStep + 1) / steps.length));
 
       steps.forEach((step, stepIndex) => {
         const isActive = stepIndex === currentStep;
@@ -1726,6 +1728,9 @@ function setupGsap() {
     opacity: 0,
     duration: 1.1,
     ease: "power3.out",
+    onComplete: () => {
+      gsap.set(".hero-media-wrap", { clearProps: "transform,opacity" });
+    },
   });
 
   gsap.utils.toArray(".bento-card").forEach((card) => {

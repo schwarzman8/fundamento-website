@@ -95,7 +95,7 @@ const partnerProjects = [
     industry: "Medical Wellness / Hospitality",
     format: "Partnerska suradnja",
     video: "assets/videos/project-02.mp4",
-    image: "https://picsum.photos/seed/revita-clinic-digital/1200/900",
+    image: "assets/partners/Revita%20Clinic/optimized/photos/revita-photo-17.jpg",
     summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
   },
   {
@@ -107,7 +107,8 @@ const partnerProjects = [
     industry: "Hospitality",
     format: "Partnerska suradnja",
     video: "assets/videos/project-03.mp4",
-    image: "https://picsum.photos/seed/central-cafe-campaign/1200/900",
+    image: "assets/partners/Central%20Cafe/optimized/photos/central-photo-03.jpg",
+    preferImage: true,
     summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
   },
   {
@@ -243,8 +244,9 @@ function rowMeta(project, kind) {
 function renderProjectRow(project, index, kind) {
   const url = projectUrl(project);
   const side = index % 2 === 0 ? "left" : "right";
+  const hasVideo = (index % 2 === 0 || kind === "highlight") && !project.preferImage;
   const media =
-    index % 2 === 0 || kind === "highlight"
+    hasVideo
       ? `<video src="${project.video}" muted loop playsinline preload="metadata"></video>`
       : `<img src="${project.image}" alt="${project.title}" />`;
   const meta = rowMeta(project, kind)
@@ -277,8 +279,8 @@ function renderProjectRow(project, index, kind) {
     </span>
   `;
   const card = project.reserved
-    ? `<div class="project-index-card is-reserved" aria-label="${project.title}">${cardContent}</div>`
-    : `<a class="project-index-card" href="${url}" aria-label="Saznaj više o projektu ${project.title}">${cardContent}</a>`;
+    ? `<div class="project-index-card${hasVideo ? " has-video" : ""} is-reserved" aria-label="${project.title}">${cardContent}</div>`
+    : `<a class="project-index-card${hasVideo ? " has-video" : ""}" href="${url}" aria-label="Saznaj više o projektu ${project.title}">${cardContent}</a>`;
   const metaLink = project.reserved ? "" : `<a href="${url}">Saznaj više</a>`;
 
   return `

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fundamento projekt</title>
-    <link rel="stylesheet" href="styles.css?v=accents-20260520" />
+    <link rel="stylesheet" href="styles.css?v=original-media-20260520" />
     <style>
       @font-face {
         font-family: "Aeonik Pro";
@@ -133,6 +133,7 @@
       }
 
       .case-page {
+        overflow: hidden;
         overflow: clip;
       }
 
@@ -490,6 +491,8 @@
       }
 
       .case-section {
+        overflow-x: hidden;
+        overflow-x: clip;
         padding: clamp(64px, 8vw, 118px) var(--layout-gutter) var(--page-bottom-gap);
       }
 
@@ -511,13 +514,20 @@
 
       .frames-grid {
         display: grid;
+        width: 100%;
+        max-width: 100%;
         grid-template-columns: repeat(12, minmax(0, 1fr));
+        grid-auto-rows: clamp(52px, 5.8vw, 104px);
+        grid-auto-flow: dense;
         gap: clamp(10px, 1.2vw, 18px);
         align-items: stretch;
+        overflow: hidden;
+        overflow: clip;
       }
 
       .media-item {
-        min-height: 240px;
+        min-width: 0;
+        min-height: 0;
         opacity: 0;
         transform: translate3d(0, 26px, 0);
         animation: reveal-media 900ms var(--ease-smooth) forwards;
@@ -525,28 +535,33 @@
       }
 
       .media-item.is-horizontal {
-        grid-column: span 7;
-        aspect-ratio: 16 / 9;
+        grid-column: span 4;
+        grid-row: span 3;
+        aspect-ratio: auto;
       }
 
       .media-item.is-vertical {
-        grid-column: span 4;
-        aspect-ratio: 4 / 5.4;
+        grid-column: span 3;
+        grid-row: span 4;
+        aspect-ratio: auto;
       }
 
       .media-item.is-square {
-        grid-column: span 5;
+        grid-column: span 4;
+        grid-row: span 4;
         aspect-ratio: 1 / 1;
       }
 
       .media-item.is-wide {
-        grid-column: span 12;
-        aspect-ratio: 21 / 9;
+        grid-column: span 8;
+        grid-row: span 4;
+        aspect-ratio: auto;
       }
 
       .media-item.is-small {
         grid-column: span 3;
-        aspect-ratio: 3 / 4;
+        grid-row: span 4;
+        aspect-ratio: auto;
       }
 
       .media-caption {
@@ -560,6 +575,25 @@
         font-size: clamp(0.9rem, 1vw, 1.06rem);
         font-weight: 600;
         line-height: 1.12;
+      }
+
+      .media-expand {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        cursor: zoom-in;
+      }
+
+      .media-expand img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       .horizontal-video-strip {
@@ -593,30 +627,107 @@
 
       .bts-grid {
         display: grid;
-        grid-template-columns: 1.2fr 0.8fr 1fr;
-        grid-auto-rows: clamp(160px, 16vw, 290px);
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        grid-auto-rows: clamp(52px, 5.8vw, 104px);
+        grid-auto-flow: dense;
         gap: clamp(10px, 1.2vw, 18px);
+        overflow: hidden;
+        overflow: clip;
+      }
+
+      .frames-grid .media-shell,
+      .bts-grid .media-shell {
+        max-width: 100%;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.34);
       }
 
       .bts-grid .media-item {
-        grid-column: auto;
+        grid-column: span 4;
+        grid-row: span 3;
         aspect-ratio: auto;
       }
 
-      .bts-grid .media-shell:nth-child(1) {
-        grid-row: span 2;
-      }
-
-      .bts-grid .media-shell:nth-child(4) {
+      .bts-grid .media-item.is-vertical {
         grid-column: span 2;
+        grid-row: span 4;
       }
 
-      .upload-note {
-        margin: clamp(22px, 3vw, 42px) 0 0;
-        color: rgba(243, 239, 231, 0.38);
-        font-size: 0.86rem;
-        font-weight: 500;
-        line-height: 1.35;
+      .bts-grid .media-item.is-horizontal {
+        grid-column: span 5;
+        grid-row: span 4;
+      }
+
+      .bts-grid .media-shell img {
+        filter: grayscale(1) contrast(1.08);
+      }
+
+      .media-lightbox {
+        overflow: visible;
+        width: min(94vw, 1680px);
+        max-width: none;
+        height: min(90svh, 1100px);
+        max-height: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .media-lightbox::backdrop {
+        background: rgba(3, 3, 3, 0.86);
+        backdrop-filter: blur(12px);
+      }
+
+      .media-lightbox img {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        object-fit: contain;
+        filter: none;
+      }
+
+      .media-lightbox-close {
+        position: absolute;
+        z-index: 3;
+        top: 20px;
+        right: 20px;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(243, 239, 231, 0.32);
+        border-radius: 999px;
+        padding: 0;
+        place-items: center;
+        background: rgba(3, 3, 3, 0.28);
+        color: var(--bone);
+        font: 900 1rem/1 var(--font-mono);
+        opacity: 0.86;
+        cursor: pointer;
+        transform: translate3d(0, 0, 0);
+        transition:
+          background 260ms ease,
+          color 260ms ease,
+          transform 540ms var(--ease-smooth);
+      }
+
+      .media-lightbox-close:hover,
+      .media-lightbox-close:focus-visible {
+        background: var(--bone);
+        color: var(--black);
+        transform: translate3d(4px, -4px, 0);
+      }
+
+      .media-lightbox-close svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.9;
       }
 
       @keyframes reveal-media {
@@ -674,8 +785,8 @@
         .media-item.is-small,
         .bts-grid .media-shell:nth-child(1),
         .bts-grid .media-shell:nth-child(4) {
-          grid-column: auto;
-          grid-row: auto;
+          grid-column: auto !important;
+          grid-row: auto !important;
           min-height: auto;
         }
 
@@ -823,62 +934,6 @@
         transform: translate3d(0, -2px, 0) scale(1.08);
       }
 
-      .case-kicker,
-      .section-kicker {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .case-kicker::before,
-      .section-kicker::before {
-        display: block;
-        width: clamp(26px, 3vw, 48px);
-        height: 2px;
-        border-radius: 999px;
-        background: var(--flair);
-        content: "";
-        flex: 0 0 auto;
-        opacity: 0.82;
-      }
-
-      .case-hero-media::before {
-        position: absolute;
-        z-index: 4;
-        top: clamp(14px, 1.8vw, 24px);
-        left: clamp(14px, 1.8vw, 24px);
-        width: clamp(38px, 4vw, 72px);
-        height: clamp(38px, 4vw, 72px);
-        border-top: 2px solid rgba(91, 58, 168, 0.46);
-        border-left: 2px solid rgba(91, 58, 168, 0.46);
-        border-radius: 18px 0 0 0;
-        content: "";
-        pointer-events: none;
-      }
-
-      .case-meta {
-        border-top-color: rgba(91, 58, 168, 0.42);
-      }
-
-      .media-shell:hover,
-      .media-shell:focus-within {
-        border-color: rgba(91, 58, 168, 0.46);
-      }
-
-      .footer-bottom {
-        position: relative;
-      }
-
-      .footer-bottom::before {
-        position: absolute;
-        top: -1px;
-        left: 0;
-        width: clamp(76px, 10vw, 154px);
-        height: 1px;
-        background: rgba(91, 58, 168, 0.46);
-        content: "";
-      }
-
       @media (max-width: 560px) {
         h1 {
           font-size: clamp(2.65rem, 12vw, 4.8rem);
@@ -963,8 +1018,7 @@
       <section class="case-section optional-section" aria-labelledby="socialTitle" id="socialSection">
         <div class="section-head">
           <div>
-            <p class="section-kicker">Social</p>
-            <h2 id="socialTitle">Vertikalni sadržaj</h2>
+            <h2 id="socialTitle">Video</h2>
           </div>
           <p class="section-note">
             Reelovi, cutdowni i vertikalni formati za objave, kampanje i kratke social touchpointe.
@@ -976,7 +1030,6 @@
       <section class="case-section optional-section" aria-labelledby="motionTitle" id="motionSection">
         <div class="section-head">
           <div>
-            <p class="section-kicker">Motion</p>
             <h2 id="motionTitle">Horizontalni video materijali</h2>
           </div>
           <p class="section-note">
@@ -989,7 +1042,6 @@
       <section class="case-section optional-section" aria-labelledby="framesTitle" id="photoSection">
         <div class="section-head">
           <div>
-            <p class="section-kicker">Frames</p>
             <h2 id="framesTitle">Fotografije</h2>
           </div>
           <p class="section-note">
@@ -997,16 +1049,11 @@
           </p>
         </div>
         <div class="frames-grid" id="projectFrames"></div>
-        <p class="upload-note">
-          Okviri su pripremljeni za horizontalne, vertikalne, square i wide materijale. Kod uploada se mijenja samo
-          tip okvira i izvor medija.
-        </p>
       </section>
 
       <section class="case-section optional-section" aria-labelledby="btsTitle" id="btsSection">
         <div class="section-head">
           <div>
-            <p class="section-kicker">BTS</p>
             <h2 id="btsTitle">Iza scene</h2>
           </div>
           <p class="section-note">
@@ -1015,6 +1062,16 @@
         </div>
         <div class="bts-grid" id="projectBts"></div>
       </section>
+
+      <dialog class="media-lightbox" id="mediaLightbox" aria-label="Uvećana fotografija">
+        <button class="media-lightbox-close" type="button" aria-label="Zatvori fotografiju">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 7 17 17" />
+            <path d="M17 7 7 17" />
+          </svg>
+        </button>
+        <img alt="" />
+      </dialog>
     </main>
 
     <footer class="site-footer">
@@ -1092,6 +1149,62 @@
       };
       const forteVideo = highlightVideos.forteSolarTvc1;
       const fallbackVideos = ["assets/videos/project-02.mp4", "assets/videos/project-03.mp4", "assets/videos/project-04.mp4"];
+      const revitaVideos = [
+        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_January2026_UHD_24fps_9x16_Reel9_TL1.mp4",
+        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/HotelAleksander_December_9x16_FHD_24fps_Reel7_TL1.mp4",
+        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_10_TL1.mp4",
+        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_3_TL1.mp4",
+        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_6_TL1_2.mp4",
+        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_7_TL1_3.mp4",
+        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_8_TL1_2.mp4",
+      ];
+      const revitaPhotos = [
+        ["revita-photo-17.jpg", "wide", "1 / span 8", "1 / span 4"],
+        ["revita-photo-01.jpg", "vertical", "9 / span 2", "1 / span 4"],
+        ["revita-photo-02.jpg", "vertical", "11 / span 2", "1 / span 4"],
+        ["revita-photo-03.jpg", "horizontal", "1 / span 4", "5 / span 4"],
+        ["revita-photo-04.jpg", "horizontal", "5 / span 4", "5 / span 4"],
+        ["revita-photo-06.jpg", "vertical", "9 / span 2", "5 / span 4"],
+        ["revita-photo-09.jpg", "vertical", "11 / span 2", "5 / span 4"],
+        ["revita-photo-05.jpg", "horizontal", "1 / span 4", "9 / span 4"],
+        ["revita-photo-07.jpg", "horizontal", "5 / span 4", "9 / span 4"],
+        ["revita-photo-11.jpg", "vertical", "9 / span 2", "9 / span 4"],
+        ["revita-photo-16.jpg", "vertical", "11 / span 2", "9 / span 4"],
+        ["revita-photo-10.jpg", "wide", "1 / span 6", "13 / span 4"],
+        ["revita-photo-18.jpg", "wide", "7 / span 6", "13 / span 4"],
+        ["revita-photo-12.jpg", "horizontal", "1 / span 4", "17 / span 4"],
+        ["revita-photo-13.jpg", "horizontal", "5 / span 4", "17 / span 4"],
+        ["revita-photo-14.jpg", "horizontal", "9 / span 4", "17 / span 4"],
+        ["revita-photo-15.jpg", "horizontal", "1 / span 4", "21 / span 4"],
+        ["revita-photo-19.jpg", "horizontal", "5 / span 4", "21 / span 4"],
+        ["revita-photo-20.jpg", "horizontal", "9 / span 4", "21 / span 4"],
+        ["revita-photo-21.jpg", "horizontal", "1 / span 4", "25 / span 4"],
+        ["revita-photo-22.jpg", "horizontal", "5 / span 4", "25 / span 4"],
+        ["revita-photo-23.jpg", "horizontal", "9 / span 4", "25 / span 4"],
+        ["revita-photo-24.jpg", "wide", "1 / span 6", "29 / span 4"],
+        ["revita-photo-08.jpg", "horizontal", "7 / span 6", "29 / span 4"],
+      ].map(([file, orientation, column, row]) => ({
+        type: "image",
+        src: `assets/partners/Revita%20Clinic/optimized/photos/${file}`,
+        orientation,
+        column,
+        row,
+        expandable: true,
+      }));
+      const revitaBts = [
+        ["revita-bts-01.jpg", "horizontal", "1 / span 4", "1 / span 4"],
+        ["revita-bts-02.jpg", "vertical", "5 / span 2", "1 / span 4"],
+        ["revita-bts-03.jpg", "horizontal", "7 / span 6", "1 / span 4"],
+        ["revita-bts-04.jpg", "vertical", "1 / span 2", "5 / span 4"],
+        ["revita-bts-05.jpg", "horizontal", "3 / span 5", "5 / span 4"],
+        ["revita-bts-06.jpg", "horizontal", "8 / span 5", "5 / span 4"],
+      ].map(([file, orientation, column, row]) => ({
+        type: "image",
+        src: `assets/partners/Revita%20Clinic/optimized/bts/${file}`,
+        orientation,
+        column,
+        row,
+      }));
 
       function verticalContent(slug) {
         return [0, 1, 2].map((item) => ({
@@ -1136,7 +1249,7 @@
         };
       }
 
-      function partnerProject({ slug, title, client, startYear, services, industry, format = "Partnerska suradnja", summary, hero }) {
+      function partnerProject({ slug, title, client, startYear, services, industry, format = "Partnerska suradnja", summary, hero, social, photos, bts, horizontal }) {
         return {
           kind: "partner",
           slug,
@@ -1148,9 +1261,10 @@
           industry,
           summary,
           hero,
-          social: verticalContent(slug),
-          photos: photoContent(slug),
-          bts: btsContent(slug),
+          social: social || verticalContent(slug),
+          horizontal,
+          photos: photos || photoContent(slug),
+          bts: bts || btsContent(slug),
         };
       }
 
@@ -1244,7 +1358,10 @@
           services: ["Video produkcija", "Foto sadržaj", "Digitalni vizuali"],
           industry: "Medical Wellness / Hospitality",
           summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
-          hero: { type: "video", src: "assets/videos/project-02.mp4", orientation: "horizontal", alt: "Revita Clinic hero video" },
+          hero: { type: "image", src: "assets/partners/Revita%20Clinic/optimized/photos/revita-photo-17.jpg", orientation: "horizontal", alt: "Hotel Aleksander fasada" },
+          social: revitaVideos.map((src) => ({ type: "video", src, orientation: "vertical" })),
+          photos: revitaPhotos,
+          bts: revitaBts,
         }),
         partnerProject({
           slug: "central-cafe",
@@ -1254,7 +1371,7 @@
           services: ["Foto sadržaj", "Video produkcija", "Social media materijali"],
           industry: "Hospitality",
           summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
-          hero: { type: "video", src: "assets/videos/project-03.mp4", orientation: "horizontal", alt: "Central Cafe hero video" },
+          hero: { type: "image", src: "assets/partners/Central%20Cafe/optimized/photos/central-photo-03.jpg", orientation: "vertical", alt: "Central Cafe desert fotografija" },
         }),
         partnerProject({
           slug: "vw-bosnic",
@@ -1286,7 +1403,10 @@
       function mediaMarkup(item, projectSlug, index) {
         const label = item.caption ? `<p class="media-caption">${item.caption}</p>` : "";
         const className = `media-shell media-item is-${item.orientation || "horizontal"}`;
-        const style = `--i: ${index}`;
+        const placement = [item.column ? `grid-column: ${item.column}` : "", item.row ? `grid-row: ${item.row}` : ""]
+          .filter(Boolean)
+          .join("; ");
+        const style = [`--i: ${index}`, placement].filter(Boolean).join("; ");
 
         if (item.type === "video") {
           const source = item.src || item.video || project.hero.src;
@@ -1299,9 +1419,14 @@
         }
 
         const src = item.src || `https://picsum.photos/seed/${projectSlug}-${item.seed || index}/1600/1100`;
+        const image = `<img src="${src}" alt="${item.alt || `${project.title} materijal`}" />`;
+        const imageMarkup = item.expandable
+          ? `<button class="media-expand" type="button" data-fullscreen-src="${src}" aria-label="Otvori fotografiju preko cijelog ekrana">${image}</button>`
+          : image;
+
         return `
           <figure class="${className}" style="${style}">
-            <img src="${src}" alt="${item.alt || `${project.title} materijal`}" />
+            ${imageMarkup}
             ${label}
           </figure>
         `;
@@ -1362,6 +1487,34 @@
         });
       }
 
+      function setupMediaLightbox() {
+        const dialog = document.querySelector("#mediaLightbox");
+        if (!dialog) return;
+        const image = dialog.querySelector("img");
+        const closeButton = dialog.querySelector(".media-lightbox-close");
+
+        document.querySelectorAll("[data-fullscreen-src]").forEach((button) => {
+          button.addEventListener("click", () => {
+            image.src = button.dataset.fullscreenSrc;
+            image.alt = button.querySelector("img")?.alt || "";
+            if (typeof dialog.showModal === "function") {
+              dialog.showModal();
+            } else {
+              window.open(button.dataset.fullscreenSrc, "_blank", "noopener");
+            }
+          });
+        });
+
+        closeButton?.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+        dialog.addEventListener("close", () => {
+          image.removeAttribute("src");
+          image.alt = "";
+        });
+      }
+
       document.title = `${project.title} | Fundamento`;
       const isPartner = project.kind === "partner";
 
@@ -1382,6 +1535,7 @@
       renderOptionalSection("#photoSection", "#projectFrames", project.photos, "frames-grid");
       renderOptionalSection("#btsSection", "#projectBts", project.bts, "bts-grid");
       setupMobileNav();
+      setupMediaLightbox();
 
       if (returnUrl && returnScroll && backLink) {
         backLink.href = returnUrl;
