@@ -6,3 +6,7 @@ ffmpeg2pass-0.log
 ffmpeg2pass-0.log.mbtree
 *.log
 *.mbtree
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
