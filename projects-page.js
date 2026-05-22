@@ -1,4 +1,4 @@
-“const highlightProjects = [
+const highlightProjects = [
   {
     slug: "travel-croatia",
     title: "Travel Croatia",
