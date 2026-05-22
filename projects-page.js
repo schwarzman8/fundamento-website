@@ -32,7 +32,7 @@ const highlightProjects = [
     format: "Brand film",
     year: "2023",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.mp4",
-    poster: "assets/video-posters/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.jpg",
+    poster: "assets/partners/tomic winery/thumbnail.png",
     image: "https://picsum.photos/seed/tomicwinary-project/1200/900",
     summary: "Promotivni film o vinariji Tomić, kreiran kroz priču o tradiciji, ljudima i karakteru brenda.",
   },

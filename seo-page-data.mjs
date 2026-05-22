@@ -56,8 +56,18 @@ const serviceLinks = [
 
 const locationLinks = [
   { href: "/video-produkcija-zagreb/", label: "Zagreb" },
+  { href: "/video-produkcija-split/", label: "Split" },
+  { href: "/video-produkcija-rijeka/", label: "Rijeka" },
+  { href: "/video-produkcija-osijek/", label: "Osijek" },
+  { href: "/video-produkcija-zadar/", label: "Zadar" },
+  { href: "/video-produkcija-dubrovnik/", label: "Dubrovnik" },
+  { href: "/video-produkcija-pula/", label: "Pula" },
+  { href: "/video-produkcija-varazdin/", label: "Varaždin" },
   { href: "/video-produkcija-hrvatska/", label: "Hrvatska" },
   { href: "/video-produkcija-slovenija/", label: "Slovenija" },
+  { href: "/video-produkcija-celje/", label: "Celje" },
+  { href: "/video-produkcija-maribor/", label: "Maribor" },
+  { href: "/video-produkcija-rogaska-slatina/", label: "Rogaška Slatina" },
 ];
 
 export const pages = [
@@ -394,6 +404,237 @@ export const pages = [
     ],
   },
   {
+    slug: "video-produkcija-split",
+    title: "Video produkcija Split i Dalmacija | Fundamento",
+    description:
+      "Video produkcija Split za hotele, tourism, luxury, yacht, lifestyle i brand content projekte u Dalmaciji, s ekipom koja razumije sezonu, lokacije i ritam obale.",
+    eyebrow: "Split / Dalmacija",
+    h1: "Video produkcija Split za brendove koji ne smiju izgledati sezonski improvizirano",
+    intro:
+      "Split i Dalmacija traže produkciju koja može raditi u stvarnim uvjetima: sezona, gosti, more, svjetlo, gužve, hoteli, charter, event lokacije i kratki vremenski prozori. Fundamento organizira video i foto sadržaj za hospitality, tourism, luxury i lifestyle brendove kojima vizuali direktno utječu na upite, booking i percepciju.",
+    ogImage: "/assets/projects/posters/travel-croatia-hero.jpg",
+    sections: [
+      {
+        title: "Obala nije kulisa",
+        body:
+          "Dalmacija se lako pretvori u generički kadar mora. Produkcija mora pokazati stvaran razlog za dolazak: iskustvo, uslugu, ritam lokacije, detalje i standard brenda.",
+      },
+      {
+        title: "Tipični projekti u Splitu",
+        items: ["hotel i resort video", "yacht i luxury content", "destinacijski video", "event i lifestyle sadržaj", "social media reels", "foto produkcija za kampanje"],
+      },
+      {
+        title: "Sezona traži preciznu pripremu",
+        body:
+          "Kod obalnih projekata planiranje je pola rezultata. Lokacije, svjetlo, dozvole, dostupnost prostora i raspored gostiju moraju biti riješeni prije snimanja.",
+      },
+    ],
+    links: ["/video-produkcija-turizam/", "/video-produkcija-hoteli/", "/foto-produkcija/", "/social-media-content/"],
+    cases: ["travel", "tdc", "revita"],
+    faq: [
+      ["Radite li video produkciju u Splitu tijekom sezone?", "Da, ali sezonske produkcije treba planirati ranije zbog dostupnosti lokacija, osoblja i najboljih termina svjetla."],
+      ["Je li Split bolji za tourism ili hospitality sadržaj?", "Oboje. Split često ima smisla kao baza za hotelske, destinacijske, event, yacht i lifestyle produkcije u Dalmaciji."],
+    ],
+  },
+  {
+    slug: "video-produkcija-rijeka",
+    title: "Video produkcija Rijeka i Kvarner | Fundamento",
+    description:
+      "Video produkcija Rijeka za corporate, industrial, hospitality i tourism projekte na Kvarneru, s fokusom na jasnu poruku i profesionalan vizualni standard.",
+    eyebrow: "Rijeka / Kvarner",
+    h1: "Video produkcija Rijeka za firme, Kvarner i brendove s ozbiljnim sadržajem",
+    intro:
+      "Rijeka i Kvarner imaju specifičan miks: industrija, logistika, B2B firme, obalni hospitality i turističke priče koje nisu iste kao Dalmacija. Fundamento radi video, foto i social content za projekte kojima treba ozbiljniji signal od standardnog promotivnog videa.",
+    ogImage: "/assets/projects/posters/trogir-diving-center-hero.jpg",
+    sections: [
+      {
+        title: "Industrija i turizam u istom kadru",
+        body:
+          "Kvarner često traži balans između funkcionalnog corporate sadržaja i emocionalnijeg turističkog dojma. Zato ton ne smije biti ni previše hladan ni previše razglednički.",
+      },
+      {
+        title: "Što ima smisla snimati",
+        items: ["corporate video", "industrial i process video", "hotel video", "tourism content", "brand video", "foto i social media produkcija"],
+      },
+      {
+        title: "Za firme koje žele izgledati veće od lokalnog tržišta",
+        body:
+          "Dobar video pomaže B2B firmama i hospitality brendovima da izgledaju spremno za ozbiljnije klijente, partnere i goste.",
+      },
+    ],
+    links: ["/corporate-video/", "/video-produkcija-hoteli/", "/video-produkcija-turizam/", "/video-produkcija-hrvatska/"],
+    cases: ["tdc", "travel", "forte"],
+    faq: [
+      ["Pokrivate li Rijeku i Kvarner?", "Da. Rijeku i Kvarner pokrivamo za corporate, tourism, hospitality i brand video projekte."],
+      ["Može li se kombinirati više lokacija na Kvarneru?", "Da. Takav projekt treba plan rute, prioritete kadrova i vremenske rezerve."],
+    ],
+  },
+  {
+    slug: "video-produkcija-osijek",
+    title: "Video produkcija Osijek i Slavonija | Fundamento",
+    description:
+      "Video produkcija Osijek za firme, institucije, proizvodne brendove, tourism i corporate sadržaj u Slavoniji, s fokusom na povjerenje i jasnu vrijednost.",
+    eyebrow: "Osijek / Slavonija",
+    h1: "Video produkcija Osijek za firme koje žele jasnije pokazati vrijednost",
+    intro:
+      "Osijek i Slavonija često trebaju sadržaj koji gradi povjerenje: proizvodnja, usluge, regionalni brendovi, institucije, employer branding i turističke priče. Fundamento pristupa takvim projektima kroz jasnu poruku, uredan produkcijski plan i materijale koji se mogu koristiti u prodaji, webu i kampanjama.",
+    ogImage: "/assets/services/service-production.png",
+    sections: [
+      {
+        title: "Manje efekta, više jasnoće",
+        body:
+          "Za slavonske B2B i regionalne projekte često je važnije objasniti proces, ljude i standard rada nego napraviti prenapuhan vizual bez sadržaja.",
+      },
+      {
+        title: "Najkorisniji formati",
+        items: ["corporate video", "employer branding video", "process i proizvodni video", "brand video", "foto produkcija", "social media cutdowni"],
+      },
+      {
+        title: "Sadržaj za prodaju i reputaciju",
+        body:
+          "Dobar video može pomoći firmi da izgleda pouzdanije prije prvog sastanka, natječaja, zapošljavanja ili razgovora s partnerima.",
+      },
+    ],
+    links: ["/corporate-video/", "/brand-video/", "/foto-produkcija/", "/video-produkcija-hrvatska/"],
+    cases: ["forte", "splxai"],
+    faq: [
+      ["Radite li video produkciju u Osijeku?", "Da. Osijek i Slavoniju možemo pokriti za corporate, brand, foto i kampanjske projekte."],
+      ["Je li moguće snimiti proizvodni proces?", "Da, uz pripremu sigurnosnih uvjeta, rasporeda i ključnih faza procesa koje treba prikazati."],
+    ],
+  },
+  {
+    slug: "video-produkcija-zadar",
+    title: "Video produkcija Zadar | Tourism, hoteli i brand content",
+    description:
+      "Video produkcija Zadar za hotele, turizam, destinacijski sadržaj, social media i brand video projekte koji trebaju bolji digitalni dojam.",
+    eyebrow: "Zadar",
+    h1: "Video produkcija Zadar za tourism, hotele i brendove koji prodaju doživljaj",
+    intro:
+      "Zadar ima jak turistički i lifestyle potencijal, ali vizuali lako skliznu u generičke kadrove lokacije. Fundamento radi video i foto produkciju za hotele, turističke brendove, evente i firme kojima treba sadržaj koji pokazuje iskustvo, ne samo panoramu.",
+    ogImage: "/assets/projects/posters/travel-croatia-hero.jpg",
+    sections: [
+      {
+        title: "Sadržaj koji radi izvan sezone",
+        body:
+          "Dobar turistički video ne smije vrijediti samo u tjednu kad je objavljen. Treba stvoriti biblioteku materijala za web, oglase, social i prodaju kroz sezonu.",
+      },
+      {
+        title: "Zadarski production mix",
+        items: ["hotel video", "destination content", "social reels", "foto produkcija", "brand video", "event i lifestyle kadrovi"],
+      },
+      {
+        title: "Od lokacije do odluke",
+        body:
+          "Publika ne bira samo mjesto. Bira osjećaj, standard usluge i sigurnost da će iskustvo vrijediti novca.",
+      },
+    ],
+    links: ["/video-produkcija-turizam/", "/video-produkcija-hoteli/", "/social-media-content/", "/foto-produkcija/"],
+    cases: ["travel", "tdc", "revita"],
+    faq: [
+      ["Radite li turistički video u Zadru?", "Da. Zadar ima smisla za destinacijske, hotelske, event i lifestyle produkcije."],
+      ["Možete li iz jednog snimanja isporučiti više social formata?", "Da. Vertikalne i kraće formate planiramo prije snimanja da ne ovise o lošem cropu."],
+    ],
+  },
+  {
+    slug: "video-produkcija-dubrovnik",
+    title: "Video produkcija Dubrovnik | Luxury, hoteli i tourism content",
+    description:
+      "Video produkcija Dubrovnik za luxury hotele, turističke brendove, evente, yacht i premium hospitality projekte kojima vizuali utječu na percepciju i booking.",
+    eyebrow: "Dubrovnik",
+    h1: "Video produkcija Dubrovnik za luxury i hospitality brendove koji prodaju premium dojam",
+    intro:
+      "Dubrovnik je tržište na kojem prosječan sadržaj izgleda jeftino vrlo brzo. Za luxury hotele, evente, yacht, turizam i premium usluge vizuali moraju podržati cijenu, povjerenje i međunarodnu percepciju. Fundamento radi sadržaj koji se može koristiti na webu, u kampanjama, social formatu i prodaji.",
+    ogImage: "/assets/partners/hotelambasador/Fotografije/2G6A9727.webp",
+    sections: [
+      {
+        title: "Premium ne znači sporo i prazno",
+        body:
+          "Luxury sadržaj mora biti odmjeren, ali konkretan. Gost ili klijent treba brzo osjetiti standard, atmosferu i razlog zašto ponuda vrijedi više.",
+      },
+      {
+        title: "Relevantni formati",
+        items: ["luxury hotel video", "hospitality foto produkcija", "yacht i lifestyle content", "event film", "destination video", "paid social cutdowni"],
+      },
+      {
+        title: "International audience ready",
+        body:
+          "Kod Dubrovnika često ima smisla strateški uključiti pojmove i strukturu za international publiku: hospitality video production Croatia, luxury resort content i hotel video production Croatia.",
+      },
+    ],
+    links: ["/video-produkcija-hoteli/", "/video-produkcija-turizam/", "/brand-video/", "/foto-produkcija/"],
+    cases: ["revita", "travel", "tdc"],
+    faq: [
+      ["Radite li luxury hospitality sadržaj u Dubrovniku?", "Da. Dubrovnik je posebno relevantan za luxury hotel, tourism, yacht i event sadržaj."],
+      ["Može li se produkcija planirati za međunarodne goste?", "Da. Vizualni smjer, jezik i formate možemo prilagoditi publici izvan Hrvatske."],
+    ],
+  },
+  {
+    slug: "video-produkcija-pula",
+    title: "Video produkcija Pula i Istra | Fundamento",
+    description:
+      "Video produkcija Pula i Istra za hospitality, turizam, lifestyle, corporate i brand content projekte koji trebaju profinjen vizualni standard.",
+    eyebrow: "Pula / Istra",
+    h1: "Video produkcija Pula za Istru, hospitality i brendove koji trebaju mirniji premium ton",
+    intro:
+      "Istra ima drukčiji vizualni ritam od ostatka obale: boutique hoteli, vile, gastronomija, vino, lifestyle, corporate i turizam koji često traže profinjeniji, manje agresivan ton. Fundamento radi video i foto produkciju za projekte kojima je važan dojam kvalitete, a ne samo atraktivna lokacija.",
+    ogImage: "/assets/partners/Revita%20Clinic/optimized/photos/revita-photo-21.jpg",
+    sections: [
+      {
+        title: "Istra traži suptilniji sadržaj",
+        body:
+          "Za boutique i premium projekte često bolje radi miran, precizan vizualni jezik nego brzi turistički montage bez karaktera.",
+      },
+      {
+        title: "Što pokrivamo u Istri",
+        items: ["hotel i villa video", "gastronomy i wine content", "lifestyle foto produkcija", "brand video", "social media content", "corporate video"],
+      },
+      {
+        title: "Sadržaj za web, booking i kampanje",
+        body:
+          "Materijale planiramo tako da mogu raditi na webu, u oglasima, na društvenim mrežama i u direktnoj prodaji prema premium publici.",
+      },
+    ],
+    links: ["/video-produkcija-hoteli/", "/foto-produkcija/", "/social-media-content/", "/brand-video/"],
+    cases: ["revita", "central", "travel"],
+    faq: [
+      ["Radite li produkciju u Puli i Istri?", "Da. Pulu i Istru pokrivamo za hospitality, lifestyle, brand i corporate projekte."],
+      ["Može li se snimanje planirati oko sezonalnosti?", "Da. Kod Istre je sezonski ritam važan za boje, atmosferu, dostupnost lokacija i željeni tip gosta."],
+    ],
+  },
+  {
+    slug: "video-produkcija-varazdin",
+    title: "Video produkcija Varaždin i sjever Hrvatske | Fundamento",
+    description:
+      "Video produkcija Varaždin za firme, proizvodne brendove, corporate video, foto produkciju i social content na sjeveru Hrvatske.",
+    eyebrow: "Varaždin / Sjever",
+    h1: "Video produkcija Varaždin za firme koje žele izgledati ozbiljno prije prvog upita",
+    intro:
+      "Varaždin i sjever Hrvatske imaju puno firmi koje rade ozbiljne stvari, ali digitalni dojam često ne prati realnu kvalitetu poslovanja. Fundamento radi corporate, brand, foto i video produkciju za tvrtke koje žele jasnije pokazati proces, ljude, proizvod, uslugu i standard.",
+    ogImage: "/assets/services/service-postproduction.png",
+    sections: [
+      {
+        title: "Regionalni B2B treba bolji signal",
+        body:
+          "Ako firma prodaje prema većim klijentima, izvozu ili partnerima, web i video moraju komunicirati pouzdanost prije nego što sales tim uopće krene razgovarati.",
+      },
+      {
+        title: "Najčešći formati",
+        items: ["corporate video", "brand video", "process video", "fotografije tima i prostora", "social media cutdowni", "employer branding sadržaj"],
+      },
+      {
+        title: "Blizina kao operativna prednost",
+        body:
+          "Za sjever Hrvatske možemo lakše planirati više produkcijskih dana, dodatne foto blokove i kontinuirani sadržaj bez nepotrebnog logističkog opterećenja.",
+      },
+    ],
+    links: ["/corporate-video/", "/brand-video/", "/foto-produkcija/", "/video-produkcija-hrvatska/"],
+    cases: ["forte", "splxai"],
+    faq: [
+      ["Radite li snimanja u Varaždinu i sjeveru Hrvatske?", "Da. Varaždin i sjever Hrvatske prirodno pokrivamo za corporate, brand i foto produkcije."],
+      ["Je li corporate video dobar za proizvodne firme?", "Da, posebno ako treba pokazati proces, standard, tim i razinu pouzdanosti."],
+    ],
+  },
+  {
     slug: "video-produkcija-hrvatska",
     title: "Video produkcija Hrvatska | Fundamento",
     description:
@@ -457,6 +698,105 @@ export const pages = [
     faq: [
       ["Radite li projekte u Sloveniji?", "Da. Sloveniju pokrivamo za video, foto, hospitality i corporate projekte prema produkcijskom opsegu."],
       ["Može li sadržaj biti pripremljen za međunarodnu publiku?", "Da. Posebno za hospitality i tourism projekte možemo planirati materijale s engleskim pojmovima i širim tržišnim smjerom."],
+    ],
+  },
+  {
+    slug: "video-produkcija-celje",
+    title: "Video produkcija Celje | Fundamento",
+    description:
+      "Video produkcija Celje za slovenske firme, wellness, hospitality, corporate i brand content projekte kojima treba regionalni production partner.",
+    eyebrow: "Celje",
+    h1: "Video produkcija Celje za slovenske brendove koji žele jasniji digitalni dojam",
+    intro:
+      "Celje i okolica imaju dobar spoj regionalnih firmi, wellness/hospitality ponude i B2B projekata kojima profesionalan sadržaj može pomoći u prodaji i percepciji. Fundamento radi video i foto produkciju između Hrvatske i Slovenije, s naglaskom na sadržaj koji se koristi, a ne samo objavi jednom.",
+    ogImage: "/assets/partners/Revita%20Clinic/optimized/photos/revita-photo-18.jpg",
+    sections: [
+      {
+        title: "Regionalni sadržaj za širu publiku",
+        body:
+          "Slovenski brendovi često komuniciraju prema lokalnoj, hrvatskoj i međunarodnoj publici. Zato video mora biti dovoljno jasan i profesionalan da radi u više konteksta.",
+      },
+      {
+        title: "Relevantni formati za Celje",
+        items: ["corporate video", "wellness i hospitality content", "brand video", "foto produkcija", "social media content", "AI vizuali"],
+      },
+      {
+        title: "Bez generičkog poslovnog videa",
+        body:
+          "Cilj je pokazati realnu vrijednost brenda: prostor, ljude, uslugu, proces i razlog zašto klijent treba poslati upit.",
+      },
+    ],
+    links: ["/video-produkcija-slovenija/", "/corporate-video/", "/video-produkcija-hoteli/", "/foto-produkcija/"],
+    cases: ["revita", "splxai"],
+    faq: [
+      ["Radite li video produkciju u Celju?", "Da. Celje pokrivamo kao dio slovenskih i regionalnih produkcija."],
+      ["Može li sadržaj biti pripremljen za hrvatsko i slovensko tržište?", "Da. Vizualni sustav i isporuke možemo planirati za više tržišta."],
+    ],
+  },
+  {
+    slug: "video-produkcija-maribor",
+    title: "Video produkcija Maribor | Fundamento",
+    description:
+      "Video produkcija Maribor za corporate, hospitality, tourism, wine, wellness i brand content projekte u Sloveniji i regiji.",
+    eyebrow: "Maribor",
+    h1: "Video produkcija Maribor za firme, hospitality i brendove s regionalnom ambicijom",
+    intro:
+      "Maribor ima jak potencijal za corporate, tourism, wine, wellness i regionalne B2B projekte. Fundamento radi video i foto produkciju za brendove koji žele sadržaj koji izgleda profesionalno na webu, u prodaji, kampanjama i društvenim mrežama.",
+    ogImage: "/assets/projects/posters/splxai-hero.jpg",
+    sections: [
+      {
+        title: "Maribor nije samo lokalni kontekst",
+        body:
+          "Za projekte u Sloveniji često je važno da sadržaj može komunicirati prema regiji i međunarodnim klijentima, bez gubitka autentičnosti lokacije.",
+      },
+      {
+        title: "Što ima najviše smisla",
+        items: ["corporate video", "tourism i wine content", "hotel i wellness video", "brand video", "social media cutdowni", "foto produkcija"],
+      },
+      {
+        title: "Sadržaj koji pomaže prodaji",
+        body:
+          "Video treba smanjiti nesigurnost prije upita: pokazati standard, objasniti vrijednost i dati publici razlog da napravi sljedeći korak.",
+      },
+    ],
+    links: ["/video-produkcija-slovenija/", "/corporate-video/", "/brand-video/", "/social-media-content/"],
+    cases: ["splxai", "revita", "travel"],
+    faq: [
+      ["Pokrivate li Maribor?", "Da. Maribor pokrivamo za corporate, hospitality, tourism i brand content projekte."],
+      ["Može li se snimanje kombinirati s lokacijama u Hrvatskoj?", "Da. Regionalne produkcije između Slovenije i Hrvatske imaju smisla kad se unaprijed složi raspored i prioritet kadrova."],
+    ],
+  },
+  {
+    slug: "video-produkcija-rogaska-slatina",
+    title: "Video produkcija Rogaška Slatina | Wellness i hospitality content",
+    description:
+      "Video produkcija Rogaška Slatina za wellness, hotele, medical tourism, hospitality i premium content projekte u Sloveniji.",
+    eyebrow: "Rogaška Slatina",
+    h1: "Video produkcija Rogaška Slatina za wellness i hospitality brendove koji žive od povjerenja",
+    intro:
+      "Rogaška Slatina ima jasan hospitality, wellness i medical tourism potencijal. U takvim projektima vizuali moraju graditi povjerenje, mir, premium dojam i osjećaj stručnosti. Fundamento radi video, foto i social content za objekte i brendove kojima digitalni dojam utječe na upit, booking i percepciju vrijednosti.",
+    ogImage: "/assets/partners/Revita%20Clinic/optimized/photos/revita-photo-24.jpg",
+    sections: [
+      {
+        title: "Wellness se ne prodaje generičkim kadrom bazena",
+        body:
+          "Publika želi osjetiti standard, sigurnost, stručnost i atmosferu. To traži precizniji vizualni jezik od klasičnog hotelskog videa.",
+      },
+      {
+        title: "Relevantni deliverables",
+        items: ["wellness hero video", "medical tourism content", "hotel foto produkcija", "social media reels", "tretmani i experience kadrovi", "premium brand video"],
+      },
+      {
+        title: "Za publiku koja uspoređuje prije upita",
+        body:
+          "Kod wellness i medical tourism projekata korisnik često uspoređuje više opcija. Vizuali moraju smanjiti sumnju i pokazati zašto je objekt vrijedan povjerenja.",
+      },
+    ],
+    links: ["/video-produkcija-slovenija/", "/video-produkcija-hoteli/", "/foto-produkcija/", "/brand-video/"],
+    cases: ["revita"],
+    faq: [
+      ["Radite li sadržaj za wellness i medical tourism?", "Da. Rogaška Slatina je posebno relevantna za wellness, hospitality i medical tourism sadržaj."],
+      ["Može li sadržaj biti premium, ali ne hladan?", "Da. Ton definiramo prema publici: miran, stručan, luksuzan ili lifestyle, bez generičkog spa izgleda."],
     ],
   },
 ];

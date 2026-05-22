@@ -670,6 +670,25 @@
         fill: currentColor;
       }
 
+      .media-toggle-hitarea {
+        position: absolute;
+        z-index: 3;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .media-shell.is-playing .media-toggle-hitarea {
+        pointer-events: auto;
+      }
+
       .media-shell.is-playing .media-play {
         opacity: 0;
         pointer-events: none;
@@ -789,21 +808,24 @@
       .hero-reel-video-grid {
         --video-gap: clamp(12px, 1.4vw, 22px);
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
         justify-items: center;
         gap: var(--video-gap);
       }
 
-      .hero-reel-video-grid .media-item:first-child {
+      .hero-reel-video-grid > .media-item:first-child {
         width: min(100%, 960px);
-        grid-column: 1 / -1;
         aspect-ratio: 16 / 9;
       }
 
-      .hero-reel-video-grid .media-item:not(:first-child) {
+      .hero-reel-video-grid__reels {
         width: 100%;
-        grid-column: auto;
-        grid-row: auto;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: var(--video-gap);
+      }
+
+      .hero-reel-video-grid__reels .media-item {
+        width: 100%;
         aspect-ratio: 9 / 16;
       }
 
@@ -1288,7 +1310,6 @@
       @media (max-width: 980px) {
         .vertical-video-grid[data-count]:not([data-count="1"]),
         .horizontal-video-strip[data-count]:not([data-count="1"]),
-        .hero-reel-video-grid[data-count]:not([data-count="1"]),
         .paired-video-row[data-count]:not([data-count="1"]),
         .frames-grid[data-count]:not([data-count="1"]),
         .bts-grid[data-count]:not([data-count="1"]) {
@@ -1309,7 +1330,6 @@
 
         .vertical-video-grid[data-count]:not([data-count="1"])::-webkit-scrollbar,
         .horizontal-video-strip[data-count]:not([data-count="1"])::-webkit-scrollbar,
-        .hero-reel-video-grid[data-count]:not([data-count="1"])::-webkit-scrollbar,
         .paired-video-row[data-count]:not([data-count="1"])::-webkit-scrollbar,
         .frames-grid[data-count]:not([data-count="1"])::-webkit-scrollbar,
         .bts-grid[data-count]:not([data-count="1"])::-webkit-scrollbar {
@@ -1318,7 +1338,6 @@
 
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-item,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item,
         .paired-video-row[data-count]:not([data-count="1"]) .media-item,
         .frames-grid[data-count]:not([data-count="1"]) .media-item,
         .bts-grid[data-count]:not([data-count="1"]) .media-item {
@@ -1333,8 +1352,6 @@
 
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item,
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item:not(:first-child),
         .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-vertical {
           flex-basis: min(68vw, 360px) !important;
           aspect-ratio: 9 / 16 !important;
@@ -1343,7 +1360,6 @@
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-item,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-item.is-horizontal,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item:first-child,
         .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-horizontal,
         .frames-grid[data-count]:not([data-count="1"]) .media-item.is-horizontal,
         .frames-grid[data-count]:not([data-count="1"]) .media-item.is-wide,
@@ -1376,7 +1392,6 @@
 
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-shell,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell,
         .paired-video-row[data-count]:not([data-count="1"]) .media-shell,
         .frames-grid[data-count]:not([data-count="1"]) .media-shell,
         .bts-grid[data-count]:not([data-count="1"]) .media-shell {
@@ -1389,8 +1404,6 @@
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-shell video,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell img,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell video,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell img,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell video,
         .paired-video-row[data-count]:not([data-count="1"]) .media-shell img,
         .paired-video-row[data-count]:not([data-count="1"]) .media-shell video,
         .frames-grid[data-count]:not([data-count="1"]) .media-shell img,
@@ -1400,14 +1413,71 @@
           height: 100% !important;
           min-height: 0 !important;
         }
+
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) {
+          display: grid !important;
+          justify-items: center !important;
+          gap: clamp(18px, 5vw, 28px) !important;
+          overflow: visible !important;
+          scroll-snap-type: none !important;
+        }
+
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) > .media-item:first-child {
+          width: min(100%, 680px) !important;
+          aspect-ratio: 16 / 9 !important;
+        }
+
+        .hero-reel-video-grid__reels[data-count]:not([data-count="1"]) {
+          display: flex !important;
+          width: 100%;
+          flex-wrap: nowrap !important;
+          justify-content: flex-start !important;
+          gap: clamp(12px, 4vw, 18px) !important;
+          overflow-x: auto !important;
+          overflow-y: visible !important;
+          scroll-padding-inline: 2px;
+          scroll-snap-type: x mandatory;
+          scrollbar-width: none;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .hero-reel-video-grid__reels[data-count]:not([data-count="1"])::-webkit-scrollbar {
+          display: none;
+        }
+
+        .hero-reel-video-grid__reels[data-count]:not([data-count="1"]) .media-item {
+          flex: 0 0 min(68vw, 360px) !important;
+          min-width: 0 !important;
+          min-height: 0 !important;
+          aspect-ratio: 9 / 16 !important;
+          scroll-snap-align: center;
+          scroll-snap-stop: always;
+        }
+
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell,
+        .hero-reel-video-grid__reels[data-count]:not([data-count="1"]) .media-shell {
+          height: auto !important;
+          max-width: none !important;
+          box-shadow: 0 28px 78px rgba(0, 0, 0, 0.38);
+        }
+
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell img,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell video,
+        .hero-reel-video-grid__reels[data-count]:not([data-count="1"]) .media-shell img,
+        .hero-reel-video-grid__reels[data-count]:not([data-count="1"]) .media-shell video {
+          height: 100% !important;
+          min-height: 0 !important;
+        }
       }
 
       @media (max-width: 560px) {
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item,
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
-        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item:not(:first-child),
         .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-vertical {
+          flex-basis: min(72vw, 330px) !important;
+        }
+
+        .hero-reel-video-grid__reels[data-count]:not([data-count="1"]) .media-item {
           flex-basis: min(72vw, 330px) !important;
         }
 
@@ -1615,7 +1685,7 @@
       const fallbackVideos = ["assets/videos/project-02.mp4", "assets/videos/project-03.mp4", "assets/videos/project-04.mp4"];
       const forteSolarThumbnail = "assets/partners/fortesolar/thumbnail/9-2-1200x1200.jpg";
       const vwBosnicThumbnail = "assets/partners/vwbosnic/Thumbnail/1-11.jpg";
-      const tomicVideoPoster = "assets/video-posters/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.jpg";
+      const tomicVideoPoster = "assets/partners/tomic winery/thumbnail.png";
       const travelCroatiaReels = [
         "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel10_2.mp4",
         "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel1_2.mp4",
@@ -1918,9 +1988,7 @@
           summary: "Familiarization trip kroz Hrvatsku i Crnu Goru, snimljen kao destinacijski sadržaj za Travel Croatia.",
           heroSrc: highlightVideos.travelCroatia,
           posterSrc: "assets/projects/posters/travel-croatia-hero.jpg",
-          social: travelCroatiaReels.map((src) => ({ type: "video", src, poster: false, orientation: "vertical" })),
-          socialClass: "hero-reel-video-grid",
-          horizontal: [
+          social: [
             {
               type: "video",
               src: highlightVideos.travelCroatia,
@@ -1929,8 +1997,10 @@
               contain: true,
               featured: true,
             },
+            ...travelCroatiaReels.map((src) => ({ type: "video", src, poster: false, orientation: "vertical" })),
           ],
-          horizontalClass: "centered-video-strip",
+          socialClass: "hero-reel-video-grid",
+          horizontal: [],
           photos: [],
           bts: [],
         }),
@@ -2181,6 +2251,7 @@
           return `
             <figure class="${className}" style="${style}">
               <video src="${source}"${posterAttr} muted loop playsinline preload="metadata"></video>
+              <button class="media-toggle-hitarea" type="button" aria-label="Pauziraj video"></button>
               <button class="media-play" type="button" aria-label="Pokreni video">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M8 5v14l11-7z" />
@@ -2231,6 +2302,16 @@
         container.className = className || container.className;
         container.dataset.count = String(media.length);
         container.dataset.remainder = String(media.length % 4);
+        if (container.classList.contains("hero-reel-video-grid") && media.length > 1) {
+          const [featuredVideo, ...reels] = media;
+          container.innerHTML = `
+            ${mediaMarkup(featuredVideo, project.slug, 0, { allowFullscreenVideo: containerId !== "#projectBts" })}
+            <div class="hero-reel-video-grid__reels" data-count="${reels.length}" data-remainder="${reels.length % 4}">
+              ${reels.map((item, index) => mediaMarkup(item, project.slug, index + 1, { allowFullscreenVideo: containerId !== "#projectBts" })).join("")}
+            </div>
+          `;
+          return;
+        }
         container.innerHTML = media
           .map((item, index) => mediaMarkup(item, project.slug, index, { allowFullscreenVideo: containerId !== "#projectBts" }))
           .join("");
@@ -2440,7 +2521,9 @@
             playButton.setAttribute("aria-label", video.paused ? "Pokreni video" : "Pauziraj video");
           };
 
-          const toggleVideo = () => {
+          const toggleVideo = (event) => {
+            event?.preventDefault();
+            event?.stopPropagation();
             if (video.paused) {
               playVideoWithSound(video).catch(() => {});
             } else {
@@ -2449,35 +2532,13 @@
           };
 
           playButton.addEventListener("click", toggleVideo);
+          shell.querySelector(".media-toggle-hitarea")?.addEventListener("click", toggleVideo);
           video.addEventListener("click", toggleVideo);
           video.addEventListener("play", syncState);
           video.addEventListener("pause", syncState);
           video.addEventListener("ended", syncState);
           syncState();
         });
-      }
-
-      function setupTravelCroatiaMobileOrder(projectSlug) {
-        const socialSection = document.querySelector("#socialSection");
-        const motionSection = document.querySelector("#motionSection");
-        if (projectSlug !== "travel-croatia" || !socialSection || !motionSection || !window.matchMedia) return;
-
-        const mobileQuery = window.matchMedia("(max-width: 980px)");
-        const applyOrder = () => {
-          if (mobileQuery.matches) {
-            socialSection.parentNode.insertBefore(motionSection, socialSection);
-          } else {
-            motionSection.parentNode.insertBefore(socialSection, motionSection);
-          }
-        };
-
-        if (mobileQuery.addEventListener) {
-          mobileQuery.addEventListener("change", applyOrder);
-        } else if (mobileQuery.addListener) {
-          mobileQuery.addListener(applyOrder);
-        }
-
-        applyOrder();
       }
 
       setProjectSeo(project);
@@ -2502,7 +2563,6 @@
       renderOptionalSection("#aiSection", "#projectAi", project.ai, "horizontal-video-strip");
       renderOptionalSection("#photoSection", "#projectFrames", project.photos, "frames-grid");
       renderOptionalSection("#btsSection", "#projectBts", project.bts, "bts-grid");
-      setupTravelCroatiaMobileOrder(project.slug);
       setupMobileNav();
       setupMediaLightbox();
       setupVideoLightbox();
