@@ -1,0 +1,1 @@
+window.FUNDAMENTO_GA_ID = "G-QBR94Z0H22";

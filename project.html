@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fundamento projekt</title>
+    <meta
+      name="description"
+      content="Projekt studija Fundamento kroz video produkciju, foto sadržaj i vizualne materijale za brendove."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.fundamen.to/project.html" />
+    <meta property="og:site_name" content="Fundamento" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="hr_HR" />
+    <meta property="og:title" content="Fundamento projekt" />
+    <meta property="og:description" content="Projekt studija Fundamento kroz video produkciju, foto sadržaj i vizualne materijale za brendove." />
+    <meta property="og:url" content="https://www.fundamen.to/project.html" />
+    <meta property="og:image" content="https://www.fundamen.to/assets/brand/fundamento-logo-stacked-light.png" />
+    <meta property="og:image:alt" content="Fundamento projekt" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fundamento projekt" />
+    <meta name="twitter:description" content="Projekt studija Fundamento kroz video produkciju, foto sadržaj i vizualne materijale za brendove." />
+    <meta name="twitter:image" content="https://www.fundamen.to/assets/brand/fundamento-logo-stacked-light.png" />
     <link rel="icon" type="image/png" href="assets/brand/fundamento-logo-stacked-light.png" />
     <link rel="stylesheet" href="styles.css?v=tdc-video-20260521" />
     <style>
@@ -457,6 +475,12 @@
         min-height: min(70svh, 760px);
       }
 
+      .case-hero-media.is-partner-thumbnail {
+        align-self: center;
+        aspect-ratio: 17 / 14;
+        min-height: 0;
+      }
+
       .media-shell {
         position: relative;
         overflow: hidden;
@@ -492,6 +516,11 @@
       .case-hero-media.media-shell img,
       .case-hero-media.media-shell video {
         min-height: min(70svh, 760px);
+      }
+
+      .case-hero-media.is-partner-thumbnail.media-shell img,
+      .case-hero-media.is-partner-thumbnail.media-shell video {
+        min-height: 0;
       }
 
       .media-shell::after {
@@ -978,9 +1007,20 @@
           min-height: clamp(340px, 76vw, 560px);
         }
 
+        .case-hero-media.is-partner-thumbnail {
+          width: min(100%, 560px);
+          min-height: 0;
+          justify-self: center;
+        }
+
         .case-hero-media.media-shell img,
         .case-hero-media.media-shell video {
           min-height: clamp(340px, 76vw, 560px);
+        }
+
+        .case-hero-media.is-partner-thumbnail.media-shell img,
+        .case-hero-media.is-partner-thumbnail.media-shell video {
+          min-height: 0;
         }
 
         .case-meta {
@@ -1698,15 +1738,15 @@
         row,
       }));
       const ambassadorPhotos = [
-        ["2G6A9294.webp", "vertical", "1 / span 3", "1 / span 5"],
-        ["2G6A9356.webp", "vertical", "4 / span 3", "1 / span 5"],
-        ["2G6A9431.webp", "vertical", "7 / span 3", "1 / span 5"],
-        ["2G6A9446.webp", "vertical", "10 / span 3", "1 / span 5"],
-        ["2G6A9464.webp", "vertical", "1 / span 3", "6 / span 5"],
-        ["2G6A9664.webp", "vertical", "4 / span 3", "6 / span 5"],
-        ["2G6A9702.webp", "vertical", "7 / span 3", "6 / span 5"],
-        ["2G6A9721.webp", "vertical", "10 / span 3", "6 / span 5"],
-        ["2G6A9727.webp", "vertical", "1 / span 3", "11 / span 5"],
+        ["2G6A9294.webp", "wide", "1 / span 8", "1 / span 4"],
+        ["2G6A9356.webp", "vertical", "9 / span 2", "1 / span 4"],
+        ["2G6A9431.webp", "vertical", "11 / span 2", "1 / span 4"],
+        ["2G6A9446.webp", "horizontal", "1 / span 4", "5 / span 4"],
+        ["2G6A9464.webp", "horizontal", "5 / span 4", "5 / span 4"],
+        ["2G6A9664.webp", "vertical", "9 / span 2", "5 / span 4"],
+        ["2G6A9702.webp", "vertical", "11 / span 2", "5 / span 4"],
+        ["2G6A9721.webp", "wide", "1 / span 6", "9 / span 4"],
+        ["2G6A9727.webp", "wide", "7 / span 6", "9 / span 4"],
       ].map(([file, orientation, column, row]) => ({
         type: "image",
         src: `assets/partners/hotelambasador/Fotografije/${file}`,
@@ -1878,7 +1918,9 @@
           summary: "Familiarization trip kroz Hrvatsku i Crnu Goru, snimljen kao destinacijski sadržaj za Travel Croatia.",
           heroSrc: highlightVideos.travelCroatia,
           posterSrc: "assets/projects/posters/travel-croatia-hero.jpg",
-          social: [
+          social: travelCroatiaReels.map((src) => ({ type: "video", src, poster: false, orientation: "vertical" })),
+          socialClass: "hero-reel-video-grid",
+          horizontal: [
             {
               type: "video",
               src: highlightVideos.travelCroatia,
@@ -1887,10 +1929,8 @@
               contain: true,
               featured: true,
             },
-            ...travelCroatiaReels.map((src) => ({ type: "video", src, poster: false, orientation: "vertical" })),
           ],
-          socialClass: "hero-reel-video-grid",
-          horizontal: [],
+          horizontalClass: "centered-video-strip",
           photos: [],
           bts: [],
         }),
@@ -2043,6 +2083,9 @@
           industry: "Automotive",
           summary: "Ovlašteni Volkswagen i Škoda servis s više od tri desetljeća iskustva.",
           hero: { type: "image", src: vwBosnicThumbnail, orientation: "horizontal", alt: "Volkswagen Bosnić thumbnail" },
+          social: [],
+          photos: [],
+          bts: [],
         }),
         partnerProject({
           slug: "hotel-ambasador",
@@ -2063,6 +2106,37 @@
       const project = projects.find((item) => item.slug === slug) || projects[0];
       const returnUrl = localStorage.getItem("fundamento.projectReturnUrl");
       const returnScroll = localStorage.getItem("fundamento.projectReturnScroll");
+      const siteUrl = "https://www.fundamen.to";
+
+      function absoluteUrl(path) {
+        if (!path) return `${siteUrl}/assets/brand/fundamento-logo-stacked-light.png`;
+        return new URL(path, `${siteUrl}/`).href;
+      }
+
+      function setMeta(selector, attribute, value) {
+        const meta = document.head.querySelector(selector);
+        if (meta && value) meta.setAttribute(attribute, value);
+      }
+
+      function setProjectSeo(project) {
+        const title = `${project.title} | Fundamento`;
+        const description = project.summary || "Projekt studija Fundamento kroz video produkciju, foto sadržaj i vizualne materijale za brendove.";
+        const canonical = `${siteUrl}/project.html?project=${encodeURIComponent(project.slug)}`;
+        const image = absoluteUrl(project.hero?.src);
+        const imageAlt = `${project.title} naslovni kadar`;
+
+        document.title = title;
+        setMeta('meta[name="description"]', "content", description);
+        setMeta('link[rel="canonical"]', "href", canonical);
+        setMeta('meta[property="og:title"]', "content", title);
+        setMeta('meta[property="og:description"]', "content", description);
+        setMeta('meta[property="og:url"]', "content", canonical);
+        setMeta('meta[property="og:image"]', "content", image);
+        setMeta('meta[property="og:image:alt"]', "content", imageAlt);
+        setMeta('meta[name="twitter:title"]', "content", title);
+        setMeta('meta[name="twitter:description"]', "content", description);
+        setMeta('meta[name="twitter:image"]', "content", image);
+      }
 
       function videoPosterFromSrc(src) {
         const fileName = decodeURIComponent(String(src || "").split("/").pop().split("?")[0]);
@@ -2383,7 +2457,30 @@
         });
       }
 
-      document.title = `${project.title} | Fundamento`;
+      function setupTravelCroatiaMobileOrder(projectSlug) {
+        const socialSection = document.querySelector("#socialSection");
+        const motionSection = document.querySelector("#motionSection");
+        if (projectSlug !== "travel-croatia" || !socialSection || !motionSection || !window.matchMedia) return;
+
+        const mobileQuery = window.matchMedia("(max-width: 980px)");
+        const applyOrder = () => {
+          if (mobileQuery.matches) {
+            socialSection.parentNode.insertBefore(motionSection, socialSection);
+          } else {
+            motionSection.parentNode.insertBefore(socialSection, motionSection);
+          }
+        };
+
+        if (mobileQuery.addEventListener) {
+          mobileQuery.addEventListener("change", applyOrder);
+        } else if (mobileQuery.addListener) {
+          mobileQuery.addListener(applyOrder);
+        }
+
+        applyOrder();
+      }
+
+      setProjectSeo(project);
       const isPartner = project.kind === "partner";
 
       document.querySelector("#projectKicker").textContent = isPartner ? "Partnerski brend" : `${project.client} / ${project.year}`;
@@ -2397,12 +2494,15 @@
       document.querySelector("#projectType").textContent = project.type;
       document.querySelector("#projectIndustry").textContent = project.industry;
       document.querySelector("#projectCollaboration").textContent = project.client;
-      document.querySelector("#projectHeroMedia").innerHTML = heroMarkup(project.hero);
+      const projectHeroMedia = document.querySelector("#projectHeroMedia");
+      projectHeroMedia.classList.toggle("is-partner-thumbnail", isPartner && project.hero?.type === "image");
+      projectHeroMedia.innerHTML = heroMarkup(project.hero);
       renderOptionalSection("#socialSection", "#projectSocial", project.social, project.socialClass || "vertical-video-grid");
       renderOptionalSection("#motionSection", "#projectVideos", project.horizontal, project.horizontalClass || "horizontal-video-strip");
       renderOptionalSection("#aiSection", "#projectAi", project.ai, "horizontal-video-strip");
       renderOptionalSection("#photoSection", "#projectFrames", project.photos, "frames-grid");
       renderOptionalSection("#btsSection", "#projectBts", project.bts, "bts-grid");
+      setupTravelCroatiaMobileOrder(project.slug);
       setupMobileNav();
       setupMediaLightbox();
       setupVideoLightbox();
@@ -2415,6 +2515,9 @@
         });
       }
     </script>
+    <script src="analytics-config.js"></script>
+    <script src="analytics.js"></script>
+    <script src="seo-tracking.js"></script>
     <script src="privacy.js"></script>
   </body>
 </html>
