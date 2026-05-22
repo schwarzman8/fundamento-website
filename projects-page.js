@@ -261,9 +261,13 @@ function renderProjectRow(project, index, kind) {
   const hasVideo = (index % 2 === 0 || kind === "highlight") && !project.preferImage;
   const posterSource = project.poster || videoPosterFromSrc(project.video);
   const poster = posterSource ? ` poster="${posterSource}"` : "";
+  const fallbackPoster = posterSource || project.image;
   const media =
     hasVideo
-      ? `<video src="${project.video}"${poster} muted loop playsinline preload="metadata"></video>`
+      ? `
+        <img class="project-index-card-poster" src="${fallbackPoster}" alt="${project.title}" loading="lazy" decoding="async" />
+        <video src="${project.video}"${poster} muted loop playsinline preload="metadata"></video>
+      `
       : `<img src="${project.image}" alt="${project.title}" />`;
   const meta = rowMeta(project, kind)
     .map(

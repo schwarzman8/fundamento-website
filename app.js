@@ -328,10 +328,11 @@ function setupInitialHeroPosition() {
 
 function renderWheel() {
   projectWheel.innerHTML = highlightProjects
-    .map(
-      (project, index) => `
+    .map((project, index) => {
+      const poster = project.poster || videoPosterFromSrc(project.video);
+      return `
         <article class="wheel-project is-hidden" data-index="${index}" aria-label="${project.title}, ${project.type}">
-          <video src="${project.video}"${project.poster ? ` poster="${project.poster}"` : ""} playsinline preload="metadata"></video>
+          <video src="${project.video}"${poster ? ` poster="${poster}"` : ""} playsinline preload="metadata"></video>
           <button class="wheel-play-button" type="button" aria-label="Pokreni video ${project.title}">
             <span aria-hidden="true"></span>
           </button>
@@ -340,8 +341,8 @@ function renderWheel() {
             <a class="wheel-project-link" href="${projectUrl(project)}" aria-label="Saznaj više o projektu ${project.title}">Saznaj više</a>
           </div>
         </article>
-      `,
-    )
+      `;
+    })
     .join("");
 
   projectWheel.querySelectorAll(".wheel-project").forEach((card) => {
@@ -353,17 +354,27 @@ function renderWheel() {
       card.classList.toggle("is-playing", !video.paused && !video.ended);
       playButton.setAttribute("aria-label", video.paused ? `Pokreni video ${highlightProjects[index].title}` : `Pauziraj video ${highlightProjects[index].title}`);
     };
+    const toggleVideo = () => {
+      if (video.paused || video.ended) {
+        playVideoWithSound(video).catch(() => {});
+      } else {
+        video.pause();
+      }
+    };
 
-    card.addEventListener("click", () => {
+    card.addEventListener("click", (event) => {
+      if (event.target.closest(".wheel-project-link, .wheel-play-button, video")) return;
       activeProject = index;
       updateWheel();
     });
     ["click", "pointerdown"].forEach((eventName) => {
       video.addEventListener(eventName, (event) => {
+        event.preventDefault();
         event.stopPropagation();
       });
     });
-    playButton.addEventListener("click", (event) => {
+    video.addEventListener("click", (event) => {
+      event.preventDefault();
       event.stopPropagation();
       if (!card.classList.contains("center")) {
         activeProject = index;
@@ -371,11 +382,18 @@ function renderWheel() {
         return;
       }
 
-      if (video.paused || video.ended) {
-        playVideoWithSound(video).catch(() => {});
-      } else {
-        video.pause();
+      toggleVideo();
+    });
+    playButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!card.classList.contains("center")) {
+        activeProject = index;
+        updateWheel();
+        return;
       }
+
+      toggleVideo();
     });
     video.addEventListener("play", syncPlayState);
     video.addEventListener("pause", syncPlayState);

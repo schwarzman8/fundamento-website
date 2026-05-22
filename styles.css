@@ -2265,6 +2265,10 @@ body[data-hero-ready="true"] .hero-media-wrap:hover .hero-video {
     transform 940ms var(--ease-smooth);
 }
 
+.project-index-card-poster {
+  display: none;
+}
+
 .project-index-card:hover,
 .project-index-card:focus-visible {
   border-color: rgba(243, 239, 231, 0.34);
@@ -7893,5 +7897,67 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
   .home-page-body .wheel-project {
     width: 76vw !important;
     height: clamp(278px, 78vw, 370px) !important;
+  }
+}
+
+/* Mobile interaction fixes: static card thumbnails and tappable highlight pause control. */
+@media (max-width: 820px), (hover: none) and (pointer: coarse) {
+  .project-index-card.has-video .project-index-card-poster {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.01);
+  }
+
+  .project-index-card.has-video > video {
+    display: none !important;
+  }
+
+  .project-index-card.has-video::before,
+  .partners-page-body .project-index-card::before {
+    background:
+      linear-gradient(90deg, rgba(3, 3, 3, 0.46), rgba(3, 3, 3, 0.16) 58%, rgba(3, 3, 3, 0.08)),
+      linear-gradient(180deg, rgba(3, 3, 3, 0.02) 34%, rgba(3, 3, 3, 0.58)) !important;
+  }
+
+  .home-page-body .wheel-play-button span {
+    position: relative;
+  }
+
+  .home-page-body .wheel-project.center.is-playing .wheel-play-button {
+    opacity: 0.96 !important;
+    pointer-events: auto !important;
+    transform: translate3d(-50%, -50%, 0) scale(1) !important;
+  }
+
+  .home-page-body .wheel-project.center.is-playing .wheel-play-button span {
+    width: 17px;
+    height: 19px;
+    margin: 0;
+    border: 0;
+  }
+
+  .home-page-body .wheel-project.center.is-playing .wheel-play-button span::before,
+  .home-page-body .wheel-project.center.is-playing .wheel-play-button span::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    border-radius: 2px;
+    background: currentColor;
+    content: "";
+  }
+
+  .home-page-body .wheel-project.center.is-playing .wheel-play-button span::before {
+    left: 2px;
+  }
+
+  .home-page-body .wheel-project.center.is-playing .wheel-play-button span::after {
+    right: 2px;
   }
 }
