@@ -757,6 +757,50 @@
         aspect-ratio: 9 / 16;
       }
 
+      .hero-reel-video-grid {
+        --video-gap: clamp(12px, 1.4vw, 22px);
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        justify-items: center;
+        gap: var(--video-gap);
+      }
+
+      .hero-reel-video-grid .media-item:first-child {
+        width: min(100%, 960px);
+        grid-column: 1 / -1;
+        aspect-ratio: 16 / 9;
+      }
+
+      .hero-reel-video-grid .media-item:not(:first-child) {
+        width: 100%;
+        grid-column: auto;
+        grid-row: auto;
+        aspect-ratio: 9 / 16;
+      }
+
+      .paired-video-row {
+        display: grid;
+        width: min(100%, 1180px);
+        margin-inline: auto;
+        grid-template-columns: minmax(0, 16fr) minmax(0, 5.0625fr);
+        align-items: start;
+        gap: clamp(12px, 1.4vw, 22px);
+      }
+
+      .paired-video-row .media-item.is-horizontal {
+        width: 100%;
+        grid-column: auto;
+        grid-row: auto;
+        aspect-ratio: 16 / 9;
+      }
+
+      .paired-video-row .media-item.is-vertical {
+        width: 100%;
+        grid-column: auto;
+        grid-row: auto;
+        aspect-ratio: 9 / 16;
+      }
+
       .media-shell.is-contain video {
         object-fit: contain;
         background: var(--black);
@@ -1204,6 +1248,8 @@
       @media (max-width: 980px) {
         .vertical-video-grid[data-count]:not([data-count="1"]),
         .horizontal-video-strip[data-count]:not([data-count="1"]),
+        .hero-reel-video-grid[data-count]:not([data-count="1"]),
+        .paired-video-row[data-count]:not([data-count="1"]),
         .frames-grid[data-count]:not([data-count="1"]),
         .bts-grid[data-count]:not([data-count="1"]) {
           display: flex !important;
@@ -1223,6 +1269,8 @@
 
         .vertical-video-grid[data-count]:not([data-count="1"])::-webkit-scrollbar,
         .horizontal-video-strip[data-count]:not([data-count="1"])::-webkit-scrollbar,
+        .hero-reel-video-grid[data-count]:not([data-count="1"])::-webkit-scrollbar,
+        .paired-video-row[data-count]:not([data-count="1"])::-webkit-scrollbar,
         .frames-grid[data-count]:not([data-count="1"])::-webkit-scrollbar,
         .bts-grid[data-count]:not([data-count="1"])::-webkit-scrollbar {
           display: none;
@@ -1230,6 +1278,8 @@
 
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-item,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item,
+        .paired-video-row[data-count]:not([data-count="1"]) .media-item,
         .frames-grid[data-count]:not([data-count="1"]) .media-item,
         .bts-grid[data-count]:not([data-count="1"]) .media-item {
           flex: 0 0 min(78vw, 520px) !important;
@@ -1242,7 +1292,10 @@
         }
 
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item,
-        .vertical-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical {
+        .vertical-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item:not(:first-child),
+        .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-vertical {
           flex-basis: min(68vw, 360px) !important;
           aspect-ratio: 9 / 16 !important;
         }
@@ -1250,12 +1303,23 @@
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-item,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-item.is-horizontal,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item:first-child,
+        .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-horizontal,
         .frames-grid[data-count]:not([data-count="1"]) .media-item.is-horizontal,
         .frames-grid[data-count]:not([data-count="1"]) .media-item.is-wide,
         .bts-grid[data-count]:not([data-count="1"]) .media-item.is-horizontal,
         .bts-grid[data-count]:not([data-count="1"]) .media-item.is-wide {
           flex-basis: min(84vw, 680px) !important;
           aspect-ratio: 16 / 10 !important;
+        }
+
+        .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-horizontal {
+          aspect-ratio: 16 / 9 !important;
+        }
+
+        .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-vertical {
+          flex-basis: min(26.6vw, 215px) !important;
+          aspect-ratio: 9 / 16 !important;
         }
 
         .frames-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
@@ -1272,6 +1336,8 @@
 
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-shell,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell,
+        .paired-video-row[data-count]:not([data-count="1"]) .media-shell,
         .frames-grid[data-count]:not([data-count="1"]) .media-shell,
         .bts-grid[data-count]:not([data-count="1"]) .media-shell {
           height: auto !important;
@@ -1283,6 +1349,10 @@
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-shell video,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell img,
         .horizontal-video-strip[data-count]:not([data-count="1"]) .media-shell video,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell img,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-shell video,
+        .paired-video-row[data-count]:not([data-count="1"]) .media-shell img,
+        .paired-video-row[data-count]:not([data-count="1"]) .media-shell video,
         .frames-grid[data-count]:not([data-count="1"]) .media-shell img,
         .frames-grid[data-count]:not([data-count="1"]) .media-shell video,
         .bts-grid[data-count]:not([data-count="1"]) .media-shell img,
@@ -1294,8 +1364,15 @@
 
       @media (max-width: 560px) {
         .vertical-video-grid[data-count]:not([data-count="1"]) .media-item,
-        .vertical-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical {
+        .vertical-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
+        .hero-reel-video-grid[data-count]:not([data-count="1"]) .media-item:not(:first-child),
+        .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-vertical {
           flex-basis: min(72vw, 330px) !important;
+        }
+
+        .paired-video-row[data-count]:not([data-count="1"]) .media-item.is-vertical {
+          flex-basis: min(26.6vw, 215px) !important;
         }
 
         .frames-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
@@ -1397,7 +1474,7 @@
       <section class="case-section optional-section" aria-labelledby="btsTitle" id="btsSection">
         <div class="section-head">
           <div>
-            <h2 id="btsTitle">Iza scene</h2>
+            <h2 id="btsTitle">BTS</h2>
           </div>
         </div>
         <div class="bts-grid" id="projectBts"></div>
@@ -1496,6 +1573,29 @@
       };
       const forteVideo = highlightVideos.forteSolarTvc1;
       const fallbackVideos = ["assets/videos/project-02.mp4", "assets/videos/project-03.mp4", "assets/videos/project-04.mp4"];
+      const forteSolarThumbnail = "assets/partners/fortesolar/thumbnail/9-2-1200x1200.jpg";
+      const vwBosnicThumbnail = "assets/partners/vwbosnic/Thumbnail/1-11.jpg";
+      const tomicVideoPoster = "assets/video-posters/TomicVinery_Promo_30Y_16x9_30fps_FHD_TL1_web.jpg";
+      const travelCroatiaReels = [
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel10_2.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel1_2.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel2_2.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel3_2.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel4_1.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel5_1.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel6_1.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel7_1.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel8_1.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel9_1.mp4",
+      ];
+      const ambassadorVideos = [
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Pick%20One.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_Ambasador_Pijati.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_Ambasador_Pasta.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Cigara.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Brunch%20in%20Bar%20Split.mp4",
+        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/BarSplit_WinterAnnouncement.mp4",
+      ];
       const revitaVideos = [
         "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_January2026_UHD_24fps_9x16_Reel9_TL1.mp4",
         "assets/partners/Revita%20Clinic/optimized/videos/HotelAleksander_December_9x16_FHD_24fps_Reel7_TL1.mp4",
@@ -1596,6 +1696,24 @@
         orientation,
         column,
         row,
+      }));
+      const ambassadorPhotos = [
+        ["2G6A9294.webp", "vertical", "1 / span 3", "1 / span 5"],
+        ["2G6A9356.webp", "vertical", "4 / span 3", "1 / span 5"],
+        ["2G6A9431.webp", "vertical", "7 / span 3", "1 / span 5"],
+        ["2G6A9446.webp", "vertical", "10 / span 3", "1 / span 5"],
+        ["2G6A9464.webp", "vertical", "1 / span 3", "6 / span 5"],
+        ["2G6A9664.webp", "vertical", "4 / span 3", "6 / span 5"],
+        ["2G6A9702.webp", "vertical", "7 / span 3", "6 / span 5"],
+        ["2G6A9721.webp", "vertical", "10 / span 3", "6 / span 5"],
+        ["2G6A9727.webp", "vertical", "1 / span 3", "11 / span 5"],
+      ].map(([file, orientation, column, row]) => ({
+        type: "image",
+        src: `assets/partners/hotelambasador/Fotografije/${file}`,
+        orientation,
+        column,
+        row,
+        expandable: true,
       }));
       const splxaiPhotos = [
         ["splxai-photo-01.jpg", "vertical", "1 / span 4", "1 / span 6"],
@@ -1717,7 +1835,7 @@
         };
       }
 
-      function partnerProject({ slug, title, client, startYear, services, industry, format = "Partnerska suradnja", summary, hero, social, photos, bts, horizontal, ai }) {
+      function partnerProject({ slug, title, client, startYear, services, industry, format = "Partnerska suradnja", summary, hero, social, socialClass, photos, bts, horizontal, ai }) {
         return {
           kind: "partner",
           slug,
@@ -1730,6 +1848,7 @@
           summary,
           hero,
           social: social || verticalContent(slug),
+          socialClass,
           horizontal,
           ai,
           photos: photos || photoContent(slug),
@@ -1768,10 +1887,12 @@
               contain: true,
               featured: true,
             },
+            ...travelCroatiaReels.map((src) => ({ type: "video", src, poster: false, orientation: "vertical" })),
           ],
-          socialClass: "centered-video-strip",
+          socialClass: "hero-reel-video-grid",
           horizontal: [],
           photos: [],
+          bts: [],
         }),
         highlightProject({
           slug: "splxai",
@@ -1797,12 +1918,12 @@
           industry: "Vinarstvo / Ugostiteljstvo",
           summary: "Promotivni film o vinariji Tomić, kreiran kroz priču o tradiciji, ljudima i karakteru brenda.",
           heroSrc: highlightVideos.tomicWinary,
-          posterSrc: "assets/partners/tomic%20winery/optimized/tomic-winery-poster.jpg",
+          posterSrc: tomicVideoPoster,
           social: [
             {
               type: "video",
               src: highlightVideos.tomicWinary,
-              poster: "assets/partners/tomic%20winery/optimized/tomic-winery-poster.jpg",
+              poster: tomicVideoPoster,
               orientation: "horizontal",
               contain: true,
               featured: true,
@@ -1849,7 +1970,7 @@
             },
             { type: "video", src: "assets/partners/tdc/optimized/videos/TDC_Documentary_25fps_9x16_web.mp4", orientation: "vertical", featured: true },
           ],
-          socialClass: "mixed-video-stack",
+          socialClass: "paired-video-row",
           horizontal: [],
           photos: [],
           bts: tdcBts,
@@ -1874,10 +1995,16 @@
           title: "FORTE SOLAR",
           client: "FORTE SOLAR",
           startYear: "2025",
-          services: ["Video produkcija", "Foto sadržaj", "Social cutdowni", "BTS"],
+          services: ["Video produkcija", "TV reklama", "Social cutdowni", "BTS"],
           industry: "Obnovljivi izvori energije",
           summary: "Vodeći graditelj solarnih elektrana.",
-          hero: { type: "video", src: forteVideo, orientation: "horizontal", alt: "Forte Solar hero video" },
+          hero: { type: "image", src: forteSolarThumbnail, orientation: "square", alt: "Forte Solar thumbnail" },
+          social: [
+            { type: "video", src: forteVideo, poster: "assets/video-posters/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.jpg", orientation: "horizontal", contain: true },
+            { type: "video", src: highlightVideos.forteSolarTvc2, poster: "assets/video-posters/ForteSolar_TVC_01_UHD_16x9_30fps_TL1_web.jpg", orientation: "horizontal", contain: true },
+          ],
+          socialClass: "horizontal-video-strip",
+          photos: [],
           bts: forteSolarBts,
         }),
         partnerProject({
@@ -1915,7 +2042,7 @@
           services: ["Produkcija", "Postprodukcija", "Kampanjski vizuali"],
           industry: "Automotive",
           summary: "Ovlašteni Volkswagen i Škoda servis s više od tri desetljeća iskustva.",
-          hero: { type: "video", src: "assets/videos/project-04.mp4", orientation: "horizontal", alt: "Volkswagen Bosnić hero video" },
+          hero: { type: "image", src: vwBosnicThumbnail, orientation: "horizontal", alt: "Volkswagen Bosnić thumbnail" },
         }),
         partnerProject({
           slug: "hotel-ambasador",
@@ -1925,7 +2052,10 @@
           services: ["Hospitality vizuali", "Foto sadržaj", "Video produkcija"],
           industry: "Hoteljerstvo",
           summary: "Hotel s 5 zvjezdica s pogledom na Jadran, mediteranskim restoranom i spa centrom.",
-          hero: { type: "video", src: "assets/videos/project-02.mp4", orientation: "horizontal", alt: "Hotel Ambasador hero video" },
+          hero: { type: "image", src: "assets/partners/hotelambasador/Fotografije/2G6A9294.webp", orientation: "vertical", alt: "Hotel Ambasador fotografija" },
+          social: ambassadorVideos.map((src) => ({ type: "video", src, poster: false, orientation: "vertical" })),
+          photos: ambassadorPhotos,
+          bts: [],
         }),
       ];
 
@@ -1960,7 +2090,7 @@
         if (item.type === "video") {
           const source = item.src || item.video || project.hero.src;
           const orientation = item.orientation || "horizontal";
-          const poster = item.poster || videoPosterFromSrc(source);
+          const poster = item.poster === false ? "" : item.poster || videoPosterFromSrc(source);
           const posterAttr = poster ? ` poster="${poster}"` : "";
           const fullscreenButton = allowFullscreenVideo
             ? `
@@ -2007,7 +2137,7 @@
           return `<img src="${item.src}" alt="${item.alt || project.title}" />`;
         }
 
-        const poster = item.poster || videoPosterFromSrc(item.src);
+        const poster = item.poster === false ? "" : item.poster || videoPosterFromSrc(item.src);
         const posterAttr = poster ? ` poster="${poster}"` : "";
         return `<video src="${item.src}"${posterAttr} controls playsinline preload="metadata"></video>`;
       }
