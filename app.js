@@ -392,7 +392,7 @@ function updateWheel() {
 
     if (index === activeProject) {
       card.classList.add("center");
-      video.controls = true;
+      video.controls = !isTouchLayout();
       return;
     }
 

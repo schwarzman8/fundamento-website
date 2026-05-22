@@ -180,12 +180,12 @@ function projectUrl(project) {
   return `project.html?project=${project.slug}`;
 }
 
-function playVideoWithSound(video) {
+function playMutedVideo(video) {
   if (!video) return Promise.resolve();
-  video.muted = false;
-  video.defaultMuted = false;
-  video.volume = 1;
-  video.removeAttribute("muted");
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = 0;
+  video.setAttribute("muted", "");
   return video.play();
 }
 
@@ -372,10 +372,14 @@ function setupProjectVideos() {
     const video = card.querySelector("video");
     if (!video) return;
 
-    card.addEventListener("mouseenter", () => playVideoWithSound(video).catch(() => {}));
+    card.addEventListener("mouseenter", () => playMutedVideo(video).catch(() => {}));
     card.addEventListener("mouseleave", () => {
       video.pause();
       video.currentTime = 0;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.setAttribute("muted", "");
     });
   });
 }
