@@ -84,6 +84,7 @@ const partnerProjects = [
     summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
   },
   {
+    slug: "vw-bosnic",
     title: "VOLKSWAGEN BOSNIĆ",
     type: "Automotive",
     year: "2024",

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.fundamen.to/sitemap.xml
+Sitemap: https://fundamen.to/sitemap.xml
