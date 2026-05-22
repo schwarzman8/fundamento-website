@@ -229,6 +229,12 @@ function projectUrl(project) {
   return `project.html?project=${project.slug || projectSlug(project.title)}`;
 }
 
+function videoPosterFromSrc(src) {
+  const fileName = decodeURIComponent(String(src || "").split("/").pop().split("?")[0]);
+  if (!/\.mp4$/i.test(fileName)) return "";
+  return `assets/video-posters/${fileName.replace(/\.mp4$/i, ".jpg")}`;
+}
+
 function hasProjectReturnScroll() {
   return (
     localStorage.getItem(PROJECT_RETURN_PENDING_KEY) === "true" &&
@@ -418,9 +424,10 @@ function updateWheel() {
 function renderBento() {
   const cards = partnerProjects.map((project, index) => {
     const useVideo = index % 2 === 0 && !project.preferImage;
+    const poster = project.poster || videoPosterFromSrc(project.video);
     const media =
       useVideo
-        ? `<video src="${project.video}" muted loop playsinline preload="metadata"></video>`
+        ? `<video src="${project.video}"${poster ? ` poster="${poster}"` : ""} muted loop playsinline preload="metadata"></video>`
         : `<img src="${project.image}" alt="${project.title}" />`;
 
     const expandControl = project.reserved

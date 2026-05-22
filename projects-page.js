@@ -180,6 +180,12 @@ function projectUrl(project) {
   return `project.html?project=${project.slug}`;
 }
 
+function videoPosterFromSrc(src) {
+  const fileName = decodeURIComponent(String(src || "").split("/").pop().split("?")[0]);
+  if (!/\.mp4$/i.test(fileName)) return "";
+  return `assets/video-posters/${fileName.replace(/\.mp4$/i, ".jpg")}`;
+}
+
 function playMutedVideo(video) {
   if (!video) return Promise.resolve();
   video.muted = true;
@@ -253,7 +259,8 @@ function renderProjectRow(project, index, kind) {
   const url = projectUrl(project);
   const side = index % 2 === 0 ? "left" : "right";
   const hasVideo = (index % 2 === 0 || kind === "highlight") && !project.preferImage;
-  const poster = project.poster ? ` poster="${project.poster}"` : "";
+  const posterSource = project.poster || videoPosterFromSrc(project.video);
+  const poster = posterSource ? ` poster="${posterSource}"` : "";
   const media =
     hasVideo
       ? `<video src="${project.video}"${poster} muted loop playsinline preload="metadata"></video>`

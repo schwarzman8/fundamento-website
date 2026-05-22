@@ -737,6 +737,26 @@
         aspect-ratio: 16 / 9;
       }
 
+      .mixed-video-stack {
+        display: grid;
+        justify-items: center;
+        gap: clamp(18px, 2vw, 32px);
+      }
+
+      .mixed-video-stack .media-item {
+        width: min(100%, 960px);
+      }
+
+      .mixed-video-stack .media-item.is-horizontal,
+      .mixed-video-stack .media-item.is-wide {
+        aspect-ratio: 16 / 9;
+      }
+
+      .mixed-video-stack .media-item.is-vertical {
+        width: min(100%, 430px);
+        aspect-ratio: 9 / 16;
+      }
+
       .media-shell.is-contain video {
         object-fit: contain;
         background: var(--black);
@@ -989,6 +1009,35 @@
         .site-footer address {
           margin-right: auto;
           margin-left: auto;
+        }
+
+        .site-footer {
+          text-align: center;
+        }
+
+        .footer-shell,
+        .footer-grid,
+        .footer-company,
+        .footer-contact,
+        .footer-nav {
+          justify-items: center;
+        }
+
+        .footer-grid {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: clamp(34px, 9vw, 54px);
+        }
+
+        .footer-socials {
+          justify-content: center;
+        }
+
+        .footer-nav {
+          width: 100%;
+          justify-self: center;
+          text-align: center;
         }
       }
 
@@ -1418,10 +1467,6 @@
           </div>
 
           <nav class="footer-nav" aria-label="Footer navigacija">
-            <a href="projects.html">Radovi</a>
-            <a href="partners.html">Partnerski brendovi</a>
-            <a href="about.html">O nama</a>
-            <a href="index.html#contact">Započni projekt</a>
             <a href="#privacy" data-privacy-open>Politika privatnosti</a>
           </nav>
         </div>
@@ -1452,13 +1497,13 @@
       const forteVideo = highlightVideos.forteSolarTvc1;
       const fallbackVideos = ["assets/videos/project-02.mp4", "assets/videos/project-03.mp4", "assets/videos/project-04.mp4"];
       const revitaVideos = [
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_January2026_UHD_24fps_9x16_Reel9_TL1.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/HotelAleksander_December_9x16_FHD_24fps_Reel7_TL1.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_10_TL1.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_3_TL1.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_6_TL1_2.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_7_TL1_3.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/REVITACLINIC_March26_9x16_UHD_24fps_REEL_8_TL1_2.mp4",
+        "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_January2026_UHD_24fps_9x16_Reel9_TL1.mp4",
+        "assets/partners/Revita%20Clinic/optimized/videos/HotelAleksander_December_9x16_FHD_24fps_Reel7_TL1.mp4",
+        "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_March26_9x16_UHD_24fps_REEL_10_TL1.mp4",
+        "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_March26_9x16_UHD_24fps_REEL_3_TL1.mp4",
+        "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_March26_9x16_UHD_24fps_REEL_6_TL1_2.mp4",
+        "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_March26_9x16_UHD_24fps_REEL_7_TL1_3.mp4",
+        "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_March26_9x16_UHD_24fps_REEL_8_TL1_2.mp4",
       ];
       const revitaPhotos = [
         ["revita-photo-17.jpg", "wide", "1 / span 8", "1 / span 4"],
@@ -1508,15 +1553,15 @@
         row,
       }));
       const centralVideos = [
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/CENTRALCAFE_April_9x16_UHD_24fps_Reel1_TL1.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/CENTRALCAFE_April_9x16_UHD_24fps_Reel2_TL1_2.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/CENTRALCAFE_April_9x16_UHD_24fps_SocialMediaAD_TL1_3.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/CENTRALCAFE_January_UHD_9x16_24fps_Reel2_TL1_1.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/CENTRALCAFE_March_9x16_UHD_24fps_Reel4_TL1.mp4",
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/CentralCafe_9x16_FHD_24fps_Reel7_TL1.mp4",
+        "assets/partners/Central%20Cafe/optimized/videos/CENTRALCAFE_April_9x16_UHD_24fps_Reel1_TL1.mp4",
+        "assets/partners/Central%20Cafe/optimized/videos/CENTRALCAFE_April_9x16_UHD_24fps_Reel2_TL1_2.mp4",
+        "assets/partners/Central%20Cafe/optimized/videos/CENTRALCAFE_April_9x16_UHD_24fps_SocialMediaAD_TL1_3.mp4",
+        "assets/partners/Central%20Cafe/optimized/videos/CENTRALCAFE_January_UHD_9x16_24fps_Reel2_TL1_1.mp4",
+        "assets/partners/Central%20Cafe/optimized/videos/CENTRALCAFE_March_9x16_UHD_24fps_Reel4_TL1.mp4",
+        "assets/partners/Central%20Cafe/optimized/videos/CentralCafe_9x16_FHD_24fps_Reel7_TL1.mp4",
       ];
       const centralAiVideo =
-        "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/CENTRALCAFE_Frebruary_24fps_16x9_UHD_Doc_TL2_4.mp4";
+        "assets/partners/Central%20Cafe/optimized/videos/CENTRALCAFE_Frebruary_24fps_16x9_UHD_Doc_TL2_4.mp4";
       const centralPhotos = [
         ["central-photo-08.jpg", "wide", "1 / span 8", "1 / span 4"],
         ["central-photo-02.jpg", "vertical", "9 / span 2", "1 / span 4"],
@@ -1711,9 +1756,22 @@
           year: "2025",
           type: "Destination video",
           industry: "Tourism",
-          summary: "Destinacijski hero video s vertikalnim cutdownima, fotografijama atmosfere i BTS materijalima koji prate ritam snimanja.",
+          summary: "Destinacijski hero video s vertikalnim cutdownima i BTS materijalima koji prate ritam snimanja.",
           heroSrc: highlightVideos.travelCroatia,
           posterSrc: "assets/projects/posters/travel-croatia-hero.jpg",
+          social: [
+            {
+              type: "video",
+              src: highlightVideos.travelCroatia,
+              poster: "assets/projects/posters/travel-croatia-hero.jpg",
+              orientation: "horizontal",
+              contain: true,
+              featured: true,
+            },
+          ],
+          socialClass: "centered-video-strip",
+          horizontal: [],
+          photos: [],
         }),
         highlightProject({
           slug: "splxai",
@@ -1740,6 +1798,19 @@
           summary: "16:9 hero video postavljen oko dojma prostora, proizvoda i ritma brenda, bez dodatnog BTS sloja.",
           heroSrc: highlightVideos.tomicWinary,
           posterSrc: "assets/partners/tomic%20winery/optimized/tomic-winery-poster.jpg",
+          social: [
+            {
+              type: "video",
+              src: highlightVideos.tomicWinary,
+              poster: "assets/partners/tomic%20winery/optimized/tomic-winery-poster.jpg",
+              orientation: "horizontal",
+              contain: true,
+              featured: true,
+            },
+          ],
+          socialClass: "centered-video-strip",
+          horizontal: [],
+          photos: [],
           bts: [],
         }),
         highlightProject({
@@ -1764,12 +1835,23 @@
           year: "2024",
           type: "Documentary video",
           industry: "Tourism / Diving",
-          summary: "Hero video, horizontalni materijali i BTS fotografije za diving iskustvo i vizualni doživljaj lokacije.",
+          summary: "Hero video, vertikalni format i BTS materijali za diving iskustvo i vizualni doživljaj lokacije.",
           heroSrc: highlightVideos.trogirDiving,
           posterSrc: "assets/projects/posters/trogir-diving-center-hero.jpg",
-          social: [{ type: "video", src: "assets/partners/tdc/optimized/videos/TDC_Documentary_25fps_9x16_web.mp4", orientation: "vertical", featured: true }],
-          horizontal: [{ type: "video", src: highlightVideos.trogirDiving, orientation: "horizontal", contain: true, featured: true }],
-          horizontalClass: "centered-video-strip",
+          social: [
+            {
+              type: "video",
+              src: highlightVideos.trogirDiving,
+              poster: "assets/projects/posters/trogir-diving-center-hero.jpg",
+              orientation: "horizontal",
+              contain: true,
+              featured: true,
+            },
+            { type: "video", src: "assets/partners/tdc/optimized/videos/TDC_Documentary_25fps_9x16_web.mp4", orientation: "vertical", featured: true },
+          ],
+          socialClass: "mixed-video-stack",
+          horizontal: [],
+          photos: [],
           bts: tdcBts,
         }),
         highlightProject({
@@ -1852,6 +1934,12 @@
       const returnUrl = localStorage.getItem("fundamento.projectReturnUrl");
       const returnScroll = localStorage.getItem("fundamento.projectReturnScroll");
 
+      function videoPosterFromSrc(src) {
+        const fileName = decodeURIComponent(String(src || "").split("/").pop().split("?")[0]);
+        if (!/\.mp4$/i.test(fileName)) return "";
+        return `assets/video-posters/${fileName.replace(/\.mp4$/i, ".jpg")}`;
+      }
+
       function mediaMarkup(item, projectSlug, index, options = {}) {
         const label = item.caption ? `<p class="media-caption">${item.caption}</p>` : "";
         const className = [
@@ -1872,6 +1960,8 @@
         if (item.type === "video") {
           const source = item.src || item.video || project.hero.src;
           const orientation = item.orientation || "horizontal";
+          const poster = item.poster || videoPosterFromSrc(source);
+          const posterAttr = poster ? ` poster="${poster}"` : "";
           const fullscreenButton = allowFullscreenVideo
             ? `
               <button class="media-fullscreen" type="button" data-fullscreen-video-src="${source}" data-video-orientation="${orientation}" aria-label="Otvori video preko cijelog ekrana">
@@ -1886,7 +1976,7 @@
             : "";
           return `
             <figure class="${className}" style="${style}">
-              <video src="${source}" muted loop playsinline preload="metadata"></video>
+              <video src="${source}"${posterAttr} muted loop playsinline preload="metadata"></video>
               <button class="media-play" type="button" aria-label="Pokreni video">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M8 5v14l11-7z" />
@@ -1917,7 +2007,9 @@
           return `<img src="${item.src}" alt="${item.alt || project.title}" />`;
         }
 
-        return `<video src="${item.src}" controls playsinline preload="metadata"></video>`;
+        const poster = item.poster || videoPosterFromSrc(item.src);
+        const posterAttr = poster ? ` poster="${poster}"` : "";
+        return `<video src="${item.src}"${posterAttr} controls playsinline preload="metadata"></video>`;
       }
 
       function renderOptionalSection(sectionId, containerId, items, className = "") {
@@ -1931,9 +2023,8 @@
           return;
         }
 
-        const hasSingleVideo = media.length === 1 && media[0]?.type === "video";
         section.hidden = false;
-        container.className = hasSingleVideo ? "centered-video-strip" : className || container.className;
+        container.className = className || container.className;
         container.dataset.count = String(media.length);
         container.dataset.remainder = String(media.length % 4);
         container.innerHTML = media
