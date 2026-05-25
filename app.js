@@ -106,7 +106,7 @@ const partnerProjects = [
 
 const clientLogos = [
   { name: "Agencija 404", src: "assets/clients/Agencija404.svg", visualScale: 1.22, heightBleed: "10px" },
-  { name: "Europska komisija", src: "assets/clients/EK_HRV.png", visualScale: 1.04 },
+  //{ name: "Europska komisija", src: "assets/clients/EK_HRV.png", visualScale: 1.04 },
   { name: "Central Cafe", src: "assets/clients/CentralCafe.png", visualScale: 0.92 },
   { name: "Fox Fishing", src: "assets/clients/FoxFishing.png", visualScale: 0.7 },
   { name: "Hotel Aleksander", src: "assets/clients/hotel-aleksander.png", visualScale: 1.58, heightBleed: "18px" },
@@ -125,7 +125,7 @@ const clientLogos = [
   { name: "Travel Croatia", src: "assets/clients/travelCro.png", visualScale: 0.94 },
   { name: "Trogir Diving Center", src: "assets/clients/TDC.png", visualScale: 1.52, heightBleed: "30px" },
   { name: "FESB", src: "assets/clients/fesb.png", visualScale: 0.96 },
-  { name: "UHY", src: "assets/clients/uhy.svg", visualScale: 1.06 },
+  //{ name: "UHY", src: "assets/clients/uhy.svg", visualScale: 1.06 },
   { name: "YPO", src: "assets/clients/Clients_og/YPO_logo-white.png", visualScale: 1.08, heightBleed: "6px" },
   { name: "STC", src: "assets/clients/Clients_og/stc-white.png", visualScale: 1.16, heightBleed: "10px" },
   { name: "Hedera", src: "assets/clients/Clients_og/hedera.webp", visualScale: 1.18, heightBleed: "8px", upscale: 1.48 },
