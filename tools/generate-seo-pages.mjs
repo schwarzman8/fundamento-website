@@ -70,6 +70,8 @@ function footer() {
           <nav class="footer-nav" aria-label="Footer navigacija">
             <a href="/#contact">Kontakt</a>
             <a href="/projects.html">Radovi</a>
+            <a href="/#privacy">Politika privatnosti</a>
+            <button class="footer-cookie-button" type="button" data-cookie-settings-open>Kolačići</button>
           </nav>
         </div>
         <div class="footer-bottom">

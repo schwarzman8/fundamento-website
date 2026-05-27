@@ -3,6 +3,55 @@
   const CONSENT_COOKIE = "fundamento_cookie_consent";
   const CONSENT_VERSION = 1;
   const ANALYTICS_SCRIPTS = ["analytics-config.js", "analytics.js", "seo-tracking.js"];
+  const CONSENT_REGION_TIMEZONES = new Set([
+    "Africa/Ceuta",
+    "America/Cayenne",
+    "America/Guadeloupe",
+    "America/Marigot",
+    "America/Martinique",
+    "Atlantic/Azores",
+    "Atlantic/Canary",
+    "Atlantic/Madeira",
+    "Atlantic/Reykjavik",
+    "Asia/Famagusta",
+    "Asia/Nicosia",
+    "Europe/Amsterdam",
+    "Europe/Athens",
+    "Europe/Berlin",
+    "Europe/Bratislava",
+    "Europe/Brussels",
+    "Europe/Bucharest",
+    "Europe/Budapest",
+    "Europe/Copenhagen",
+    "Europe/Dublin",
+    "Europe/Guernsey",
+    "Europe/Helsinki",
+    "Europe/Isle_of_Man",
+    "Europe/Jersey",
+    "Europe/Lisbon",
+    "Europe/Ljubljana",
+    "Europe/London",
+    "Europe/Luxembourg",
+    "Europe/Madrid",
+    "Europe/Malta",
+    "Europe/Mariehamn",
+    "Europe/Oslo",
+    "Europe/Paris",
+    "Europe/Prague",
+    "Europe/Riga",
+    "Europe/Rome",
+    "Europe/Sofia",
+    "Europe/Stockholm",
+    "Europe/Tallinn",
+    "Europe/Vaduz",
+    "Europe/Vienna",
+    "Europe/Vilnius",
+    "Europe/Warsaw",
+    "Europe/Zagreb",
+    "Europe/Zurich",
+    "Indian/Mayotte",
+    "Indian/Reunion",
+  ]);
 
   const text = {
     title: "Postavke kolačića",
@@ -28,12 +77,27 @@
     document.cookie = `${name}=${encodeURIComponent(value)}; Max-Age=${maxAge}; path=/; SameSite=Lax`;
   }
 
+  function requiresRegionalConsent() {
+    if (typeof window.FUNDAMENTO_REQUIRE_COOKIE_CONSENT === "boolean") {
+      return window.FUNDAMENTO_REQUIRE_COOKIE_CONSENT;
+    }
+
+    try {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (!timezone) return true;
+      return CONSENT_REGION_TIMEZONES.has(timezone);
+    } catch (_) {
+      return true;
+    }
+  }
+
   function readConsent() {
     try {
-      const stored =
-        typeof window.localStorage !== "undefined" ? window.localStorage.getItem(CONSENT_KEY) : readCookie(CONSENT_COOKIE);
+      const localStored = typeof window.localStorage !== "undefined" ? window.localStorage.getItem(CONSENT_KEY) : null;
+      const stored = localStored || readCookie(CONSENT_COOKIE);
       const parsed = JSON.parse(stored ? decodeURIComponent(stored) : "null");
       if (!parsed || parsed.version !== CONSENT_VERSION || typeof parsed.analytics !== "boolean") return null;
+      if (parsed.regionAuto === true && requiresRegionalConsent()) return null;
       return parsed;
     } catch (_) {
       return null;
@@ -45,6 +109,7 @@
       version: CONSENT_VERSION,
       necessary: true,
       analytics: Boolean(consent.analytics),
+      regionAuto: Boolean(consent.regionAuto),
       updatedAt: new Date().toISOString(),
     };
 
@@ -56,7 +121,6 @@
       writeCookie(CONSENT_COOKIE, serialized);
     } catch (_) {
       writeCookie(CONSENT_COOKIE, JSON.stringify(saved));
-      return saved;
     }
 
     window.dispatchEvent(new CustomEvent("fundamento:consentchange", { detail: saved }));
@@ -130,11 +194,11 @@
   function closePanel() {
     document.querySelector("[data-cookie-consent]")?.remove();
     document.body.dataset.cookieConsentOpen = "false";
-    renderSettingsButton();
+    updateFooterSettingsLinks();
   }
 
-  function saveAndClose(analytics) {
-    writeConsent({ analytics });
+  function saveAndClose(analytics, options = {}) {
+    writeConsent({ analytics, regionAuto: Boolean(options.regionAuto) });
     if (!analytics) {
       setAnalyticsDisabled(true);
       clearAnalyticsCookies();
@@ -216,40 +280,65 @@
     panel.querySelector("[data-cookie-reject]")?.focus({ preventScroll: true });
   }
 
-  function renderSettingsButton() {
-    if (!readConsent()) return;
-    if (document.querySelector("[data-cookie-settings-open]")) return;
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "cookie-settings-button";
-    button.dataset.cookieSettingsOpen = "true";
-    button.textContent = "Kolačići";
-    button.addEventListener("click", () => {
-      document.querySelector("[data-cookie-consent]")?.remove();
-      renderPanel({ settingsOpen: true });
+  function updateFooterSettingsLinks() {
+    document.querySelectorAll("[data-cookie-settings-open]").forEach((button) => {
+      button.hidden = false;
+      if (button.dataset.cookieSettingsBound === "true") return;
+      button.dataset.cookieSettingsBound = "true";
+      button.addEventListener("click", () => {
+        document.querySelector("[data-cookie-consent]")?.remove();
+        renderPanel({ settingsOpen: true });
+      });
     });
-    document.body.append(button);
+  }
+
+  function bindFooterSettingsLinks() {
+    if (!document.querySelector("[data-cookie-settings-open]")) {
+      document.querySelectorAll(".footer-nav").forEach((nav) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "footer-cookie-button";
+        button.dataset.cookieSettingsOpen = "true";
+        button.hidden = true;
+        button.textContent = "Kolačići";
+        nav.append(button);
+      });
+    }
+
+    updateFooterSettingsLinks();
+  }
+
+  function openSettings() {
+    document.querySelector("[data-cookie-consent]")?.remove();
+    renderPanel({ settingsOpen: true });
   }
 
   window.FundamentoConsent = {
     key: CONSENT_KEY,
     get: readConsent,
     hasAnalyticsConsent,
-    open: () => renderPanel({ settingsOpen: true }),
+    open: openSettings,
     acceptAll: () => saveAndClose(true),
     rejectAll: () => saveAndClose(false),
     enableAnalytics,
+    requiresRegionalConsent,
   };
 
   function init() {
+    bindFooterSettingsLinks();
+
     if (readConsent()) {
       if (!hasAnalyticsConsent()) {
         setAnalyticsDisabled(true);
         clearAnalyticsCookies();
       }
-      renderSettingsButton();
+      updateFooterSettingsLinks();
       enableAnalytics().catch(() => {});
+      return;
+    }
+
+    if (!requiresRegionalConsent()) {
+      saveAndClose(true, { regionAuto: true });
       return;
     }
 

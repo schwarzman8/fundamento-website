@@ -49,7 +49,10 @@ const privacyMarkup = `
       </p>
 
       <h3>4. Kolačići (Cookies)</h3>
-      <p>Web stranica koristi samo nužne kolačiće bez privole, a analitičke kolačiće isključivo nakon vaše privole.</p>
+      <p>
+        Web stranica koristi samo nužne kolačiće bez privole. Za posjetitelje iz EU/EEA/UK/CH regije analitički
+        kolačići uključuju se tek nakon vaše privole.
+      </p>
       <p>
         Nužni kolačići: Neophodni za rad stranice i spremanje vaših postavki privole. Ne mogu se isključiti
         putem naše stranice jer su potrebni za osnovnu funkcionalnost.<br />
@@ -57,8 +60,8 @@ const privacyMarkup = `
         tek nakon vaše privole.
       </p>
       <p>
-        Privolu možete prihvatiti, odbiti ili naknadno promijeniti putem gumba "Kolačići" na stranici. Postavke
-        kolačića možete dodatno kontrolirati i u vašem web pregledniku.
+        Za posjete izvan te regije analitika se može uključiti automatski. Postavke možete naknadno promijeniti
+        putem linka "Kolačići" u footeru ili dodatno kontrolirati u vašem web pregledniku.
       </p>
 
       <h3>5. Razdoblje pohrane</h3>

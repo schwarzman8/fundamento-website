@@ -652,7 +652,9 @@ function renderBento() {
         projectBento.querySelectorAll(".bento-card:not(.is-expanded)").forEach((item) => {
           item.classList.add("is-minimized");
         });
-        playVideoWithSound(video).catch(() => {});
+        if (!isTouchLayout()) {
+          playVideoWithSound(video).catch(() => {});
+        }
       });
       centerExpandedCard(card);
     };
