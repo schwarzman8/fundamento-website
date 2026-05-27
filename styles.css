@@ -1895,9 +1895,7 @@ body[data-hero-ready="true"] .hero-media-wrap:hover .hero-video {
   position: absolute;
   z-index: 1;
   inset: 0;
-  background:
-    linear-gradient(180deg, transparent 24%, rgba(3, 3, 3, 0.86)),
-    radial-gradient(circle at 30% 20%, rgba(91, 58, 168, 0.18), transparent 24rem);
+  background: linear-gradient(180deg, rgba(3, 3, 3, 0.08) 8%, rgba(3, 3, 3, 0.34) 50%, rgba(3, 3, 3, 0.86) 100%);
   content: "";
 }
 
@@ -7719,9 +7717,7 @@ body[data-hero-ready="true"] .hero-section:has(.hero-media-wrap:hover) .hero-cop
   z-index: 1 !important;
   inset: 0 !important;
   display: block !important;
-  background:
-    linear-gradient(180deg, rgba(3, 3, 3, 0.06) 12%, rgba(3, 3, 3, 0.28) 48%, rgba(3, 3, 3, 0.84) 100%),
-    radial-gradient(circle at 30% 18%, rgba(91, 58, 168, 0.16), transparent 24rem) !important;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 0.08) 10%, rgba(3, 3, 3, 0.34) 52%, rgba(3, 3, 3, 0.86) 100%) !important;
   content: "" !important;
   pointer-events: none !important;
 }
@@ -8221,7 +8217,7 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
   .home-page-body .project-bento:not(.has-expanded) .bento-card,
   .home-page-body .project-bento.has-expanded .bento-card,
   .home-page-body .project-bento.has-expanded .bento-card.is-minimized {
-    flex: none !important;
+    flex: auto !important;
     grid-column: auto !important;
     grid-row: auto !important;
     min-height: 104px !important;
@@ -8232,16 +8228,15 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
     opacity: 1 !important;
     transform: translateZ(0) !important;
     transition:
-      min-height 860ms var(--ease-smooth),
-      border-radius 680ms var(--ease-smooth),
-      box-shadow 680ms var(--ease-smooth),
-      opacity 320ms ease,
+      flex-grow 860ms var(--ease-smooth),
+      border-color 320ms ease,
       transform 860ms var(--ease-smooth) !important;
-    will-change: min-height, transform, opacity !important;
+    will-change: transform !important;
   }
 
+  .home-page-body .project-bento .bento-card.is-expanded,
   .home-page-body .project-bento.has-expanded .bento-card.is-expanded {
-    min-height: clamp(330px, 62svh, 500px) !important;
+    min-height: clamp(330px, 62vh, 500px) !important;
     box-shadow: 0 24px 70px rgba(3, 3, 3, 0.2) !important;
   }
 
@@ -8256,6 +8251,8 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
       transform 900ms var(--ease-smooth) !important;
   }
 
+  .home-page-body .project-bento .bento-card.is-expanded img,
+  .home-page-body .project-bento .bento-card.is-expanded video,
   .home-page-body .project-bento.has-expanded .bento-card.is-expanded img,
   .home-page-body .project-bento.has-expanded .bento-card.is-expanded video {
     opacity: 0.9 !important;
@@ -8268,9 +8265,7 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
     z-index: 1 !important;
     inset: 0 !important;
     display: block !important;
-    background:
-      linear-gradient(180deg, rgba(3, 3, 3, 0.04) 10%, rgba(3, 3, 3, 0.32) 52%, rgba(3, 3, 3, 0.86) 100%),
-      radial-gradient(circle at 30% 18%, rgba(91, 58, 168, 0.16), transparent 24rem) !important;
+    background: linear-gradient(180deg, rgba(3, 3, 3, 0.08) 10%, rgba(3, 3, 3, 0.34) 52%, rgba(3, 3, 3, 0.86) 100%) !important;
     content: "" !important;
     pointer-events: none !important;
   }
@@ -8282,9 +8277,6 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
   .home-page-body .project-bento .bento-content {
     padding: 22px !important;
     transform: none !important;
-    transition:
-      padding 520ms var(--ease-smooth),
-      transform 520ms var(--ease-smooth) !important;
   }
 
   .home-page-body .project-bento .bento-content h3,
@@ -8310,37 +8302,34 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
   .home-page-body .project-bento .bento-content .kicker,
   .home-page-body .project-bento .bento-content p:not(.kicker) {
     display: block !important;
-    max-height: 0 !important;
-    margin: 0 !important;
-    opacity: 0 !important;
-    overflow: hidden !important;
-    transform: translateY(12px) !important;
+    opacity: 1 !important;
+    transform: none !important;
     transition:
       opacity 90ms ease,
-      transform 120ms ease,
-      max-height 520ms var(--ease-smooth),
-      margin 520ms var(--ease-smooth) !important;
+      transform 120ms ease !important;
   }
 
-  .home-page-body .project-bento.has-expanded .bento-card.is-expanded .bento-content .kicker,
+  .home-page-body .project-bento .bento-card:not(.is-expanded) .bento-content .kicker,
+  .home-page-body .project-bento .bento-card:not(.is-expanded) .bento-content p:not(.kicker) {
+    max-height: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .home-page-body .project-bento .bento-card.is-expanded .bento-content .kicker,
+  .home-page-body .project-bento.has-expanded .bento-card.is-expanded .bento-content .kicker {
+    max-height: 220px !important;
+    margin-bottom: 10px !important;
+    overflow: visible !important;
+  }
+
+  .home-page-body .project-bento .bento-card.is-expanded .bento-content p:not(.kicker),
   .home-page-body .project-bento.has-expanded .bento-card.is-expanded .bento-content p:not(.kicker) {
     max-height: 220px !important;
-    opacity: 1 !important;
-    overflow: visible !important;
-    transform: translateY(0) !important;
-    transition:
-      opacity 240ms ease 140ms,
-      transform 520ms var(--ease-smooth) 120ms,
-      max-height 520ms var(--ease-smooth),
-      margin 520ms var(--ease-smooth) !important;
-  }
-
-  .home-page-body .project-bento.has-expanded .bento-card.is-expanded .bento-content .kicker {
-    margin-bottom: 10px !important;
-  }
-
-  .home-page-body .project-bento.has-expanded .bento-card.is-expanded .bento-content p:not(.kicker) {
     margin-top: 14px !important;
+    overflow: visible !important;
   }
 }
 

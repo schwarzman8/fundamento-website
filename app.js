@@ -547,11 +547,7 @@ function renderBento() {
       const navHeight = nav?.getBoundingClientRect().height || 0;
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
       const rect = card.getBoundingClientRect();
-      const comfortableTop = navHeight + 14;
-      const comfortableBottom = viewportHeight - 14;
-      if (rect.top >= comfortableTop && rect.bottom <= comfortableBottom) return;
-
-      const visibleHeight = Math.max(300, viewportHeight - navHeight - 28);
+      const visibleHeight = Math.max(280, viewportHeight - navHeight - 28);
       const centerOffset = rect.height < visibleHeight ? (visibleHeight - rect.height) / 2 : 12;
       const targetTop = window.scrollY + rect.top - navHeight - centerOffset;
 
@@ -608,7 +604,31 @@ function renderBento() {
     });
   }
 
+  function closeMobileCards() {
+    projectBento.classList.remove("has-expanded");
+    document.body.dataset.projectExpanded = "false";
+    projectBento.querySelectorAll(".bento-card").forEach((item) => {
+      item.classList.remove("is-expanded", "is-minimized");
+      const itemVideo = item.querySelector("video");
+      if (itemVideo) {
+        itemVideo.pause();
+        itemVideo.currentTime = 0;
+      }
+    });
+  }
+
+  function openMobileCard(card) {
+    closeMobileCards();
+    card.classList.add("is-expanded");
+    centerExpandedCard(card);
+  }
+
   function closeExpanded() {
+    if (isTouchLayout()) {
+      closeMobileCards();
+      return;
+    }
+
     animateProjectLayout(() => {
       projectBento.classList.remove("has-expanded");
       document.body.dataset.projectExpanded = "false";
@@ -637,6 +657,11 @@ function renderBento() {
         return;
       }
 
+      if (isTouchLayout()) {
+        openMobileCard(card);
+        return;
+      }
+
       animateProjectLayout(() => {
         projectBento.classList.add("has-expanded");
         document.body.dataset.projectExpanded = "true";
@@ -656,7 +681,6 @@ function renderBento() {
           playVideoWithSound(video).catch(() => {});
         }
       });
-      centerExpandedCard(card);
     };
 
     card.addEventListener("click", (event) => {
