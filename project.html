@@ -2,7 +2,7 @@
 <html lang="hr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
     <title>Fundamento projekt</title>
     <meta
       name="description"
@@ -1494,7 +1494,7 @@
   </head>
   <body data-nav-scrolled="true" data-nav-tone="light">
     <header class="site-nav project-page-nav" aria-label="Glavna navigacija">
-      <a class="brand-mark" href="index.html#home" aria-label="fundamento početna">
+      <a class="brand-mark" href="index.html?home=top" aria-label="fundamento početna">
         <img class="brand-logo brand-logo-light" src="assets/brand/fundamento-logo-light.png" alt="" aria-hidden="true" />
         <img class="brand-logo brand-logo-dark" src="assets/brand/fundamento-logo-dark.png" alt="" aria-hidden="true" />
       </a>
@@ -1503,6 +1503,7 @@
         <a href="projects.html">Radovi</a>
         <a href="partners.html">Partnerski brendovi</a>
         <a href="about.html">O nama</a>
+        <a class="mobile-nav-contact" href="index.html#contact">Započni projekt</a>
       </nav>
 
       <a class="nav-cta ink-button" href="index.html#contact">
@@ -1614,7 +1615,7 @@
     <footer class="site-footer">
       <div class="footer-shell">
         <div class="footer-grid">
-          <a class="footer-logo" href="index.html#home" aria-label="fundamento početna">
+          <a class="footer-logo" href="index.html?home=top" aria-label="fundamento početna">
             <img class="brand-logo brand-logo-light" src="assets/brand/fundamento-logo-light.png" alt="" aria-hidden="true" />
           </a>
 
@@ -1699,13 +1700,16 @@
         "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_TravelCroatia_Reel9_1.mp4",
       ];
       const ambassadorVideos = [
-        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Pick%20One.mp4",
-        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_Ambasador_Pijati.mp4",
-        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_Ambasador_Pasta.mp4",
-        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Cigara.mp4",
-        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Brunch%20in%20Bar%20Split.mp4",
-        "https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/BarSplit_WinterAnnouncement.mp4",
-      ];
+        ["https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Pick%20One.mp4", "2G6A9294.webp"],
+        ["https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_Ambasador_Pijati.mp4", "2G6A9356.webp"],
+        ["https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/MovieBeam_Ambasador_Pasta.mp4", "2G6A9431.webp"],
+        ["https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Cigara.mp4", "2G6A9446.webp"],
+        ["https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/Brunch%20in%20Bar%20Split.mp4", "2G6A9464.webp"],
+        ["https://github.com/schwarzman8/fundamentoweb/raw/refs/heads/main/BarSplit_WinterAnnouncement.mp4", "2G6A9664.webp"],
+      ].map(([src, poster]) => ({
+        src,
+        poster: `assets/partners/hotelambasador/Fotografije/${poster}`,
+      }));
       const revitaVideos = [
         "assets/partners/Revita%20Clinic/optimized/videos/REVITACLINIC_January2026_UHD_24fps_9x16_Reel9_TL1.mp4",
         "assets/partners/Revita%20Clinic/optimized/videos/HotelAleksander_December_9x16_FHD_24fps_Reel7_TL1.mp4",
@@ -2078,7 +2082,12 @@
               contain: true,
               featured: true,
             },
-            { type: "video", src: "assets/partners/tdc/optimized/videos/TDC_Documentary_25fps_9x16_web.mp4", orientation: "vertical", featured: true },
+            {
+              type: "video",
+              src: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/main/TDC_Documentary_25fps_9x16_web.mp4",
+              orientation: "vertical",
+              featured: true,
+            },
           ],
           socialClass: "paired-video-row",
           horizontal: [],
@@ -2166,7 +2175,7 @@
           industry: "Hoteljerstvo",
           summary: "Hotel s 5 zvjezdica s pogledom na Jadran, mediteranskim restoranom i spa centrom.",
           hero: { type: "image", src: "assets/partners/hotelambasador/Fotografije/2G6A9294.webp", orientation: "vertical", alt: "Hotel Ambasador fotografija" },
-          social: ambassadorVideos.map((src) => ({ type: "video", src, poster: false, orientation: "vertical" })),
+          social: ambassadorVideos.map(({ src, poster }) => ({ type: "video", src, poster, orientation: "vertical" })),
           photos: ambassadorPhotos,
           bts: [],
         }),
@@ -2575,6 +2584,7 @@
         });
       }
     </script>
+    <script src="cookie-consent.js?v=cookie-consent-20260527"></script>
 <!--     <script src="analytics-config.js"></script> -->
 <!--     <script src="analytics.js"></script> -->
 <!--     <script src="seo-tracking.js"></script> -->

@@ -1,5 +1,31 @@
 (function () {
+  if (window.FUNDAMENTO_SEO_TRACKING_LOADED) return;
+  window.FUNDAMENTO_SEO_TRACKING_LOADED = true;
+
+  function hasAnalyticsConsent() {
+    if (window.FundamentoConsent?.hasAnalyticsConsent) {
+      return window.FundamentoConsent.hasAnalyticsConsent();
+    }
+
+    try {
+      const cookieConsent = document.cookie
+        .split(";")
+        .map((cookie) => cookie.trim())
+        .find((cookie) => cookie.startsWith("fundamento_cookie_consent="))
+        ?.slice("fundamento_cookie_consent=".length);
+      const stored =
+        typeof window.localStorage !== "undefined"
+          ? window.localStorage.getItem("fundamento.cookieConsent.v1")
+          : cookieConsent;
+      const consent = JSON.parse(stored ? decodeURIComponent(stored) : "null");
+      return consent?.version === 1 && consent.analytics === true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   function sendEvent(name, params) {
+    if (!hasAnalyticsConsent()) return;
     if (typeof window.gtag !== "function") return;
     window.gtag("event", name, params);
   }

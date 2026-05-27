@@ -217,6 +217,7 @@ function renderPage(page) {
       </section>
     </main>
     ${footer()}
+    <script src="/cookie-consent.js?v=cookie-consent-20260527"></script>
     <script src="/analytics-config.js"></script>
     <script src="/analytics.js"></script>
     <script src="/seo-tracking.js"></script>

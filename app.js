@@ -109,6 +109,7 @@ const clientLogos = [
   //{ name: "Europska komisija", src: "assets/clients/EK_HRV.png", visualScale: 1.04 },
   { name: "Central Cafe", src: "assets/clients/CentralCafe.png", visualScale: 0.92 },
   { name: "Fox Fishing", src: "assets/clients/FoxFishing.png", visualScale: 0.7 },
+  { name: "Produkt", src: "assets/clients/produkt.png", visualScale: 0.96 },
   { name: "Hotel Aleksander", src: "assets/clients/hotel-aleksander.png", visualScale: 1.58, heightBleed: "18px" },
   { name: "Maslina Resort", src: "assets/clients/maslina-resort.png", visualScale: 1.1, heightBleed: "6px" },
   { name: "Infobip Shift", src: "assets/clients/infopib shift.png", visualScale: 1.1, heightBleed: "6px" },
@@ -178,6 +179,7 @@ const heroVideo = document.querySelector(".hero-video");
 const PROJECT_RETURN_PENDING_KEY = "fundamento.projectReturnPending";
 const PROJECT_RETURN_SCROLL_KEY = "fundamento.projectReturnScroll";
 const PROJECT_RETURN_URL_KEY = "fundamento.projectReturnUrl";
+const HOME_TOP_QUERY_KEY = "home";
 
 const miniGalleries = [
   [
@@ -256,6 +258,16 @@ function restoreProjectReturnScroll() {
   return true;
 }
 
+function clearProjectReturnMemory() {
+  try {
+    localStorage.removeItem(PROJECT_RETURN_PENDING_KEY);
+    localStorage.removeItem(PROJECT_RETURN_SCROLL_KEY);
+    localStorage.removeItem(PROJECT_RETURN_URL_KEY);
+  } catch (_) {
+    // Logo navigation must never be blocked by storage restrictions.
+  }
+}
+
 function setupProjectReturnMemory() {
   document.addEventListener(
     "click",
@@ -272,6 +284,41 @@ function setupProjectReturnMemory() {
     },
     true,
   );
+}
+
+function setupHomeTopNavigation() {
+  if (!document.body.classList.contains("home-page-body")) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const shouldForceTop = params.get(HOME_TOP_QUERY_KEY) === "top";
+  const scrollToHomeTop = (behavior = "auto") => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior,
+    });
+  };
+
+  if (shouldForceTop) {
+    clearProjectReturnMemory();
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    scrollToHomeTop();
+    requestAnimationFrame(() => scrollToHomeTop());
+    window.addEventListener("load", () => scrollToHomeTop(), { once: true });
+    history.replaceState(null, "", window.location.pathname);
+  }
+
+  document.querySelectorAll('.brand-mark[href="#home"], .footer-logo[href="#home"], .brand-mark[href^="index.html?home=top"], .footer-logo[href^="index.html?home=top"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      clearProjectReturnMemory();
+      if (link.getAttribute("href") !== "#home") return;
+
+      event.preventDefault();
+      history.replaceState(null, "", window.location.pathname);
+      scrollToHomeTop("auto");
+      requestAnimationFrame(() => scrollToHomeTop("auto"));
+    });
+  });
 }
 
 function setupInitialHeroPosition() {
@@ -500,6 +547,10 @@ function renderBento() {
       const navHeight = nav?.getBoundingClientRect().height || 0;
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
       const rect = card.getBoundingClientRect();
+      const comfortableTop = navHeight + 14;
+      const comfortableBottom = viewportHeight - 14;
+      if (rect.top >= comfortableTop && rect.bottom <= comfortableBottom) return;
+
       const visibleHeight = Math.max(300, viewportHeight - navHeight - 28);
       const centerOffset = rect.height < visibleHeight ? (visibleHeight - rect.height) / 2 : 12;
       const targetTop = window.scrollY + rect.top - navHeight - centerOffset;
@@ -510,8 +561,8 @@ function renderBento() {
       });
     };
 
-    window.setTimeout(scrollToCard, 80);
-    bentoScrollTimer = window.setTimeout(scrollToCard, 760);
+    requestAnimationFrame(scrollToCard);
+    bentoScrollTimer = window.setTimeout(scrollToCard, 540);
   }
 
   function animateProjectLayout(action) {
@@ -1713,12 +1764,13 @@ function setupMeetingCalendar() {
 
 function setupDatePickers() {
   document.querySelectorAll('input[type="date"][data-date-picker]').forEach((input) => {
+    const label = input.closest("label");
+
     const syncPlaceholder = () => {
       input.classList.toggle("has-value", Boolean(input.value));
     };
 
     const openPicker = () => {
-      input.focus({ preventScroll: true });
       if (typeof input.showPicker !== "function") return;
 
       try {
@@ -1730,8 +1782,12 @@ function setupDatePickers() {
 
     syncPlaceholder();
 
-    input.addEventListener("pointerdown", (event) => {
-      if (event.button && event.button !== 0) return;
+    input.addEventListener("click", () => {
+      openPicker();
+    });
+    label?.addEventListener("click", (event) => {
+      if (event.target === input) return;
+      input.focus({ preventScroll: true });
       openPicker();
     });
     input.addEventListener("change", syncPlaceholder);
@@ -1853,6 +1909,7 @@ function setupGsap() {
   window.setTimeout(() => ScrollTrigger.refresh(), 450);
 }
 
+setupHomeTopNavigation();
 setupInitialHeroPosition();
 setupProjectReturnMemory();
 renderWheel();

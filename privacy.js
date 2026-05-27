@@ -37,7 +37,8 @@ const privacyMarkup = `
         Svrha: Razumijevanje načina na koji posjetitelji koriste stranicu kako bismo poboljšali njezinu
         funkcionalnost i sadržaj.<br />
         Podaci: Anonimizirana IP adresa, tip preglednika, vrijeme provedeno na stranici i sl.<br />
-        Pravna osnova: Legitimni interes za poboljšanje poslovanja uz vašu privolu putem kolačića.
+        Pravna osnova: Vaša privola. Google Analytics se ne učitava i ne postavlja analitičke kolačiće prije
+        nego što prihvatite analitičke kolačiće.
       </p>
 
       <h3>3. Dijeljenje podataka s trećim stranama</h3>
@@ -48,14 +49,16 @@ const privacyMarkup = `
       </p>
 
       <h3>4. Kolačići (Cookies)</h3>
-      <p>Web stranica koristi kolačiće kako bi osigurala najbolje korisničko iskustvo.</p>
+      <p>Web stranica koristi samo nužne kolačiće bez privole, a analitičke kolačiće isključivo nakon vaše privole.</p>
       <p>
-        Nužni kolačići: Neophodni za rad stranice i ne mogu se isključiti.<br />
-        Analitički kolačići (Google Analytics): Pomažu nam pratiti statistiku posjeta.
+        Nužni kolačići: Neophodni za rad stranice i spremanje vaših postavki privole. Ne mogu se isključiti
+        putem naše stranice jer su potrebni za osnovnu funkcionalnost.<br />
+        Analitički kolačići (Google Analytics): Pomažu nam pratiti anonimnu statistiku posjeta i uključuju se
+        tek nakon vaše privole.
       </p>
       <p>
-        Postavke kolačića možete kontrolirati i konfigurirati u vašem web pregledniku. Isključivanje kolačića
-        može ograničiti određene funkcionalnosti stranice.
+        Privolu možete prihvatiti, odbiti ili naknadno promijeniti putem gumba "Kolačići" na stranici. Postavke
+        kolačića možete dodatno kontrolirati i u vašem web pregledniku.
       </p>
 
       <h3>5. Razdoblje pohrane</h3>
