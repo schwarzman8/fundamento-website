@@ -207,6 +207,19 @@
     enableAnalytics().catch(() => {});
   }
 
+  function openPrivacyOverlay() {
+    const overlay = document.querySelector("#privacy");
+    if (!overlay) return false;
+
+    overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.dataset.privacyOpen = "true";
+    history.replaceState(null, "", "#privacy");
+    overlay.querySelector(".privacy-document")?.scrollTo({ top: 0, behavior: "auto" });
+    overlay.querySelector("[data-privacy-close]")?.focus({ preventScroll: true });
+    return true;
+  }
+
   function renderPanel({ settingsOpen = false } = {}) {
     if (document.querySelector("[data-cookie-consent]")) return;
 
@@ -223,7 +236,7 @@
         <div class="cookie-consent__copy">
           <p class="cookie-consent__eyebrow">Privatnost</p>
           <h2 id="cookieConsentTitle">${text.title}</h2>
-          <p>${text.intro} <a href="/#privacy">Politika privatnosti i kolačića</a>.</p>
+          <p>${text.intro} <a href="/#privacy" data-cookie-privacy-open>Politika privatnosti i kolačića</a>.</p>
         </div>
 
         <div class="cookie-consent__settings" ${settingsOpen ? "" : "hidden"}>
@@ -263,6 +276,12 @@
     const settings = panel.querySelector(".cookie-consent__settings");
     const settingsButton = panel.querySelector("[data-cookie-settings]");
     const saveButton = panel.querySelector("[data-cookie-save]");
+    const privacyLink = panel.querySelector("[data-cookie-privacy-open]");
+
+    privacyLink?.addEventListener("click", (event) => {
+      if (!openPrivacyOverlay()) return;
+      event.preventDefault();
+    });
 
     settingsButton.addEventListener("click", () => {
       const isHidden = settings.hidden;
