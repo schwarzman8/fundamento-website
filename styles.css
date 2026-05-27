@@ -8085,11 +8085,11 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
 
 @media (hover: hover) and (pointer: fine) and (min-width: 1121px) {
   .home-page-body .hero-section:not(:has(.hero-media-wrap:hover)) {
-    padding-top: calc(var(--nav-height) + clamp(10px, 1.8vw, 30px)) !important;
+    padding-top: calc(var(--nav-height) + clamp(18px, 2.4vw, 38px)) !important;
   }
 
   .home-page-body .hero-section:not(:has(.hero-media-wrap:hover)) .hero-copy {
-    transform: translate3d(0, calc(clamp(118px, 10.2vw, 176px) * -1), 0) !important;
+    transform: translate3d(0, calc(clamp(82px, 6.5vw, 112px) * -1), 0) !important;
   }
 }
 
