@@ -14,7 +14,7 @@ const highlightProjects = [
     industry: "AI / Technology",
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/SPLXAI_PitchVideo_25fps_9x16_UHD_TL5_web.mp4",
-    summary: "Hero video i BTS materijali za tehnološki brand s preciznim, jasnim vizualnim tonom.",
+    summary: "Hero video i Behind the scene materijali za tehnološki brand s preciznim, jasnim vizualnim tonom.",
     slug: "splxai",
   },
   {
@@ -34,7 +34,7 @@ const highlightProjects = [
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
     summary: "Prvi TVC format za Forte Solar, objedinjen unutar glavne Forte Solar projekt stranice.",
-    slug: "forte-solar-tvc-1",
+    slug: "forte-solar",
   },
   {
     title: "Trogir Diving Center",
@@ -42,7 +42,7 @@ const highlightProjects = [
     industry: "Tourism / Diving",
     year: "2024",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/TDC_Documentary_25fps_16x9_UHD_TL5_ENG_1_web.mp4",
-    summary: "16:9 hero video, vertikalni cutdown i BTS materijali za diving iskustvo.",
+    summary: "16:9 hero video, vertikalni cutdown i Behind the scene materijali za diving iskustvo.",
     slug: "trogir-diving-center",
   },
   {
@@ -52,7 +52,7 @@ const highlightProjects = [
     year: "2025",
     video: "https://raw.githubusercontent.com/schwarzman8/fundamentoweb/038b1e1cf0f36154f797efd00b86abed74b8d8e0/ForteSolar_TVC_01_UHD_16x9_30fps_TL1_web.mp4",
     summary: "Drugi TVC format za Forte Solar, objedinjen unutar glavne Forte Solar projekt stranice.",
-    slug: "forte-solar-tvc-2",
+    slug: "forte-solar",
   },
 ];
 
@@ -249,6 +249,10 @@ function hasProjectReturnScroll() {
 
 function restoreProjectReturnScroll() {
   if (!hasProjectReturnScroll()) return false;
+  if (window.location.hash && window.location.hash !== "#home") {
+    clearProjectReturnMemory();
+    return false;
+  }
 
   const top = Math.max(0, Number(localStorage.getItem(PROJECT_RETURN_SCROLL_KEY)));
   window.scrollTo({ top, left: 0, behavior: "auto" });
@@ -326,9 +330,15 @@ function setupInitialHeroPosition() {
     history.scrollRestoration = "manual";
   }
 
+  const hasSectionHash = () => Boolean(window.location.hash && !["#home", "#privacy"].includes(window.location.hash));
   const getNavigationType = () => performance.getEntriesByType("navigation")[0]?.type || "navigate";
   const shouldResetToHero = () =>
     getNavigationType() === "reload" || !window.location.hash || window.location.hash === "#home";
+
+  if (hasSectionHash()) {
+    clearProjectReturnMemory();
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }
 
   const resetToHero = () => {
     if (window.location.hash !== "#home") {
@@ -349,7 +359,7 @@ function setupInitialHeroPosition() {
     requestAnimationFrame(restoreProjectReturnScroll);
   } else if (getNavigationType() === "back_forward") {
     syncRestoredScroll();
-  } else if (shouldResetToHero()) {
+  } else if (!hasSectionHash() && shouldResetToHero()) {
     resetToHero();
   }
 
@@ -359,7 +369,7 @@ function setupInitialHeroPosition() {
       syncRestoredScroll();
       return;
     }
-    if (shouldResetToHero()) resetToHero();
+    if (!hasSectionHash() && shouldResetToHero()) resetToHero();
   });
 
   window.addEventListener("load", () => {
@@ -369,11 +379,21 @@ function setupInitialHeroPosition() {
       return;
     }
 
-    if (!shouldResetToHero()) return;
+    if (hasSectionHash() || !shouldResetToHero()) return;
     resetToHero();
     requestAnimationFrame(resetToHero);
     window.setTimeout(resetToHero, 140);
   });
+}
+
+function featuredBrandName(project) {
+  if (/forte solar/i.test(project.title)) return "Forte Solar";
+  return project.client || project.title;
+}
+
+function featuredWorkLabel(project) {
+  const type = /tv reklama/i.test(project.type || "") ? "TVC" : project.type || project.format || "Video";
+  return type;
 }
 
 function renderWheel() {
@@ -387,8 +407,11 @@ function renderWheel() {
             <span aria-hidden="true"></span>
           </button>
           <div class="wheel-project-info">
-            <strong>${project.title}</strong>
-            <a class="wheel-project-link" href="${projectUrl(project)}" aria-label="Saznaj više o projektu ${project.title}">Saznaj više</a>
+            <strong>${featuredBrandName(project)}</strong>
+            <span class="wheel-project-meta">
+              <small>${featuredWorkLabel(project)}</small>
+              <a class="wheel-project-link" href="${projectUrl(project)}" aria-label="Saznaj više o projektu ${project.title}">Saznaj više <span aria-hidden="true">→</span></a>
+            </span>
           </div>
         </article>
       `;
@@ -466,11 +489,13 @@ function updateWheel() {
 
     if (index === activeProject) {
       card.classList.add("center");
-      video.controls = !isTouchLayout();
+      video.controls = false;
+      video.removeAttribute("controls");
       return;
     }
 
     video.controls = false;
+    video.removeAttribute("controls");
     video.pause();
     video.currentTime = 0;
     card.classList.remove("is-playing");
@@ -519,7 +544,7 @@ function renderBento() {
         <div class="bento-content">
           <p class="kicker">${project.type}</p>
           <h3>${project.title}</h3>
-          <p>${project.summary}</p>
+          ${project.reserved ? "" : `<a class="bento-content-link" href="${projectUrl(project)}" aria-label="Saznaj više o partnerskom brendu ${project.title}">Saznaj više</a>`}
         </div>
       </article>
     `;
@@ -531,7 +556,10 @@ function renderBento() {
       rows[rows.length - 1].push(card);
       return rows;
     }, [])
-    .map((row, index) => `<div class="bento-row bento-row-${index + 1}">${row.join("")}</div>`)
+    .map((row, index) => {
+      const singleRowClass = row.length === 1 ? " bento-row-single" : "";
+      return `<div class="bento-row bento-row-${index + 1}${singleRowClass}">${row.join("")}</div>`;
+    })
     .join("");
 
   let bentoScrollTimer = null;
@@ -684,7 +712,7 @@ function renderBento() {
     };
 
     card.addEventListener("click", (event) => {
-      if (event.target.closest(".bento-close, .bento-expand-link")) return;
+      if (event.target.closest(".bento-close, .bento-expand-link, .bento-content-link")) return;
       if (card.classList.contains("is-reserved")) return;
       if (!isTouchLayout()) return;
       toggleCard();
@@ -978,9 +1006,69 @@ function setupInkButtons() {
 }
 
 function setupSmoothAnchors() {
+  const getSamePageHash = (link) => {
+    const href = link.getAttribute("href");
+    if (!href || href === "#") return "";
+    if (href.startsWith("#")) return href;
+
+    try {
+      const url = new URL(link.href);
+      const currentPath = window.location.pathname.split("/").pop() || "index.html";
+      const targetPath = url.pathname.split("/").pop() || "index.html";
+      const isSamePage =
+        url.origin === window.location.origin &&
+        url.pathname.replace(/\/index\.html$/, "/") === window.location.pathname.replace(/\/index\.html$/, "/");
+
+      if (isSamePage || (currentPath === "index.html" && targetPath === "index.html")) {
+        return url.hash;
+      }
+    } catch (_) {
+      return "";
+    }
+
+    return "";
+  };
+
+  const getTargetByHash = (hash) => {
+    if (!hash) return null;
+    try {
+      return document.querySelector(hash);
+    } catch (_) {
+      return document.getElementById(hash.replace(/^#/, ""));
+    }
+  };
+
+  const resetAnchorState = () => {
+    const nav = document.querySelector(".site-nav");
+    const menuButton = document.querySelector(".nav-menu");
+    nav?.classList.remove("is-open");
+    document.body.dataset.mobileNavOpen = "false";
+    document.documentElement.dataset.mobileNavOpen = "false";
+    menuButton?.setAttribute("aria-expanded", "false");
+    menuButton?.setAttribute("aria-label", "Otvori navigaciju");
+
+    projectBento?.classList.remove("has-expanded", "is-animating");
+    document.body.dataset.projectExpanded = "false";
+    projectBento?.querySelectorAll(".bento-card").forEach((item) => {
+      item.classList.remove("is-expanded", "is-minimized");
+    });
+    document.querySelectorAll(".wheel-project video, .bento-card video").forEach((video) => {
+      video.pause();
+      video.removeAttribute("controls");
+    });
+  };
+
+  const getAnchorOffset = () => {
+    const scrollPaddingTop = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+    if (Number.isFinite(scrollPaddingTop) && scrollPaddingTop > 0) return scrollPaddingTop;
+
+    const navHeight = document.querySelector(".site-nav")?.getBoundingClientRect().height || 72;
+    return navHeight + 18;
+  };
+
   const getScrollTarget = (target) => {
     if (target.id === "home") return 0;
-    return Math.max(0, window.scrollY + target.getBoundingClientRect().top);
+    return Math.max(0, window.scrollY + target.getBoundingClientRect().top - getAnchorOffset());
   };
 
   const getTargetSection = (target) =>
@@ -1000,22 +1088,30 @@ function setupSmoothAnchors() {
   };
 
   const scrollToHashTarget = (target, behavior = "smooth") => {
+    resetAnchorState();
     window.ScrollTrigger?.refresh?.();
     const top = getScrollTarget(target);
     syncAnchorChrome(target, top);
     window.scrollTo({ top, behavior });
     window.setTimeout(() => syncAnchorChrome(target, top), behavior === "smooth" ? 280 : 0);
+    window.setTimeout(() => {
+      const refreshedTop = getScrollTarget(target);
+      if (Math.abs(window.scrollY - refreshedTop) > 4) {
+        window.scrollTo({ top: refreshedTop, behavior: "auto" });
+        syncAnchorChrome(target, refreshedTop);
+      }
+    }, behavior === "smooth" ? 640 : 80);
     window.setTimeout(() => window.dispatchEvent(new Event("scroll")), behavior === "smooth" ? 760 : 0);
   };
 
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  document.querySelectorAll('a[href*="#"]').forEach((link) => {
     link.addEventListener("click", (event) => {
       if (link.matches("[data-privacy-open]")) return;
 
-      const id = link.getAttribute("href");
+      const id = getSamePageHash(link);
       if (!id || id === "#") return;
 
-      const target = document.querySelector(id);
+      const target = getTargetByHash(id);
       if (!target) return;
 
       event.preventDefault();
@@ -1024,15 +1120,28 @@ function setupSmoothAnchors() {
     });
   });
 
-  window.addEventListener("load", () => {
+  const alignCurrentHashTarget = () => {
     if (hasProjectReturnScroll()) return;
     if (!window.location.hash) return;
     if (window.location.hash === "#privacy") return;
 
-    const target = document.querySelector(window.location.hash);
+    const target = getTargetByHash(window.location.hash);
     if (!target) return;
 
-    window.setTimeout(() => scrollToHashTarget(target, "auto"), 60);
+    scrollToHashTarget(target, "auto");
+  };
+
+  if (window.location.hash && window.location.hash !== "#privacy") {
+    requestAnimationFrame(alignCurrentHashTarget);
+    window.setTimeout(alignCurrentHashTarget, 80);
+    window.setTimeout(alignCurrentHashTarget, 280);
+    window.setTimeout(alignCurrentHashTarget, 760);
+  }
+
+  window.addEventListener("load", () => {
+    window.setTimeout(alignCurrentHashTarget, 60);
+    window.setTimeout(alignCurrentHashTarget, 420);
+    window.setTimeout(alignCurrentHashTarget, 980);
   });
 }
 
@@ -1089,22 +1198,45 @@ function setupMobileNav() {
   const menuButton = document.querySelector(".nav-menu");
   if (!nav || !menuButton) return;
 
-  const closeMenu = () => {
-    nav.classList.remove("is-open");
-    document.body.dataset.mobileNavOpen = "false";
-    document.documentElement.dataset.mobileNavOpen = "false";
-    menuButton.setAttribute("aria-expanded", "false");
-    menuButton.setAttribute("aria-label", "Otvori navigaciju");
+  const setMenuOpen = (isOpen) => {
+    nav.classList.toggle("is-open", isOpen);
+    document.body.dataset.mobileNavOpen = String(isOpen);
+    document.documentElement.dataset.mobileNavOpen = String(isOpen);
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+    menuButton.setAttribute("aria-label", isOpen ? "Zatvori navigaciju" : "Otvori navigaciju");
   };
 
-  menuButton.addEventListener("click", () => {
-    const willOpen = !nav.classList.contains("is-open");
-    nav.classList.toggle("is-open", willOpen);
-    document.body.dataset.mobileNavOpen = String(willOpen);
-    document.documentElement.dataset.mobileNavOpen = String(willOpen);
-    menuButton.setAttribute("aria-expanded", String(willOpen));
-    menuButton.setAttribute("aria-label", willOpen ? "Zatvori navigaciju" : "Otvori navigaciju");
-  });
+  const closeMenu = () => setMenuOpen(false);
+  let lastMenuToggle = 0;
+
+  const toggleMenu = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const now = performance.now();
+    if (now - lastMenuToggle < 180) return;
+    lastMenuToggle = now;
+    setMenuOpen(!nav.classList.contains("is-open"));
+  };
+
+  menuButton.addEventListener("click", toggleMenu);
+
+  const closeFromEmptyNavArea = (event) => {
+    if (!nav.classList.contains("is-open")) return;
+    if (event.target.closest("a, button")) return;
+    closeMenu();
+  };
+
+  const closeFromPage = (event) => {
+    if (!nav.classList.contains("is-open")) return;
+    if (event.target.closest(".site-nav")) return;
+    closeMenu();
+  };
+
+  nav.addEventListener("pointerdown", closeFromEmptyNavArea);
+  nav.addEventListener("click", closeFromEmptyNavArea);
+  document.addEventListener("pointerdown", closeFromPage);
+  document.addEventListener("click", closeFromPage);
 
   nav.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", closeMenu);
@@ -1458,9 +1590,18 @@ function setupChromeState() {
     setNavColors(section, document.body.dataset.navTone);
   });
 
+  let chromeFrame = 0;
+  const scheduleChromeUpdate = () => {
+    if (chromeFrame) return;
+    chromeFrame = requestAnimationFrame(() => {
+      chromeFrame = 0;
+      updateChrome();
+    });
+  };
+
   updateChrome();
-  window.addEventListener("scroll", updateChrome, { passive: true });
-  window.addEventListener("resize", updateChrome);
+  window.addEventListener("scroll", scheduleChromeUpdate, { passive: true });
+  window.addEventListener("resize", scheduleChromeUpdate);
 }
 
 function setupForms() {
@@ -1469,8 +1610,7 @@ function setupForms() {
       `Ime: ${values.name}`,
       `Email: ${values.email}`,
       `Opis projekta: ${values.project}`,
-      `Rok završetka projekta: ${values.deadline || "Nije naveden"}`,
-      `Termin sastanka: ${values.meeting}`,
+      `Okvirni budžet: ${values.budget}`,
       `Newsletter: ${values.newsletter}`,
       `Stranica: ${window.location.href}`,
     ].join("\n");
@@ -1478,11 +1618,39 @@ function setupForms() {
   const contactSuccessMessage = "Mail je na putu, javit ćemo se uskoro.";
   const contactErrorMessage =
     "Slanje nije potvrđeno. Otvorili smo email s istim podacima kako biste ga mogli poslati direktno na info@fundamen.to.";
+  const turnstileMissingMessage = "Potvrdite sigurnosnu provjeru prije slanja upita.";
+  const isLocalPreview =
+    ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname) || window.location.protocol === "file:";
 
   const resetDatePlaceholders = (form) => {
     form.querySelectorAll('input[type="date"][data-placeholder]').forEach((input) => {
       input.classList.toggle("has-value", Boolean(input.value));
     });
+  };
+
+  const getTurnstileToken = (form) => form.querySelector('textarea[name="cf-turnstile-response"]')?.value?.trim() || "";
+
+  const shouldRequireTurnstile = (form) => {
+    const widget = form.querySelector(".cf-turnstile");
+    return Boolean(widget && !isLocalPreview && !widget.dataset.localDisabled);
+  };
+
+  const setupTurnstilePreviewState = (form) => {
+    if (!isLocalPreview) return;
+
+    const field = form.querySelector(".turnstile-field");
+    const widget = form.querySelector(".cf-turnstile");
+    if (field) {
+      field.hidden = true;
+      field.setAttribute("aria-hidden", "true");
+    }
+    if (widget) widget.dataset.localDisabled = "true";
+  };
+
+  const resetTurnstile = (form) => {
+    const widget = form.querySelector(".cf-turnstile");
+    if (!widget || isLocalPreview || !window.turnstile?.reset) return;
+    window.turnstile.reset(widget);
   };
 
   const setContactSubmitted = (form, isSubmitted) => {
@@ -1546,7 +1714,7 @@ function setupForms() {
       });
 
       if (progressLabel) {
-        progressLabel.textContent = `Korak ${currentStep + 1} od ${steps.length}`;
+        progressLabel.textContent = String(currentStep + 1).padStart(2, "0");
       }
 
       dots.forEach((dot, dotIndex) => {
@@ -1566,6 +1734,17 @@ function setupForms() {
       );
 
     const validateCurrentStep = () => {
+      const budgetField = steps[currentStep].querySelector(".budget-field");
+      if (budgetField) {
+        const selectedBudget = budgetField.querySelector('input[name="budget"]:checked');
+        if (!selectedBudget) {
+          budgetField.dataset.invalid = "true";
+          setStatus("Odaberite okvirni budžet prije nastavka.", "error");
+          budgetField.scrollIntoView({ behavior: "smooth", block: "center" });
+          return false;
+        }
+      }
+
       const invalidField = activeFields().find((field) => !field.checkValidity());
       if (!invalidField) return true;
 
@@ -1583,8 +1762,12 @@ function setupForms() {
       showStep(currentStep - 1);
     });
 
-    form.querySelectorAll("[data-form-skip]").forEach((button) => {
-      button.addEventListener("click", () => showStep(currentStep + 1));
+    form.querySelectorAll('input[name="budget"]').forEach((input) => {
+      input.addEventListener("change", () => {
+        const budgetField = input.closest(".budget-field");
+        if (budgetField) delete budgetField.dataset.invalid;
+        setStatus();
+      });
     });
 
     againButton?.addEventListener("click", () => {
@@ -1594,6 +1777,7 @@ function setupForms() {
         submitButton.textContent = "Pošalji";
       }
       form.reset();
+      resetTurnstile(form);
       resetDatePlaceholders(form);
       showStep(0);
     });
@@ -1610,7 +1794,10 @@ function setupForms() {
     showStep(0);
   };
 
-  document.querySelectorAll("[data-contact-form]").forEach(setupContactStepper);
+  document.querySelectorAll("[data-contact-form]").forEach((form) => {
+    setupTurnstilePreviewState(form);
+    setupContactStepper(form);
+  });
 
   document.querySelectorAll("form").forEach((form) => {
     form.addEventListener("submit", (event) => {
@@ -1635,7 +1822,7 @@ function setupForms() {
       };
 
       if (!form.checkValidity()) {
-        setStatus("Unesite ime, email i opis projekta pa pošaljite upit.", "error");
+        setStatus("Unesite ime, email, opis projekta i okvirni budžet pa pošaljite upit.", "error");
         const invalidField = Array.from(form.elements).find((field) => field.willValidate && !field.checkValidity());
         const invalidStep = form.findContactStepForField?.(invalidField);
         if (typeof invalidStep === "number" && invalidStep >= 0) {
@@ -1651,14 +1838,19 @@ function setupForms() {
         return;
       }
 
-      const meetingDate = form.elements.meeting_date?.value || "";
-      const meetingTime = form.elements.meeting_time?.value || "";
+      const turnstileToken = getTurnstileToken(form);
+      const turnstileWidget = form.querySelector(".cf-turnstile");
+      if (shouldRequireTurnstile(form) && !turnstileToken) {
+        setStatus(turnstileMissingMessage, "error");
+        turnstileWidget.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
       const values = {
         name: form.elements.name?.value.trim() || "",
         email: form.elements.email?.value.trim() || "",
         project: form.elements.project?.value.trim() || "",
-        deadline: form.elements.deadline?.value || "",
-        meeting: meetingDate ? `${meetingDate}${meetingTime ? ` u ${meetingTime}` : ""}` : "Nije odabran",
+        budget: form.elements.budget?.value || "",
         newsletter: form.elements.newsletter?.checked ? "Da" : "Ne",
       };
 
@@ -1666,8 +1858,7 @@ function setupForms() {
       payload.append("Ime", values.name);
       payload.append("Email", values.email);
       payload.append("Opis projekta", values.project);
-      payload.append("Rok završetka projekta", values.deadline || "Nije naveden");
-      payload.append("Termin sastanka", values.meeting);
+      payload.append("Okvirni budžet", values.budget);
       payload.append("Newsletter", values.newsletter);
       payload.append("Stranica", window.location.href);
       payload.append("_replyto", values.email);
@@ -1675,6 +1866,7 @@ function setupForms() {
       payload.append("_template", "table");
       payload.append("_captcha", "false");
       payload.append("_honey", "");
+      if (turnstileToken) payload.append("cf-turnstile-response", turnstileToken);
 
       const actionUrl = form.getAttribute("action") || "https://formsubmit.co/info@fundamen.to";
       const ajaxUrl = actionUrl.replace("https://formsubmit.co/", "https://formsubmit.co/ajax/");
@@ -1702,6 +1894,7 @@ function setupForms() {
           setStatus("", "success");
           setContactSubmitted(form, true);
         } catch {
+          resetTurnstile(form);
           const subject = "Novi upit preko Fundamento stranice";
           const body = buildContactBody(values);
           window.location.href = `mailto:info@fundamen.to?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
@@ -1854,6 +2047,7 @@ function setupGsap() {
     duration: 1,
     stagger: 0.1,
     ease: "power3.out",
+    clearProps: "opacity,transform",
   });
 
   gsap.from(".hero-media-wrap", {
@@ -1870,12 +2064,13 @@ function setupGsap() {
   gsap.utils.toArray(".bento-card").forEach((card) => {
     gsap.fromTo(
       card,
-      { opacity: 0, clipPath: "inset(14% round 26px)" },
+      { opacity: 0, y: 18 },
       {
         opacity: 1,
-        clipPath: "inset(0% round 26px)",
+        y: 0,
         duration: 0.9,
         ease: "power3.out",
+        clearProps: "opacity,transform",
         scrollTrigger: {
           trigger: card,
           start: "top 86%",
@@ -1901,7 +2096,10 @@ function setupGsap() {
 
   ScrollTrigger.matchMedia({
     "(min-width: 821px)": function () {
-      gsap.utils.toArray(".media-card img, .media-card video").forEach((media) => {
+      const projectMedia = gsap.utils.toArray(".media-card img, .media-card video");
+      if (!projectMedia.length) return;
+
+      projectMedia.forEach((media) => {
         gsap.fromTo(
           media,
           { scale: 0.9, opacity: 0.62 },
@@ -1923,7 +2121,10 @@ function setupGsap() {
 
   ScrollTrigger.matchMedia({
     "(max-width: 820px)": function () {
-      gsap.set(".media-card img, .media-card video", {
+      const projectMedia = gsap.utils.toArray(".media-card img, .media-card video");
+      if (!projectMedia.length) return;
+
+      gsap.set(projectMedia, {
         clearProps: "transform,opacity",
       });
 

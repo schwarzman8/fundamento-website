@@ -80,7 +80,7 @@ const partnerProjects = [
     title: "FORTE SOLAR",
     client: "FORTE SOLAR",
     startYear: "2025",
-    services: ["Video produkcija", "TV reklama", "Social cutdowni", "BTS"],
+    services: ["Kratki formati Reels", "TV reklame", "Animacija"],
     industry: "Obnovljivi izvori energije",
     format: "Partnerska suradnja",
     video: "assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
@@ -93,7 +93,7 @@ const partnerProjects = [
     title: "REVITA CLINIC",
     client: "REVITA CLINIC",
     startYear: "2025",
-    services: ["Video produkcija", "Foto sadržaj", "Digitalni vizuali"],
+    services: ["Kratki formati Reels", "TV formati", "AI sadržaj", "Grafike", "Fotografija"],
     industry: "Medicinski turizam / Hoteljerstvo",
     format: "Partnerska suradnja",
     video: "assets/videos/project-02.mp4",
@@ -105,7 +105,7 @@ const partnerProjects = [
     title: "CENTRAL CAFE",
     client: "CENTRAL CAFE",
     startYear: "2025",
-    services: ["Foto sadržaj", "Video produkcija", "Social media materijali"],
+    services: ["Fotografija", "Kratki formati Reels", "AI sadržaj", "Grafike", "Animacija"],
     industry: "Ugostiteljstvo",
     format: "Partnerska suradnja",
     video: "assets/videos/project-03.mp4",
@@ -118,7 +118,7 @@ const partnerProjects = [
     title: "VOLKSWAGEN BOSNIĆ",
     client: "VOLKSWAGEN BOSNIĆ",
     startYear: "2024",
-    services: ["Produkcija", "Postprodukcija", "Kampanjski vizuali"],
+    services: ["Fotografija", "AI sadržaj", "Kratki formati Reels", "Animacija"],
     industry: "Automotive",
     format: "Partnerska suradnja",
     video: "assets/videos/project-04.mp4",
@@ -131,7 +131,7 @@ const partnerProjects = [
     title: "HOTEL AMBASADOR",
     client: "HOTEL AMBASADOR",
     startYear: "2026",
-    services: ["Hospitality vizuali", "Foto sadržaj", "Video produkcija"],
+    services: ["Fotografija", "Kratki formati Reels"],
     industry: "Hoteljerstvo",
     format: "Partnerska suradnja",
     video: "assets/videos/project-02.mp4",
@@ -261,7 +261,7 @@ function sortProjectsByProductionYear(projects) {
 function renderProjectRow(project, index, kind) {
   const url = projectUrl(project);
   const side = index % 2 === 0 ? "left" : "right";
-  const hasVideo = (index % 2 === 0 || kind === "highlight") && !project.preferImage;
+  const hasVideo = kind === "highlight" ? Boolean(project.video) : index % 2 === 0 && !project.preferImage;
   const posterSource = project.poster || videoPosterFromSrc(project.video);
   const poster = posterSource ? ` poster="${posterSource}"` : "";
   const fallbackPoster = posterSource || project.image;

@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="Full-service vizualna produkcija za brendove koji trebaju snažan digitalni dojam, povjerenje i prodajni rezultat." />
     <meta name="twitter:image" content="https://www.fundamen.to/assets/video-posters/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.jpg" />
     <link rel="icon" type="image/png" href="assets/brand/fundamento-logo-stacked-light.png" />
-    <link rel="stylesheet" href="styles.css?v=hero-top-spacing-20260527" />
+    <link rel="stylesheet" href="styles.css?v=cta-black-20260910a" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -55,8 +55,8 @@
       </a>
 
       <nav class="nav-tabs" aria-label="Stranice">
-        <a href="projects.html">Radovi</a>
-        <a href="partners.html">Partnerski brendovi</a>
+        <a href="#radovi">Radovi</a>
+        <a href="#partnerski-brendovi">Partnerske suradnje</a>
         <a href="about.html">O nama</a>
         <a class="mobile-nav-contact" href="#contact">Započni projekt</a>
       </nav>
@@ -118,7 +118,15 @@
           ></video>
         </div>
 
-        <div class="hero-wheel" aria-label="Istaknuti projekti">
+        <div class="hero-marquee client-logo-marquee" aria-label="Klijenti i partneri" data-logo-marquee>
+          <div class="client-logo-track" data-logo-track></div>
+        </div>
+
+        <div class="hero-wheel" id="radovi" aria-label="Istaknuti projekti">
+          <div class="wheel-heading">
+            <span>Odabrani radovi</span>
+            <em>Selekcija projekata</em>
+          </div>
           <button class="wheel-control" type="button" data-wheel="prev" aria-label="Prethodni projekt">
             <span aria-hidden="true">&larr;</span>
           </button>
@@ -127,27 +135,26 @@
             <span aria-hidden="true">&rarr;</span>
           </button>
         </div>
-
-        <div class="hero-marquee client-logo-marquee" aria-label="Klijenti i partneri" data-logo-marquee>
-          <div class="client-logo-track" data-logo-track></div>
-        </div>
       </section>
 
-      <section class="bento-section" id="projects" data-nav-tone="light">
-        <div class="section-heading">
-          <h2>Partnerski brendovi</h2>
+      <section class="bento-section" data-nav-tone="light" aria-labelledby="partnersHeadingTitle">
+        <div class="section-heading section-heading-with-copy proposal-heading proposal-heading-label-only" id="partnerski-brendovi" data-proposal-label="Partnerske suradnje">
+          <span class="proposal-context">Kontinuirani vizualni sadržaj</span>
+          <h2 id="partnersHeadingTitle">Partnerski brendovi</h2>
         </div>
         <div class="project-bento" id="projectBento" aria-label="Partnerski brendovi"></div>
       </section>
 
       <section class="manifesto-section" id="about" data-nav-tone="light">
         <p class="scrub-copy" id="scrubCopy">
-          U fundamentu stvaramo vizualni sadržaj koji oblikuje kako publika doživljava brendove, čineći ih prepoznatljivima, dosljednima i uvjerljivima.
+          Fundamento je vizualna produkcija koja brendovima pomaže izgraditi jasniji, profesionalniji i prepoznatljiviji nastup kroz video, fotografiju i druge digitalne sadržaje.
         </p>
         <a class="manifesto-link" href="about.html">Saznaj više</a>
 
-        <div class="services-heading">
+        <div class="services-heading services-heading-with-copy proposal-heading proposal-heading-label-only" data-proposal-label="Procesi">
+          <span class="proposal-context">Od ideje do isporuke</span>
           <h2>Procesi</h2>
+          <p>Od kreativnog smjera do produkcije i finalnog sadržaja spremnog za korištenje.</p>
         </div>
 
         <div class="accordion" aria-label="Način rada">
@@ -155,34 +162,38 @@
             <img src="assets/services/service-creative-concepts.png" alt="Mračni produkcijski stol s moodboardima i storyboard materijalima" loading="lazy" decoding="async" />
             <div>
               <h3>Kreativni koncepti</h3>
-              <p>Faza kreativnih koncepta je početna točka svakog projekta u kojoj definiramo ideju, ton i vizualni smjer. Izrađujemo moodboard, pišemo koncept i scenarij te planiramo sve elemente snimanja uključujući lokacije i casting. Klijent na kraju ove faze dobiva kompletan kreativni dokument koji služi kao osnova za produkciju.</p>
+              <p>Prije snimanja definiramo ideju, ton, vizualni smjer i formate koje sadržaj mora pokriti. Klijent dobiva jasan kreativni okvir: od moodboarda i scenarija do plana snimanja, lokacija i produkcijskih potreba.</p>
             </div>
           </article>
           <article class="accordion-panel" data-service-title="Produkcija">
             <img src="assets/services/service-production.png" alt="Filmski set s kamerom, rasvjetom i produkcijskom opremom" loading="lazy" decoding="async" />
             <div>
               <h3>Produkcija</h3>
-              <p>Faza produkcije obuhvaća sve što se događa na setu, od postavljanja opreme i rasvjete do samog snimanja. Klijent dobiva kompletnu ekipu prilagođenu veličini projekta, vlastitu opremu te organizirano i vremenski isplanirano snimanje prema unaprijed dogovorenom planu. Snimamo reklamne spotove, brand filmove, sadržaj za društvene mreže i fotografiju.</p>
+              <p>Organiziramo i vodimo snimanje od pripreme do zadnjeg kadra. Ovisno o projektu, pokrivamo video produkciju, fotografiju, rasvjetu, režiju, kameru, zvuk, styling, lokacije i produkcijsku koordinaciju.</p>
             </div>
           </article>
           <article class="accordion-panel" data-service-title="Postprodukcija">
             <img src="assets/services/service-postproduction.png" alt="Tamna montažna i color grading soba s profesionalnim monitorima" loading="lazy" decoding="async" />
             <div>
               <h3>Postprodukcija</h3>
-              <p>Faza postprodukcije obuhvaća montažu, colorgrading, sound design i grafičke obrade snimljenog materijala. Klijent dobiva gotov video isporučen u formatima prilagođenim platformama na kojima će se koristiti. Uslugu nudimo i za materijale koje nismo sami snimili.</p>
+              <p>Od snimljenog materijala gradimo finalni sadržaj spreman za upotrebu. Montaža, color grading, sound design, grafičke obrade i prilagodbe formata za web, društvene mreže, kampanje i prezentacije.</p>
             </div>
           </article>
-          <article class="accordion-panel" data-service-title="AI">
+          <article class="accordion-panel" data-service-title="AI produkcija">
             <img src="assets/services/service-ai-production.png" alt="Kreativni tehnološki studio s generativnim vizualima i produkcijskom opremom" loading="lazy" decoding="async" />
             <div>
-              <h3>AI</h3>
-              <p>Faza AI produkcije odnosi se na projekte koji zahtijevaju vizuale koje je skupo ili tehnički teško postići konvencionalnim snimanjem. Koristimo AI alate za generiranje vizuala, automatizaciju dijelova postprodukcije i izradu hibridnog sadržaja koji kombinira snimljeni i generirani materijal.</p>
+              <h3>AI produkcija</h3>
+              <p>AI koristimo kada može ubrzati proces, otvoriti vizualne mogućnosti ili smanjiti produkcijsku kompleksnost. Ne kao trik, nego kao alat za hibridni sadržaj koji spaja snimljeni materijal, generirane vizuale i postprodukciju.</p>
             </div>
           </article>
         </div>
       </section>
 
       <section class="contact-section" id="contact" data-nav-tone="dark">
+        <div class="contact-heading proposal-heading proposal-heading-label-only" data-proposal-label="Pokrenimo suradnju">
+          <span class="proposal-context">Kontakt forma</span>
+          <h2>Kontakt</h2>
+        </div>
         <div class="contact-panel">
           <div class="contact-copy">
             <p class="kicker">Pokrenimo suradnju</p>
@@ -206,9 +217,8 @@
             </label>
 
             <div class="form-progress" aria-live="polite">
-              <span data-form-progress>Korak 1 od 4</span>
+              <span data-form-progress>01</span>
               <div class="form-progress-dots" aria-hidden="true">
-                <span data-form-dot></span>
                 <span data-form-dot></span>
                 <span data-form-dot></span>
                 <span data-form-dot></span>
@@ -236,39 +246,39 @@
                   Opis projekta
                   <textarea name="project" rows="7" placeholder="Opišite projekt." required></textarea>
                 </label>
-              </fieldset>
-
-              <fieldset class="form-step" data-form-step hidden>
-                <legend>Korak 3: Rok i termin</legend>
-                <p class="form-step-note">Ovaj dio je opcionalan.</p>
-                <label>
-                  Rok završetka projekta
-                  <input type="date" name="deadline" data-date-picker data-placeholder="Odaberi datum" />
-                </label>
-                <div class="meeting-field">
-                  <div class="meeting-picker" id="meetingCalendar" aria-label="Opcionalni odabir sastanka">
-                    <label>
-                      Lakše ti je ispričati detalje o projektu? Odaberi termin sastanka.
-                      <input type="date" name="meeting_date" data-meeting-date data-date-picker data-placeholder="Odaberi datum" />
+                <div class="budget-field" role="radiogroup" aria-labelledby="contactBudgetLabel">
+                  <p class="budget-label" id="contactBudgetLabel">Okvirni budžet</p>
+                  <div class="budget-options">
+                    <label class="budget-option">
+                      <input type="radio" name="budget" value="do 3000€" required />
+                      <span>do 3000€</span>
                     </label>
-                    <label class="meeting-time">
-                      Sat sastanka
-                      <select name="meeting_time" data-meeting-time>
-                        <option value="">Odaberi sat</option>
-                      </select>
+                    <label class="budget-option">
+                      <input type="radio" name="budget" value="3000€ - 5000€" required />
+                      <span>3000€ - 5000€</span>
+                    </label>
+                    <label class="budget-option">
+                      <input type="radio" name="budget" value="5000€ i više" required />
+                      <span>5000€ i više</span>
+                    </label>
+                    <label class="budget-option">
+                      <input type="radio" name="budget" value="Budžet nije definiran" required />
+                      <span>Budžet nije definiran</span>
                     </label>
                   </div>
                 </div>
-                <button class="step-skip" type="button" data-form-skip>Preskoči</button>
               </fieldset>
 
               <fieldset class="form-step" data-form-step hidden>
-                <legend>Korak 4: Pošalji upit</legend>
+                <legend>Korak 3: Pošalji upit</legend>
                 <p class="form-step-note">Još samo jedna sitnica prije slanja.</p>
                 <label class="checkbox-label">
                   <input type="checkbox" name="newsletter" />
                   <span>Želim primiti jedan godišnji newsletter s radovima i novostima.</span>
                 </label>
+                <div class="turnstile-field" aria-label="Sigurnosna provjera">
+                  <div class="cf-turnstile" data-sitekey="0x4AAAAAAEsbYRWDi-VFkhHW" data-theme="dark"></div>
+                </div>
               </fieldset>
             </div>
 
@@ -295,7 +305,7 @@
           </a>
 
           <div class="footer-company">
-            <h3>Informacije o firmi</h3>
+            <h3>Informacije</h3>
             <p>
               Fundamento Creative Studios j.d.o.o.<br />
               55598169702<br />
@@ -330,7 +340,7 @@
           </div>
 
           <nav class="footer-nav" aria-label="Footer navigacija">
-            <a href="#privacy" data-privacy-open>Politika privatnosti</a>
+            <a href="#privacy" data-privacy-open>Politika privatnosti i kolačići</a>
             <button class="footer-cookie-button" type="button" data-cookie-settings-open>Kolačići</button>
           </nav>
         </div>
@@ -405,8 +415,9 @@
         </p>
         <p>
           Za posjete izvan te regije analitika se može uključiti automatski. Postavke možete naknadno promijeniti
-          putem linka "Kolačići" u footeru ili dodatno kontrolirati u vašem web pregledniku.
+          putem postavki kolačića unutar ove politike ili dodatno kontrolirati u vašem web pregledniku.
         </p>
+        <button class="privacy-cookie-settings" type="button" data-cookie-settings-open>Postavke kolačića</button>
 
         <h3>5. Razdoblje pohrane</h3>
         <p>
@@ -445,6 +456,69 @@
 <!--     <script src="seo-tracking.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <script src="app.js?v=tomic-thumbnail-20260522"></script>
+    <script>
+      (() => {
+        const isLocalPreview = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+        if (isLocalPreview || window.location.protocol === "file:") return;
+
+        const script = document.createElement("script");
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+    <script src="app.js?v=audit-fixes-20260910c"></script>
+    <script>
+      (() => {
+        const initMobileMenu = () => {
+          const nav = document.querySelector(".site-nav");
+          const button = document.querySelector(".nav-menu");
+          if (!nav || !button || button.dataset.hardMobileMenu === "true") return;
+
+          button.dataset.hardMobileMenu = "true";
+          let lastToggle = 0;
+
+          const setOpen = (isOpen) => {
+            nav.classList.toggle("is-open", isOpen);
+            document.body.dataset.mobileNavOpen = String(isOpen);
+            document.documentElement.dataset.mobileNavOpen = String(isOpen);
+            button.setAttribute("aria-expanded", String(isOpen));
+            button.setAttribute("aria-label", isOpen ? "Zatvori navigaciju" : "Otvori navigaciju");
+          };
+
+          const toggle = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+
+            const now = performance.now();
+            if (now - lastToggle < 220) return;
+            lastToggle = now;
+            setOpen(!nav.classList.contains("is-open"));
+          };
+
+          button.addEventListener("pointerup", toggle, true);
+          button.addEventListener("click", toggle, true);
+
+          const close = () => setOpen(false);
+          nav.addEventListener("click", (event) => {
+            if (!nav.classList.contains("is-open")) return;
+            if (event.target.closest("a")) close();
+            if (!event.target.closest("a, button")) close();
+          });
+          document.addEventListener("click", (event) => {
+            if (!nav.classList.contains("is-open")) return;
+            if (!event.target.closest(".site-nav")) close();
+          });
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initMobileMenu);
+        } else {
+          initMobileMenu();
+        }
+      })();
+    </script>
   </body>
 </html>
