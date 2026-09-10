@@ -1628,7 +1628,64 @@ function setupForms() {
     });
   };
 
-  const getTurnstileToken = (form) => form.querySelector('textarea[name="cf-turnstile-response"]')?.value?.trim() || "";
+  const getTurnstileResponseField = (form) => form.querySelector('[name="cf-turnstile-response"]');
+
+  const ensureTurnstileResponseField = (form) => {
+    let field = getTurnstileResponseField(form);
+    if (field) return field;
+
+    field = document.createElement("input");
+    field.type = "hidden";
+    field.name = "cf-turnstile-response";
+    form.append(field);
+    return field;
+  };
+
+  const getTurnstileToken = (form) => {
+    const fieldToken = getTurnstileResponseField(form)?.value?.trim();
+    const widgetToken = form.querySelector(".cf-turnstile")?.dataset.turnstileToken?.trim();
+    return fieldToken || widgetToken || "";
+  };
+
+  const syncTurnstileToken = (form, token = "") => {
+    if (!form) return;
+
+    const widget = form.querySelector(".cf-turnstile");
+    const field = ensureTurnstileResponseField(form);
+    const normalizedToken = token.trim();
+
+    field.value = normalizedToken;
+    if (widget) widget.dataset.turnstileToken = normalizedToken;
+
+    const status = form.querySelector("[data-form-status]");
+    if (status?.textContent === turnstileMissingMessage && normalizedToken) {
+      status.textContent = "";
+      status.classList.remove("is-error", "is-success");
+    }
+  };
+
+  window.fundamentoTurnstileCallback = (token = "") => {
+    const widget = Array.from(document.querySelectorAll(".cf-turnstile")).find(
+      (candidate) => !candidate.dataset.localDisabled,
+    );
+    syncTurnstileToken(widget?.closest("form"), token);
+  };
+
+  window.fundamentoTurnstileExpired = () => {
+    document.querySelectorAll(".cf-turnstile").forEach((widget) => {
+      syncTurnstileToken(widget.closest("form"), "");
+    });
+  };
+
+  const setupTurnstileTokenBridge = (form) => {
+    const widget = form.querySelector(".cf-turnstile");
+    if (!widget) return;
+
+    widget.dataset.callback = "fundamentoTurnstileCallback";
+    widget.dataset.expiredCallback = "fundamentoTurnstileExpired";
+    widget.dataset.errorCallback = "fundamentoTurnstileExpired";
+    ensureTurnstileResponseField(form);
+  };
 
   const shouldRequireTurnstile = (form) => {
     const widget = form.querySelector(".cf-turnstile");
@@ -1649,6 +1706,7 @@ function setupForms() {
 
   const resetTurnstile = (form) => {
     const widget = form.querySelector(".cf-turnstile");
+    syncTurnstileToken(form, "");
     if (!widget || isLocalPreview || !window.turnstile?.reset) return;
     window.turnstile.reset(widget);
   };
@@ -1795,6 +1853,7 @@ function setupForms() {
   };
 
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
+    setupTurnstileTokenBridge(form);
     setupTurnstilePreviewState(form);
     setupContactStepper(form);
   });
