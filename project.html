@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="Projekt studija Fundamento kroz video produkciju, foto sadržaj i vizualne materijale za brendove." />
     <meta name="twitter:image" content="https://www.fundamen.to/assets/brand/fundamento-logo-stacked-light.png" />
     <link rel="icon" type="image/png" href="assets/brand/fundamento-logo-stacked-light.png" />
-    <link rel="stylesheet" href="styles.css?v=cta-black-20260910a" />
+    <link rel="stylesheet" href="styles.css?v=no-cut-corners-20260910a" />
     <style>
       @font-face {
         font-family: "Aeonik Pro";
@@ -3287,6 +3287,20 @@
           flex-basis: auto !important;
           max-width: none !important;
         }
+      }
+
+      /* Final no-cut-corners pass: project pages keep rectangular media and brief cards. */
+      .project-detail-page-body .media-shell,
+      .project-detail-page-body .case-hero-media,
+      .project-detail-page-body .frames-grid .media-shell,
+      .project-detail-page-body .bts-grid .media-shell,
+      .project-detail-page-body .vertical-video-grid .media-shell,
+      .project-detail-page-body .horizontal-video-strip .media-shell,
+      .project-detail-page-body .partner-brief-grid article,
+      body[data-project-kind="partner"] .case-hero-media,
+      body[data-project-kind="partner"] .case-hero-media.is-partner-thumbnail,
+      body[data-project-kind="partner"] .partner-brief-grid article {
+        clip-path: none !important;
       }
     </style>
   </head>
