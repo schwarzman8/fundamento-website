@@ -1858,114 +1858,13 @@ function setupChromeState() {
 }
 
 function setupForms() {
-  const buildContactBody = (values) =>
-    [
-      `Ime: ${values.name}`,
-      `Email: ${values.email}`,
-      `Telefon: ${values.phone}`,
-      `Tip sadržaja: ${values.contentType}`,
-      `Model suradnje: ${values.collaboration}`,
-      `Rok: ${values.timeline}`,
-      `Opis projekta: ${values.project}`,
-      `Okvirni budžet: ${values.budget}`,
-      `Newsletter: ${values.newsletter}`,
-      `Stranica: ${window.location.href}`,
-    ].join("\n");
-
-  const contactSuccessMessage = "Mail je na putu, javit ćemo se uskoro.";
   const contactErrorMessage =
-    "Slanje nije potvrđeno. Otvorili smo email s istim podacima kako biste ga mogli poslati direktno na info@fundamen.to.";
-  const turnstileMissingMessage = "Potvrdite sigurnosnu provjeru prije slanja upita.";
-  const isLocalPreview =
-    ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname) || window.location.protocol === "file:";
+    "Upit nije poslan. Pokušajte ponovno ili nam se javite na info@fundamen.to.";
 
   const resetDatePlaceholders = (form) => {
     form.querySelectorAll('input[type="date"][data-placeholder]').forEach((input) => {
       input.classList.toggle("has-value", Boolean(input.value));
     });
-  };
-
-  const getTurnstileResponseField = (form) => form.querySelector('[name="cf-turnstile-response"]');
-
-  const ensureTurnstileResponseField = (form) => {
-    let field = getTurnstileResponseField(form);
-    if (field) return field;
-
-    field = document.createElement("input");
-    field.type = "hidden";
-    field.name = "cf-turnstile-response";
-    form.append(field);
-    return field;
-  };
-
-  const getTurnstileToken = (form) => {
-    const fieldToken = getTurnstileResponseField(form)?.value?.trim();
-    const widgetToken = form.querySelector(".cf-turnstile")?.dataset.turnstileToken?.trim();
-    return fieldToken || widgetToken || "";
-  };
-
-  const syncTurnstileToken = (form, token = "") => {
-    if (!form) return;
-
-    const widget = form.querySelector(".cf-turnstile");
-    const field = ensureTurnstileResponseField(form);
-    const normalizedToken = token.trim();
-
-    field.value = normalizedToken;
-    if (widget) widget.dataset.turnstileToken = normalizedToken;
-
-    const status = form.querySelector("[data-form-status]");
-    if (status?.textContent === turnstileMissingMessage && normalizedToken) {
-      status.textContent = "";
-      status.classList.remove("is-error", "is-success");
-    }
-  };
-
-  window.fundamentoTurnstileCallback = (token = "") => {
-    const widget = Array.from(document.querySelectorAll(".cf-turnstile")).find(
-      (candidate) => !candidate.dataset.localDisabled,
-    );
-    syncTurnstileToken(widget?.closest("form"), token);
-  };
-
-  window.fundamentoTurnstileExpired = () => {
-    document.querySelectorAll(".cf-turnstile").forEach((widget) => {
-      syncTurnstileToken(widget.closest("form"), "");
-    });
-  };
-
-  const setupTurnstileTokenBridge = (form) => {
-    const widget = form.querySelector(".cf-turnstile");
-    if (!widget) return;
-
-    widget.dataset.callback = "fundamentoTurnstileCallback";
-    widget.dataset.expiredCallback = "fundamentoTurnstileExpired";
-    widget.dataset.errorCallback = "fundamentoTurnstileExpired";
-    ensureTurnstileResponseField(form);
-  };
-
-  const shouldRequireTurnstile = (form) => {
-    const widget = form.querySelector(".cf-turnstile");
-    return Boolean(widget && !isLocalPreview && !widget.dataset.localDisabled);
-  };
-
-  const setupTurnstilePreviewState = (form) => {
-    if (!isLocalPreview) return;
-
-    const field = form.querySelector(".turnstile-field");
-    const widget = form.querySelector(".cf-turnstile");
-    if (field) {
-      field.hidden = true;
-      field.setAttribute("aria-hidden", "true");
-    }
-    if (widget) widget.dataset.localDisabled = "true";
-  };
-
-  const resetTurnstile = (form) => {
-    const widget = form.querySelector(".cf-turnstile");
-    syncTurnstileToken(form, "");
-    if (!widget || isLocalPreview || !window.turnstile?.reset) return;
-    window.turnstile.reset(widget);
   };
 
   const setContactSubmitted = (form, isSubmitted) => {
@@ -1998,6 +1897,37 @@ function setupForms() {
       });
   };
 
+  const setupContactReset = (form) => {
+    const againButton = form.querySelector("[data-form-again]");
+    const submitButton = form.querySelector('button[type="submit"]');
+    const status = form.querySelector("[data-form-status]");
+
+    const restoreForm = () => {
+      setContactSubmitted(form, false);
+      delete form.dataset.formSending;
+      form.removeAttribute("aria-busy");
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Pošalji brief";
+      }
+      if (status) {
+        status.textContent = "";
+        status.classList.remove("is-error", "is-success");
+      }
+      form.showContactStep?.(0);
+    };
+
+    againButton?.addEventListener("click", () => {
+      restoreForm();
+      form.reset();
+      resetDatePlaceholders(form);
+    });
+
+    form.addEventListener("reset", () => {
+      window.setTimeout(restoreForm, 0);
+    });
+  };
+
   const setupContactStepper = (form) => {
     const steps = Array.from(form.querySelectorAll("[data-form-step]"));
     if (!steps.length) return;
@@ -2008,7 +1938,6 @@ function setupForms() {
     const nextButton = form.querySelector("[data-form-next]");
     const submitButton = form.querySelector("[data-form-submit]");
     const status = form.querySelector("[data-form-status]");
-    const againButton = form.querySelector("[data-form-again]");
     let currentStep = 0;
 
     const setStatus = (message = "", type = "neutral") => {
@@ -2087,34 +2016,14 @@ function setupForms() {
       });
     });
 
-    againButton?.addEventListener("click", () => {
-      setContactSubmitted(form, false);
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "Pošalji";
-      }
-      form.reset();
-      resetTurnstile(form);
-      resetDatePlaceholders(form);
-      showStep(0);
-    });
-
-    form.addEventListener("reset", () => {
-      window.setTimeout(() => {
-        setContactSubmitted(form, false);
-        showStep(0);
-      }, 0);
-    });
-
     form.showContactStep = showStep;
     form.findContactStepForField = (field) => steps.findIndex((step) => step.contains(field));
     showStep(0);
   };
 
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
-    setupTurnstileTokenBridge(form);
-    setupTurnstilePreviewState(form);
     setupContactStepper(form);
+    setupContactReset(form);
 
     const summary = form.closest(".contact-panel")?.querySelector("[data-brief-summary]");
     const syncBriefSummary = () => {
@@ -2169,14 +2078,6 @@ function setupForms() {
         return;
       }
 
-      const turnstileToken = getTurnstileToken(form);
-      const turnstileWidget = form.querySelector(".cf-turnstile");
-      if (shouldRequireTurnstile(form) && !turnstileToken) {
-        setStatus(turnstileMissingMessage, "error");
-        turnstileWidget.scrollIntoView({ behavior: "smooth", block: "center" });
-        return;
-      }
-
       const values = {
         name: form.elements.name?.value.trim() || "",
         email: form.elements.email?.value.trim() || "",
@@ -2189,30 +2090,35 @@ function setupForms() {
         newsletter: form.elements.newsletter?.checked ? "Da" : "Ne",
       };
 
-      const payload = new FormData();
-      payload.append("Ime", values.name);
-      payload.append("Email", values.email);
-      payload.append("Telefon", values.phone);
-      payload.append("Tip sadržaja", values.contentType);
-      payload.append("Model suradnje", values.collaboration);
-      payload.append("Rok", values.timeline);
-      payload.append("Opis projekta", values.project);
-      payload.append("Okvirni budžet", values.budget);
-      payload.append("Newsletter", values.newsletter);
-      payload.append("Stranica", window.location.href);
-      payload.append("_url", window.location.href);
-      payload.append("_replyto", values.email);
-      payload.append("_subject", "Novi upit preko Fundamento stranice");
-      payload.append("_template", "table");
-      payload.append("_captcha", "false");
-      payload.append("_honey", "");
-      if (turnstileToken) payload.append("cf-turnstile-response", turnstileToken);
+      const payload = {
+        Ime: values.name,
+        Email: values.email,
+        Telefon: values.phone,
+        "Tip sadržaja": values.contentType,
+        "Model suradnje": values.collaboration,
+        Rok: values.timeline,
+        "Opis projekta": values.project,
+        "Okvirni budžet": values.budget,
+        Newsletter: values.newsletter,
+        Stranica: window.location.href,
+        _url: window.location.href,
+        _replyto: values.email,
+        _subject: "Novi upit preko Fundamento stranice",
+        _template: "table",
+        _captcha: "false",
+        _honey: "",
+      };
 
       const actionUrl = form.getAttribute("action") || "https://formsubmit.co/info@fundamen.to";
       const ajaxUrl = actionUrl.replace("https://formsubmit.co/", "https://formsubmit.co/ajax/");
 
       const sendForm = async () => {
         let didSubmit = false;
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
+        form.dataset.formSending = "true";
+        form.setAttribute("aria-busy", "true");
         setStatus("Šaljemo upit...", "neutral");
         if (submitButton) {
           submitButton.disabled = true;
@@ -2222,26 +2128,32 @@ function setupForms() {
         try {
           const response = await fetch(ajaxUrl, {
             method: "POST",
-            body: payload,
-            headers: { Accept: "application/json" },
+            body: JSON.stringify(payload),
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            signal: controller.signal,
           });
 
-          if (!response.ok) {
-            throw new Error(`Form submit failed with status ${response.status}`);
+          const result = await response.json().catch(() => null);
+
+          if (!response.ok || result?.success === false) {
+            throw new Error(result?.message || `Form submit failed with status ${response.status}`);
           }
 
           didSubmit = true;
           setStatus("", "success");
           setContactSubmitted(form, true);
-        } catch {
-          resetTurnstile(form);
-          const subject = "Novi upit preko Fundamento stranice";
-          const body = buildContactBody(values);
-          window.location.href = `mailto:info@fundamen.to?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-            body,
-          )}`;
-          setStatus(contactErrorMessage, "error");
+        } catch (error) {
+          const message = error?.name === "AbortError"
+            ? "Slanje traje predugo. Provjerite vezu i pokušajte ponovno."
+            : contactErrorMessage;
+          setStatus(message, "error");
         } finally {
+          window.clearTimeout(timeoutId);
+          delete form.dataset.formSending;
+          form.removeAttribute("aria-busy");
           if (submitButton && !didSubmit) {
             submitButton.disabled = false;
             submitButton.textContent = originalButtonText;

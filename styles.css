@@ -15485,27 +15485,6 @@ body.home-page-body .project-bento.has-expanded .bento-card,
   filter: grayscale(1) contrast(1.08) brightness(0.92) !important;
 }
 
-/* Contact security check: keep the Cloudflare Turnstile widget aligned with the form system. */
-.home-page-body .turnstile-field {
-  display: grid !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  justify-items: start !important;
-  margin-top: clamp(18px, 2vw, 28px) !important;
-  overflow: hidden !important;
-}
-
-.home-page-body .turnstile-field .cf-turnstile {
-  max-width: 100% !important;
-}
-
-@media (max-width: 420px) {
-  .home-page-body .turnstile-field {
-    transform: scale(0.92);
-    transform-origin: left top;
-  }
-}
-
 /* Final process card shape: keep service/process cards rectangular. */
 .home-page-body .accordion-panel,
 .home-page-body .accordion-panel:hover,
@@ -17943,12 +17922,14 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
   display: flex !important;
   grid-template-columns: none !important;
   flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
   margin-top: 24px;
 }
 
 .home-page-body .form-button {
   display: inline-flex;
+  min-width: 170px;
   min-height: 50px;
   align-items: center;
   justify-content: center;
@@ -17965,6 +17946,24 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
 }
 
 .home-page-body .form-button { width: auto !important; background: var(--bone) !important; color: #111110 !important; }
+
+.home-page-body .contact-form[data-form-sending="true"] .form-button {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.home-page-body .contact-form .form-status {
+  min-height: 22px;
+  margin: 14px 0 0 !important;
+  line-height: 1.45;
+}
+
+@media (max-width: 700px) {
+  .home-page-body .form-actions,
+  .home-page-body .form-button {
+    width: 100% !important;
+  }
+}
 
 @keyframes editorialFade {
   from { opacity: 0; transform: translate3d(0, 10px, 0); }
