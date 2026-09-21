@@ -16522,9 +16522,32 @@ body.home-page-body .project-bento.has-expanded .bento-card,
     overscroll-behavior-x: none;
   }
 
+  html {
+    scroll-behavior: auto !important;
+  }
+
   .site-nav,
   .project-page-nav {
     top: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .home-page-body .hero-section {
+    min-height: max(680px, 100svh) !important;
+  }
+
+  .home-page-body .client-logo-track {
+    will-change: auto !important;
+  }
+
+  .home-page-body .scrub-word {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .home-page-body .hero-section[data-reel-paused="true"] .hero-progress-button.is-active .hero-progress-fill {
+    animation-play-state: paused !important;
   }
 
   body[data-nav-scrolled="true"] .site-nav,
@@ -17557,6 +17580,12 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
   background: #191918;
 }
 
+.home-page-body .partner-featured-media,
+.home-page-body .partner-featured-title-link,
+.home-page-body .wheel-project-media {
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
 .home-page-body .partner-featured-media img {
   display: block;
   width: 100%;
@@ -17567,6 +17596,19 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
 }
 
 .home-page-body .partner-featured-copy { padding-top: 20px; }
+
+.home-page-body .partner-featured-title-link {
+  display: block;
+  width: fit-content;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-page-body .partner-featured-media:focus-visible,
+.home-page-body .partner-featured-title-link:focus-visible {
+  outline: 1px solid var(--detail);
+  outline-offset: 5px;
+}
 
 .home-page-body .partner-featured-copy small {
   color: var(--detail);
@@ -17611,9 +17653,17 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
 }
 
 .home-page-body .partner-index-row {
+  width: 100%;
   min-height: 78px;
+  margin: 0;
+  border: 0;
   border-bottom: 1px solid rgba(243, 239, 231, 0.16);
+  padding: 0;
+  background: transparent;
   color: rgba(243, 239, 231, 0.68);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
   text-decoration: none;
   transition: color 220ms ease, background 220ms ease;
 }
@@ -17644,6 +17694,11 @@ body[data-hero-ready="true"].home-page-body .hero-section:has(.hero-media-wrap:h
 }
 
 .home-page-body .partner-index-row.is-active { border-bottom-color: var(--detail); }
+
+.home-page-body .partner-featured-media:hover img,
+.home-page-body .partner-featured-media:focus-visible img {
+  opacity: 0.86;
+}
 
 /* Process */
 .home-page-body .manifesto-section {

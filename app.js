@@ -209,6 +209,19 @@ function isTouchLayout() {
   return window.matchMedia("(hover: none), (pointer: coarse), (max-width: 820px)").matches;
 }
 
+function returnSelectionToMedia(media, focusTarget = null) {
+  if (!media || !window.matchMedia("(max-width: 980px)").matches) return;
+
+  window.requestAnimationFrame(() => {
+    const navHeight = document.querySelector(".site-nav")?.getBoundingClientRect().height || 72;
+    const top = Math.max(0, window.scrollY + media.getBoundingClientRect().top - navHeight - 16);
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+
+    window.scrollTo({ top, behavior });
+    window.setTimeout(() => focusTarget?.focus({ preventScroll: true }), behavior === "smooth" ? 420 : 0);
+  });
+}
+
 function playVideoWithSound(video) {
   if (!video) return Promise.resolve();
   video.muted = false;
@@ -482,6 +495,8 @@ function renderWheel() {
     button.addEventListener("click", () => {
       activeProject = Number(button.dataset.wheelIndex);
       updateWheel();
+      const activeCard = projectWheel.querySelector(".wheel-project.center");
+      returnSelectionToMedia(activeCard?.querySelector(".wheel-project-media"), activeCard?.querySelector(".wheel-play-button"));
     });
   });
 
@@ -766,12 +781,12 @@ function renderBento() {
   const rows = partnerProjects
     .map(
       (project, index) => `
-        <a class="partner-index-row${index === 0 ? " is-active" : ""}" href="${projectUrl(project)}" data-partner-index="${index}">
+        <button class="partner-index-row${index === 0 ? " is-active" : ""}" type="button" data-partner-index="${index}" aria-pressed="${index === 0}">
           <small>${String(index + 1).padStart(2, "0")}</small>
           <strong>${project.title}</strong>
           <span>${project.type}</span>
           <em>od ${project.year}.</em>
-        </a>
+        </button>
       `,
     )
     .join("");
@@ -783,7 +798,9 @@ function renderBento() {
       </a>
       <div class="partner-featured-copy">
         <small>${partnerProjects[0].type}</small>
-        <h3>${partnerProjects[0].title}</h3>
+        <a class="partner-featured-title-link" href="${projectUrl(partnerProjects[0])}" aria-label="Otvori projekt ${partnerProjects[0].title}">
+          <h3>${partnerProjects[0].title}</h3>
+        </a>
         <p>${partnerProjects[0].summary}</p>
       </div>
     </div>
@@ -795,6 +812,7 @@ function renderBento() {
 
   const featured = projectBento.querySelector("[data-partner-featured]");
   const mediaLink = featured.querySelector(".partner-featured-media");
+  const titleLink = featured.querySelector(".partner-featured-title-link");
   const image = mediaLink.querySelector("img");
   const category = featured.querySelector("small");
   const title = featured.querySelector("h3");
@@ -805,20 +823,32 @@ function renderBento() {
     if (!project) return;
     mediaLink.href = projectUrl(project);
     mediaLink.setAttribute("aria-label", `Otvori projekt ${project.title}`);
+    titleLink.href = projectUrl(project);
+    titleLink.setAttribute("aria-label", `Otvori projekt ${project.title}`);
     image.src = project.image;
     image.alt = project.title;
     category.textContent = project.type;
     title.textContent = project.title;
     summary.textContent = project.summary;
     projectBento.querySelectorAll("[data-partner-index]").forEach((row) => {
-      row.classList.toggle("is-active", Number(row.dataset.partnerIndex) === index);
+      const isActive = Number(row.dataset.partnerIndex) === index;
+      row.classList.toggle("is-active", isActive);
+      row.setAttribute("aria-pressed", String(isActive));
     });
   };
 
   projectBento.querySelectorAll("[data-partner-index]").forEach((row) => {
     const activate = () => setPartner(Number(row.dataset.partnerIndex));
-    row.addEventListener("mouseenter", activate);
-    row.addEventListener("focus", activate);
+    row.addEventListener("mouseenter", () => {
+      if (!isTouchLayout()) activate();
+    });
+    row.addEventListener("focus", () => {
+      if (!isTouchLayout()) activate();
+    });
+    row.addEventListener("click", () => {
+      activate();
+      returnSelectionToMedia(mediaLink, mediaLink);
+    });
   });
 }
 
@@ -933,6 +963,7 @@ function setupHeroVideo() {
   let reelTimer = 0;
   let fadeTimer = 0;
   let transitionToken = 0;
+  let heroVisible = true;
 
   const prepareVideo = (video, project) => {
     if (video.dataset.heroSrc === project.video) return;
@@ -1001,6 +1032,7 @@ function setupHeroVideo() {
 
   const scheduleNext = () => {
     window.clearTimeout(reelTimer);
+    if (!heroVisible || document.hidden) return;
     reelTimer = window.setTimeout(() => {
       showProject((activeIndex + 1) % reelProjects.length);
     }, HERO_REEL_DURATION);
@@ -1025,7 +1057,7 @@ function setupHeroVideo() {
 
     prepareVideo(nextVideo, project);
     setRandomVideoStart(nextVideo);
-    nextVideo.play().catch(() => {});
+    if (heroVisible && !document.hidden) nextVideo.play().catch(() => {});
 
     updateCurrentProject(project);
     updateProgress();
@@ -1061,13 +1093,34 @@ function setupHeroVideo() {
 
   document.addEventListener("visibilitychange", () => {
     window.clearTimeout(reelTimer);
-    if (document.hidden) {
-      videoSlots[activeSlotIndex].pause();
+    if (document.hidden || !heroVisible) {
+      videoSlots.forEach((video) => video.pause());
       return;
     }
     videoSlots[activeSlotIndex].play().catch(() => {});
     scheduleNext();
   });
+
+  const heroObserver = new IntersectionObserver(
+    ([entry]) => {
+      heroVisible = Boolean(entry?.isIntersecting);
+      hero.dataset.reelPaused = String(!heroVisible);
+      window.clearTimeout(reelTimer);
+      window.clearTimeout(fadeTimer);
+
+      if (!heroVisible) {
+        videoSlots.forEach((video) => video.pause());
+        return;
+      }
+
+      if (!document.hidden) {
+        videoSlots[activeSlotIndex].play().catch(() => {});
+        scheduleNext();
+      }
+    },
+    { rootMargin: "120px 0px", threshold: 0.01 },
+  );
+  heroObserver.observe(hero);
 
   showProject(0, { immediate: true });
 }
@@ -1121,6 +1174,8 @@ function setupClientLogoMarquee() {
   let lastTime = performance.now();
   let pointerId = null;
   let dragX = 0;
+  let isVisible = true;
+  const supportsDrag = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const speed = 0.036;
 
   const normalizeOffset = () => {
@@ -1143,7 +1198,7 @@ function setupClientLogoMarquee() {
     const delta = Math.min(48, time - lastTime);
     lastTime = time;
 
-    if (pointerId === null && !marquee.matches(":hover")) {
+    if (isVisible && pointerId === null && (!supportsDrag || !marquee.matches(":hover"))) {
       offset += delta * speed;
       normalizeOffset();
       render();
@@ -1151,15 +1206,6 @@ function setupClientLogoMarquee() {
 
     requestAnimationFrame(tick);
   };
-
-  marquee.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0) return;
-    event.preventDefault();
-    pointerId = event.pointerId;
-    dragX = event.clientX;
-    marquee.classList.add("is-dragging");
-    marquee.setPointerCapture?.(event.pointerId);
-  });
 
   const drag = (event) => {
     if (pointerId !== event.pointerId) return;
@@ -1171,8 +1217,6 @@ function setupClientLogoMarquee() {
     render();
   };
 
-  window.addEventListener("pointermove", drag);
-
   const releaseDrag = (event) => {
     if (pointerId !== event.pointerId) return;
     pointerId = null;
@@ -1180,12 +1224,32 @@ function setupClientLogoMarquee() {
     marquee.releasePointerCapture?.(event.pointerId);
   };
 
-  marquee.addEventListener("pointerup", releaseDrag);
-  marquee.addEventListener("pointercancel", releaseDrag);
-  marquee.addEventListener("lostpointercapture", releaseDrag);
-  window.addEventListener("pointerup", releaseDrag);
-  window.addEventListener("pointercancel", releaseDrag);
+  if (supportsDrag) {
+    marquee.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      pointerId = event.pointerId;
+      dragX = event.clientX;
+      marquee.classList.add("is-dragging");
+      marquee.setPointerCapture?.(event.pointerId);
+    });
+    window.addEventListener("pointermove", drag);
+    marquee.addEventListener("pointerup", releaseDrag);
+    marquee.addEventListener("pointercancel", releaseDrag);
+    marquee.addEventListener("lostpointercapture", releaseDrag);
+    window.addEventListener("pointerup", releaseDrag);
+    window.addEventListener("pointercancel", releaseDrag);
+  }
   window.addEventListener("resize", measure);
+
+  const marqueeObserver = new IntersectionObserver(
+    ([entry]) => {
+      isVisible = Boolean(entry?.isIntersecting);
+      lastTime = performance.now();
+    },
+    { rootMargin: "160px 0px", threshold: 0.01 },
+  );
+  marqueeObserver.observe(marquee);
 
   track.replaceChildren(createSequence(), createSequence());
 
@@ -2280,7 +2344,8 @@ function setupGsap() {
   if (!window.gsap || !window.ScrollTrigger) return;
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReducedMotion) return;
+  const isMobileViewport = window.matchMedia("(max-width: 820px)").matches;
+  if (prefersReducedMotion || isMobileViewport) return;
 
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({
@@ -2366,19 +2431,6 @@ function setupGsap() {
           },
         );
       });
-    },
-  });
-
-  ScrollTrigger.matchMedia({
-    "(max-width: 820px)": function () {
-      const projectMedia = gsap.utils.toArray(".media-card img, .media-card video");
-      if (!projectMedia.length) return;
-
-      gsap.set(projectMedia, {
-        clearProps: "transform,opacity",
-      });
-
-      ScrollTrigger.refresh();
     },
   });
 
