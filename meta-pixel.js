@@ -30,4 +30,27 @@
   window.fbq("init", pixelId);
   window.fbq("track", "PageView");
   document.documentElement.dataset.metaPixel = pixelId;
+
+  const trackContact = (contactMethod) => {
+    window.fbq("track", "Contact", {
+      contact_method: contactMethod,
+      content_name: contactMethod === "email" ? "Email click" : "Contact form",
+    });
+  };
+
+  window.FundamentoMetaPixel = Object.freeze({ trackContact });
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      const link = event.target.closest("a[href]");
+      if (!link) return;
+
+      const href = link.getAttribute("href") || "";
+      if (href.toLowerCase().startsWith("mailto:")) {
+        trackContact("email");
+      }
+    },
+    true,
+  );
 })(window, document);

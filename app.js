@@ -2250,6 +2250,7 @@ function setupForms() {
           didSubmit = true;
           setStatus("", "success");
           setContactSubmitted(form, true);
+          window.FundamentoMetaPixel?.trackContact("form");
         } catch (error) {
           const message = error?.name === "AbortError"
             ? "Slanje traje predugo. Provjerite vezu i pokušajte ponovno."
