@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="Full-service vizualna produkcija za brendove koji trebaju snažan digitalni dojam, povjerenje i prodajni rezultat." />
     <meta name="twitter:image" content="https://www.fundamen.to/assets/video-posters/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.jpg" />
     <link rel="icon" type="image/png" href="assets/brand/fundamento-logo-stacked-light.png" />
-    <link rel="stylesheet" href="styles.css?v=prelaunch-20260921e" />
+    <link rel="stylesheet" href="styles.css?v=prelaunch-20260921h" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -46,8 +46,10 @@
         ]
       }
     </script>
+    <script id="fundamento-meta-pixel" src="/meta-pixel.js?v=meta-20260921a"></script>
   </head>
   <body class="home-page-body">
+    <noscript><img class="meta-pixel-noscript" height="1" width="1" alt="" src="https://www.facebook.com/tr?id=1393426975724807&amp;ev=PageView&amp;noscript=1" /></noscript>
     <header class="site-nav" aria-label="Glavna navigacija">
       <a class="brand-mark" href="#home" aria-label="fundamento početna">
         <img class="brand-logo brand-logo-light" src="assets/brand/fundamento-logo-light.png" alt="" aria-hidden="true" />
@@ -161,10 +163,10 @@
         </div>
 
         <div class="process-tabs" role="tablist" aria-label="Faze procesa">
-          <button class="process-tab is-active" type="button" role="tab" aria-selected="true" data-process-index="0"><small>01</small><strong>Kreativni koncepti</strong><span>1—2 tjedna</span></button>
-          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="1"><small>02</small><strong>Produkcija</strong><span>1—5 dana</span></button>
-          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="2"><small>03</small><strong>Postprodukcija</strong><span>2—4 tjedna</span></button>
-          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="3"><small>04</small><strong>AI produkcija</strong><span>Po potrebi</span></button>
+          <button class="process-tab is-active" type="button" role="tab" aria-selected="true" data-process-index="0"><small>01</small><strong>Kreativni koncepti</strong></button>
+          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="1"><small>02</small><strong>Produkcija</strong></button>
+          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="2"><small>03</small><strong>Postprodukcija</strong></button>
+          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="3"><small>04</small><strong>AI produkcija</strong></button>
         </div>
 
         <div class="accordion process-stage" aria-label="Način rada">
@@ -276,9 +278,9 @@
               </fieldset>
 
               <div class="brief-contact-grid">
-                <label>Ime i prezime <input type="text" name="name" autocomplete="name" placeholder="Ana Anić" required /></label>
-                <label>E-mail <input type="email" name="email" autocomplete="email" placeholder="ana@brend.hr" required /></label>
-                <label>Telefon <input type="tel" name="phone" autocomplete="tel" placeholder="+385 ..." /></label>
+                <label>Ime i prezime <input type="text" name="name" autocomplete="name" placeholder="Ime i Prezime" required /></label>
+                <label>E-mail <input type="email" name="email" autocomplete="email" inputmode="email" placeholder="Tvoj email" required /></label>
+                <label>Broj mobitela <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Tvoj broj mobitela" required /></label>
               </div>
 
               <label class="checkbox-label brief-newsletter">
@@ -411,6 +413,17 @@
           nego što prihvatite analitičke kolačiće.
         </p>
 
+        <h4>D) Meta Pixel</h4>
+        <p>
+          Meta Pixel koristimo za mjerenje dolazaka i učinkovitosti oglasa na platformama Meta. Pixel se učitava
+          pri posjetu stranici i bilježi događaj PageView neovisno o odabiru Google Analytics kolačića.
+        </p>
+        <p>
+          Meta može zaprimiti URL posjećene stranice, podatke o pregledniku i uređaju, IP adresu te Meta
+          identifikatore i kolačiće ako su dostupni u pregledniku. Obrada tih podataka podliježe pravilima
+          privatnosti društva Meta Platforms Ireland Limited.
+        </p>
+
         <h3>3. Dijeljenje podataka s trećim stranama</h3>
         <p>
           Fundamento Creative Studios j.d.o.o. ne prodaje, ne iznajmljuje niti dijeli vaše osobne podatke s
@@ -422,14 +435,14 @@
 
         <h3>4. Kolačići (Cookies)</h3>
         <p>
-          Web stranica koristi samo nužne kolačiće bez privole. Za posjetitelje iz EU/EEA/UK/CH regije analitički
-          kolačići uključuju se tek nakon vaše privole.
+          Web stranica koristi nužne kolačiće za osnovni rad. Meta Pixel učitava se pri posjetu radi mjerenja
+          oglasa, dok se Google Analytics uključuje tek nakon vaše privole u regijama gdje je ona potrebna.
         </p>
         <p>
           Nužni kolačići: Neophodni za rad stranice i spremanje vaših postavki privole. Ne mogu se isključiti
           putem naše stranice jer su potrebni za osnovnu funkcionalnost.<br />
-          Analitički kolačići (Google Analytics): Pomažu nam pratiti anonimnu statistiku posjeta i uključuju se
-          tek nakon vaše privole.
+          Google Analytics: Pomaže nam pratiti anonimnu statistiku posjeta i uključuje se tek nakon vaše privole.<br />
+          Meta Pixel: Mjeri posjete povezane s Meta oglasima i može postaviti ili pročitati Meta identifikatore.
         </p>
         <p>
           Za posjete izvan te regije analitika se može uključiti automatski. Postavke možete naknadno promijeniti
@@ -442,8 +455,8 @@
           Kontakt upite čuvamo onoliko dugo koliko je potrebno za odgovor, pripremu ponude i vođenje poslovne
           komunikacije, odnosno dulje samo kada to zahtijevaju zakonske obveze. FormSubmit tehničke zapise
           poslanih obrazaca zadržava do 30 dana. Vašu e-mail adresu za newsletter čuvamo sve dok ne povučete
-          privolu (odjavite se). Podaci prikupljeni putem Google Analyticsa čuvaju se u skladu s pravilima tog
-          servisa (obično 14 do 26 mjeseci).
+          privolu (odjavite se). Podaci prikupljeni putem Google Analyticsa i Meta Pixela čuvaju se u skladu s
+          pravilima i postavkama tih servisa.
         </p>
 
         <h3>6. Vaša prava prema GDPR-u</h3>
@@ -470,64 +483,13 @@
       </article>
     </aside>
 
-    <script src="cookie-consent.js?v=cookie-consent-20260527"></script>
+    <script src="cookie-consent.js?v=cookie-consent-20260921"></script>
     <script src="media-protection.js?v=media-protection-20260521"></script>
 <!--     <script src="analytics-config.js"></script> -->
 <!--     <script src="analytics.js"></script> -->
 <!--     <script src="seo-tracking.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <script src="app.js?v=prelaunch-20260921i"></script>
-    <script>
-      (() => {
-        const initMobileMenu = () => {
-          const nav = document.querySelector(".site-nav");
-          const button = document.querySelector(".nav-menu");
-          if (!nav || !button || button.dataset.hardMobileMenu === "true") return;
-
-          button.dataset.hardMobileMenu = "true";
-          let lastToggle = 0;
-
-          const setOpen = (isOpen) => {
-            nav.classList.toggle("is-open", isOpen);
-            document.body.dataset.mobileNavOpen = String(isOpen);
-            document.documentElement.dataset.mobileNavOpen = String(isOpen);
-            button.setAttribute("aria-expanded", String(isOpen));
-            button.setAttribute("aria-label", isOpen ? "Zatvori navigaciju" : "Otvori navigaciju");
-          };
-
-          const toggle = (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-
-            const now = performance.now();
-            if (now - lastToggle < 220) return;
-            lastToggle = now;
-            setOpen(!nav.classList.contains("is-open"));
-          };
-
-          button.addEventListener("pointerup", toggle, true);
-          button.addEventListener("click", toggle, true);
-
-          const close = () => setOpen(false);
-          nav.addEventListener("click", (event) => {
-            if (!nav.classList.contains("is-open")) return;
-            if (event.target.closest("a")) close();
-            if (!event.target.closest("a, button")) close();
-          });
-          document.addEventListener("click", (event) => {
-            if (!nav.classList.contains("is-open")) return;
-            if (!event.target.closest(".site-nav")) close();
-          });
-        };
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", initMobileMenu);
-        } else {
-          initMobileMenu();
-        }
-      })();
-    </script>
+    <script src="app.js?v=prelaunch-20260921m"></script>
   </body>
 </html>

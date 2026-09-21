@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="Projekt studija Fundamento kroz video produkciju, foto sadržaj i vizualne materijale za brendove." />
     <meta name="twitter:image" content="https://www.fundamen.to/assets/brand/fundamento-logo-stacked-light.png" />
     <link rel="icon" type="image/png" href="assets/brand/fundamento-logo-stacked-light.png" />
-    <link rel="stylesheet" href="styles.css?v=prelaunch-20260921e" />
+    <link rel="stylesheet" href="styles.css?v=prelaunch-20260921h" />
     <style>
       @font-face {
         font-family: "Aeonik Pro";
@@ -3951,6 +3951,37 @@
         body.project-detail-page-body .frames-grid[data-count] > .media-item.is-wide {
           flex-basis: 100% !important;
         }
+
+        body.project-detail-page-body .vertical-video-grid[data-count]:not([data-count="1"]),
+        body.project-detail-page-body .project-video-stack > .vertical-video-grid[data-count]:not([data-count="1"]) {
+          display: grid !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          grid-auto-flow: row !important;
+          justify-content: stretch !important;
+          gap: 10px !important;
+          overflow: visible !important;
+          scroll-snap-type: none !important;
+        }
+
+        body.project-detail-page-body .vertical-video-grid[data-count]:not([data-count="1"]) > .media-item,
+        body.project-detail-page-body .project-video-stack > .vertical-video-grid[data-count]:not([data-count="1"]) > .media-item {
+          width: 100% !important;
+          max-width: none !important;
+          min-width: 0 !important;
+          flex: none !important;
+          flex-basis: auto !important;
+          scroll-snap-align: none !important;
+        }
+
+        body.project-detail-page-body .vertical-video-grid[data-count]:not([data-count="1"]) > .media-section-expand,
+        body.project-detail-page-body .project-video-stack > .vertical-video-grid[data-count]:not([data-count="1"]) > .media-section-expand {
+          width: 100% !important;
+          max-width: none !important;
+          grid-column: 1 / -1 !important;
+          justify-self: stretch !important;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -3973,8 +4004,10 @@
         }
       }
     </style>
+    <script id="fundamento-meta-pixel" src="/meta-pixel.js?v=meta-20260921a"></script>
   </head>
   <body class="project-detail-page-body" data-nav-scrolled="true" data-nav-tone="light">
+    <noscript><img class="meta-pixel-noscript" height="1" width="1" alt="" src="https://www.facebook.com/tr?id=1393426975724807&amp;ev=PageView&amp;noscript=1" /></noscript>
     <header class="site-nav project-page-nav" aria-label="Glavna navigacija">
       <a class="brand-mark" href="index.html?home=top" aria-label="fundamento početna">
         <img class="brand-logo brand-logo-light" src="assets/brand/fundamento-logo-light.png" alt="" aria-hidden="true" />
@@ -5387,10 +5420,10 @@
         });
       }
     </script>
-    <script src="cookie-consent.js?v=cookie-consent-20260527"></script>
+    <script src="cookie-consent.js?v=cookie-consent-20260921"></script>
 <!--     <script src="analytics-config.js"></script> -->
 <!--     <script src="analytics.js"></script> -->
 <!--     <script src="seo-tracking.js"></script> -->
-    <script src="privacy.js"></script>
+    <script src="privacy.js?v=privacy-20260921"></script>
   </body>
 </html>

@@ -53,6 +53,17 @@ const privacyMarkup = `
         nego što prihvatite analitičke kolačiće.
       </p>
 
+      <h4>D) Meta Pixel</h4>
+      <p>
+        Meta Pixel koristimo za mjerenje dolazaka i učinkovitosti oglasa na platformama Meta. Pixel se učitava
+        pri posjetu stranici i bilježi događaj PageView neovisno o odabiru Google Analytics kolačića.
+      </p>
+      <p>
+        Meta može zaprimiti URL posjećene stranice, podatke o pregledniku i uređaju, IP adresu te Meta
+        identifikatore i kolačiće ako su dostupni u pregledniku. Obrada tih podataka podliježe pravilima
+        privatnosti društva Meta Platforms Ireland Limited.
+      </p>
+
       <h3>3. Dijeljenje podataka s trećim stranama</h3>
       <p>
         Fundamento Creative Studios j.d.o.o. ne prodaje, ne iznajmljuje niti dijeli vaše osobne podatke s
@@ -64,14 +75,14 @@ const privacyMarkup = `
 
       <h3>4. Kolačići (Cookies)</h3>
       <p>
-        Web stranica koristi samo nužne kolačiće bez privole. Za posjetitelje iz EU/EEA/UK/CH regije analitički
-        kolačići uključuju se tek nakon vaše privole.
+        Web stranica koristi nužne kolačiće za osnovni rad. Meta Pixel učitava se pri posjetu radi mjerenja
+        oglasa, dok se Google Analytics uključuje tek nakon vaše privole u regijama gdje je ona potrebna.
       </p>
       <p>
         Nužni kolačići: Neophodni za rad stranice i spremanje vaših postavki privole. Ne mogu se isključiti
         putem naše stranice jer su potrebni za osnovnu funkcionalnost.<br />
-        Analitički kolačići (Google Analytics): Pomažu nam pratiti anonimnu statistiku posjeta i uključuju se
-        tek nakon vaše privole.
+        Google Analytics: Pomaže nam pratiti anonimnu statistiku posjeta i uključuje se tek nakon vaše privole.<br />
+        Meta Pixel: Mjeri posjete povezane s Meta oglasima i može postaviti ili pročitati Meta identifikatore.
       </p>
       <p>
         Za posjete izvan te regije analitika se može uključiti automatski. Postavke možete naknadno promijeniti
@@ -83,8 +94,8 @@ const privacyMarkup = `
         Kontakt upite čuvamo onoliko dugo koliko je potrebno za odgovor, pripremu ponude i vođenje poslovne
         komunikacije, odnosno dulje samo kada to zahtijevaju zakonske obveze. FormSubmit tehničke zapise
         poslanih obrazaca zadržava do 30 dana. Vašu e-mail adresu za newsletter čuvamo sve dok ne povučete
-        privolu. Podaci prikupljeni putem Google Analyticsa čuvaju se u skladu s pravilima tog servisa, obično
-        14 do 26 mjeseci.
+        privolu. Podaci prikupljeni putem Google Analyticsa i Meta Pixela čuvaju se u skladu s pravilima i
+        postavkama tih servisa.
       </p>
 
       <h3>6. Vaša prava prema GDPR-u</h3>

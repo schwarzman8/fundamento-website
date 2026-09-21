@@ -56,10 +56,10 @@
   const text = {
     title: "Postavke kolačića",
     intro:
-      "Koristimo nužne kolačiće za rad stranice. Analitičke kolačiće koristimo samo ako nam to dopustite, kako bismo razumjeli posjećenost i poboljšali sadržaj.",
+      "Meta Pixel koristimo za mjerenje učinkovitosti oglasa i učitava se pri posjetu stranici. Google Analytics uključujemo samo ako nam to dopustite.",
     necessaryTitle: "Nužni kolačići",
     necessaryText: "Uvijek aktivni. Potrebni su za osnovni rad stranice i spremanje vašeg izbora.",
-    analyticsTitle: "Analitički kolačići",
+    analyticsTitle: "Google Analytics",
     analyticsText:
       "Google Analytics koristimo za anonimnu statistiku posjeta. Analitika se ne učitava prije vaše privole.",
   };
@@ -258,11 +258,11 @@
         </div>
 
         <div class="cookie-consent__actions">
-          <button class="cookie-consent__button is-secondary" type="button" data-cookie-reject>Odbij sve</button>
+          <button class="cookie-consent__button is-secondary" type="button" data-cookie-reject>Bez Google analitike</button>
           <button class="cookie-consent__button is-secondary" type="button" data-cookie-settings>
             ${settingsOpen ? "Sakrij postavke" : "Postavke"}
           </button>
-          <button class="cookie-consent__button is-primary" type="button" data-cookie-accept>Prihvati sve</button>
+          <button class="cookie-consent__button is-primary" type="button" data-cookie-accept>Prihvati analitiku</button>
           <button class="cookie-consent__button is-primary" type="button" data-cookie-save ${settingsOpen ? "" : "hidden"}>
             Spremi odabir
           </button>

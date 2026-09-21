@@ -1398,8 +1398,8 @@ function setupSmoothAnchors() {
     );
   };
 
-  const scrollToHashTarget = (target, behavior = "smooth") => {
-    resetAnchorState();
+  const scrollToHashTarget = (target, behavior = "smooth", resetUi = true) => {
+    if (resetUi) resetAnchorState();
     window.ScrollTrigger?.refresh?.();
     const top = getScrollTarget(target);
     syncAnchorChrome(target, top);
@@ -1439,7 +1439,7 @@ function setupSmoothAnchors() {
     const target = getTargetByHash(window.location.hash);
     if (!target) return;
 
-    scrollToHashTarget(target, "auto");
+    scrollToHashTarget(target, "auto", false);
   };
 
   if (window.location.hash && window.location.hash !== "#privacy") {
@@ -1518,15 +1518,10 @@ function setupMobileNav() {
   };
 
   const closeMenu = () => setMenuOpen(false);
-  let lastMenuToggle = 0;
 
   const toggleMenu = (event) => {
     event.preventDefault();
     event.stopPropagation();
-
-    const now = performance.now();
-    if (now - lastMenuToggle < 180) return;
-    lastMenuToggle = now;
     setMenuOpen(!nav.classList.contains("is-open"));
   };
 
@@ -1931,6 +1926,50 @@ function setupForms() {
     });
   };
 
+  const validateContactFields = (form) => {
+    const email = form.elements.email;
+    const phone = form.elements.phone;
+
+    if (email instanceof HTMLInputElement) {
+      const value = email.value.trim();
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+      email.setCustomValidity(
+        !value
+          ? "Unesite e-mail adresu."
+          : isValid
+            ? ""
+            : "Unesite ispravnu e-mail adresu, primjerice ime@domena.hr.",
+      );
+    }
+
+    if (phone instanceof HTMLInputElement) {
+      const value = phone.value.trim();
+      const digits = value.replace(/\D/g, "");
+      const hasValidCharacters = /^\+?[0-9\s()./-]+$/.test(value);
+      const isValid = hasValidCharacters && digits.length >= 8 && digits.length <= 15;
+      phone.setCustomValidity(
+        !value
+          ? "Unesite broj mobitela."
+          : isValid
+            ? ""
+            : "Unesite ispravan broj mobitela s 8 do 15 znamenki.",
+      );
+    }
+  };
+
+  const setupContactValidation = (form) => {
+    const fields = [form.elements.email, form.elements.phone].filter(
+      (field) => field instanceof HTMLInputElement,
+    );
+
+    fields.forEach((field) => {
+      field.addEventListener("input", () => validateContactFields(form));
+      field.addEventListener("blur", () => validateContactFields(form));
+    });
+    form.addEventListener("reset", () => window.setTimeout(() => validateContactFields(form), 0));
+    validateContactFields(form);
+  };
+
   const setContactSubmitted = (form, isSubmitted) => {
     const panel = form.closest(".contact-panel");
     const thanks = form.querySelector("[data-form-thanks]");
@@ -2088,6 +2127,7 @@ function setupForms() {
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
     setupContactStepper(form);
     setupContactReset(form);
+    setupContactValidation(form);
 
     const summary = form.closest(".contact-panel")?.querySelector("[data-brief-summary]");
     const syncBriefSummary = () => {
@@ -2125,8 +2165,9 @@ function setupForms() {
         status.classList.toggle("is-success", type === "success");
       };
 
+      validateContactFields(form);
       if (!form.checkValidity()) {
-        setStatus("Unesite ime, email, opis projekta i okvirni budžet pa pošaljite upit.", "error");
+        setStatus("Unesite ime, ispravan e-mail i broj mobitela, opis projekta i okvirni budžet.", "error");
         const invalidField = Array.from(form.elements).find((field) => field.willValidate && !field.checkValidity());
         const invalidStep = form.findContactStepForField?.(invalidField);
         if (typeof invalidStep === "number" && invalidStep >= 0) {
@@ -2157,7 +2198,7 @@ function setupForms() {
       const payload = {
         Ime: values.name,
         Email: values.email,
-        Telefon: values.phone,
+        "Broj mobitela": values.phone,
         "Tip sadržaja": values.contentType,
         "Model suradnje": values.collaboration,
         Rok: values.timeline,
