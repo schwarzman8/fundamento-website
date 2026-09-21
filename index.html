@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="Full-service vizualna produkcija za brendove koji trebaju snažan digitalni dojam, povjerenje i prodajni rezultat." />
     <meta name="twitter:image" content="https://www.fundamen.to/assets/video-posters/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.jpg" />
     <link rel="icon" type="image/png" href="assets/brand/fundamento-logo-stacked-light.png" />
-    <link rel="stylesheet" href="styles.css?v=contact-success-20260910b" />
+    <link rel="stylesheet" href="styles.css?v=prelaunch-20260921c" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -91,7 +91,21 @@
 
     <main class="site-shell" id="home">
       <section class="hero-section" aria-label="Fundamento hero" data-nav-tone="light">
-        <div class="hero-ambient" aria-hidden="true"></div>
+        <div class="hero-showreel" aria-hidden="true">
+          <video
+            class="hero-showreel-video is-active"
+            data-hero-video-slot="0"
+            src="assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4"
+            poster="assets/video-posters/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.jpg"
+            muted
+            loop
+            playsinline
+            preload="auto"
+          ></video>
+          <video class="hero-showreel-video" data-hero-video-slot="1" muted loop playsinline preload="auto"></video>
+        </div>
+
+        <div class="hero-progress" data-hero-progress aria-label="Odaberi video iz showreela"></div>
 
         <div class="hero-copy">
           <p class="kicker">Full-service vizualna produkcija</p>
@@ -105,19 +119,14 @@
           </div>
         </div>
 
-        <div class="hero-media-wrap">
-          <video
-            class="hero-video"
-            src="assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4"
-            poster="assets/video-posters/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.jpg"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="auto"
-          ></video>
+        <div class="hero-current" aria-live="polite" aria-atomic="true">
+          <span>Trenutno</span>
+          <strong data-hero-current-title>Forte Solar</strong>
+          <small data-hero-current-meta>TVC / Renewable Energy</small>
         </div>
+      </section>
 
+      <section class="featured-work-section" data-nav-tone="light" aria-label="Klijenti i istaknuti radovi">
         <div class="hero-marquee client-logo-marquee" aria-label="Klijenti i partneri" data-logo-marquee>
           <div class="client-logo-track" data-logo-track></div>
         </div>
@@ -127,13 +136,7 @@
             <span>Odabrani radovi</span>
             <em>Selekcija projekata</em>
           </div>
-          <button class="wheel-control" type="button" data-wheel="prev" aria-label="Prethodni projekt">
-            <span aria-hidden="true">&larr;</span>
-          </button>
           <div class="project-wheel" id="projectWheel"></div>
-          <button class="wheel-control" type="button" data-wheel="next" aria-label="Sljedeći projekt">
-            <span aria-hidden="true">&rarr;</span>
-          </button>
         </div>
       </section>
 
@@ -157,29 +160,36 @@
           <p>Od kreativnog smjera do produkcije i finalnog sadržaja spremnog za korištenje.</p>
         </div>
 
-        <div class="accordion" aria-label="Način rada">
-          <article class="accordion-panel is-open" data-service-title="Kreativni koncepti">
+        <div class="process-tabs" role="tablist" aria-label="Faze procesa">
+          <button class="process-tab is-active" type="button" role="tab" aria-selected="true" data-process-index="0"><small>01</small><strong>Kreativni koncepti</strong><span>1—2 tjedna</span></button>
+          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="1"><small>02</small><strong>Produkcija</strong><span>1—5 dana</span></button>
+          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="2"><small>03</small><strong>Postprodukcija</strong><span>2—4 tjedna</span></button>
+          <button class="process-tab" type="button" role="tab" aria-selected="false" data-process-index="3"><small>04</small><strong>AI produkcija</strong><span>Po potrebi</span></button>
+        </div>
+
+        <div class="accordion process-stage" aria-label="Način rada">
+          <article class="accordion-panel is-open" data-service-title="Kreativni koncepti" role="tabpanel">
             <img src="assets/services/service-creative-concepts.png" alt="Mračni produkcijski stol s moodboardima i storyboard materijalima" loading="lazy" decoding="async" />
             <div>
               <h3>Kreativni koncepti</h3>
               <p>Prije snimanja definiramo ideju, ton, vizualni smjer i formate koje sadržaj mora pokriti. Klijent dobiva jasan kreativni okvir: od moodboarda i scenarija do plana snimanja, lokacija i produkcijskih potreba.</p>
             </div>
           </article>
-          <article class="accordion-panel" data-service-title="Produkcija">
+          <article class="accordion-panel" data-service-title="Produkcija" role="tabpanel">
             <img src="assets/services/service-production.png" alt="Filmski set s kamerom, rasvjetom i produkcijskom opremom" loading="lazy" decoding="async" />
             <div>
               <h3>Produkcija</h3>
               <p>Organiziramo i vodimo snimanje od pripreme do zadnjeg kadra. Ovisno o projektu, pokrivamo video produkciju, fotografiju, rasvjetu, režiju, kameru, zvuk, styling, lokacije i produkcijsku koordinaciju.</p>
             </div>
           </article>
-          <article class="accordion-panel" data-service-title="Postprodukcija">
+          <article class="accordion-panel" data-service-title="Postprodukcija" role="tabpanel">
             <img src="assets/services/service-postproduction.png" alt="Tamna montažna i color grading soba s profesionalnim monitorima" loading="lazy" decoding="async" />
             <div>
               <h3>Postprodukcija</h3>
               <p>Od snimljenog materijala gradimo finalni sadržaj spreman za upotrebu. Montaža, color grading, sound design, grafičke obrade i prilagodbe formata za web, društvene mreže, kampanje i prezentacije.</p>
             </div>
           </article>
-          <article class="accordion-panel" data-service-title="AI produkcija">
+          <article class="accordion-panel" data-service-title="AI produkcija" role="tabpanel">
             <img src="assets/services/service-ai-production.png" alt="Kreativni tehnološki studio s generativnim vizualima i produkcijskom opremom" loading="lazy" decoding="async" />
             <div>
               <h3>AI produkcija</h3>
@@ -198,6 +208,11 @@
           <div class="contact-copy">
             <p class="kicker">Pokrenimo suradnju</p>
             <h2>Što ćemo snimati?</h2>
+            <div class="brief-summary" aria-live="polite">
+              <small>Vaš brief, zasad</small>
+              <strong data-brief-summary>Brend film · Mjesečni retainer · 1—3 mjeseca</strong>
+              <p>Odgovaramo u dva radna dana s okvirnim planom, terminima i procjenom.</p>
+            </div>
             <p class="direct-mail">Kontaktirati nas možete i na <a href="mailto:info@fundamen.to">info@fundamen.to</a>.</p>
           </div>
 
@@ -216,76 +231,67 @@
               <input type="text" name="_honey" autocomplete="off" tabindex="-1" />
             </label>
 
-            <div class="form-progress" aria-live="polite">
-              <span data-form-progress>01</span>
-              <div class="form-progress-dots" aria-hidden="true">
-                <span data-form-dot></span>
-                <span data-form-dot></span>
-                <span data-form-dot></span>
+            <div class="brief-options">
+              <fieldset class="brief-group">
+                <legend><span>01</span> Tip sadržaja</legend>
+                <div class="brief-choice-row">
+                  <label><input type="radio" name="content_type" value="Brend film" checked /><span>Brend film</span></label>
+                  <label><input type="radio" name="content_type" value="Kampanja / TVC" /><span>Kampanja / TVC</span></label>
+                  <label><input type="radio" name="content_type" value="Foto set" /><span>Foto set</span></label>
+                  <label><input type="radio" name="content_type" value="Društvene mreže" /><span>Društvene mreže</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="brief-group">
+                <legend><span>02</span> Model suradnje</legend>
+                <div class="brief-choice-row">
+                  <label><input type="radio" name="collaboration" value="Jednokratno" /><span>Jednokratno</span></label>
+                  <label><input type="radio" name="collaboration" value="Mjesečni retainer" checked /><span>Mjesečni retainer</span></label>
+                  <label><input type="radio" name="collaboration" value="Još ne znam" /><span>Još ne znam</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="brief-group">
+                <legend><span>03</span> Rok</legend>
+                <div class="brief-choice-row">
+                  <label><input type="radio" name="timeline" value="Unutar mjesec dana" /><span>Unutar mjesec dana</span></label>
+                  <label><input type="radio" name="timeline" value="1—3 mjeseca" checked /><span>1—3 mjeseca</span></label>
+                  <label><input type="radio" name="timeline" value="3 mjeseca i više" /><span>3 mjeseca i više</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="brief-group">
+                <legend><span>04</span> Opišite projekt svojim riječima</legend>
+                <textarea name="project" rows="4" placeholder="Što snimamo, gdje, za koga i dokad — sve što mislite da je važno." required></textarea>
+              </fieldset>
+
+              <fieldset class="brief-group brief-budget">
+                <legend><span>05</span> Okvirni budžet</legend>
+                <div class="brief-choice-row">
+                  <label><input type="radio" name="budget" value="do 3000€" required /><span>do 3000€</span></label>
+                  <label><input type="radio" name="budget" value="3000€ - 5000€" required /><span>3000€—5000€</span></label>
+                  <label><input type="radio" name="budget" value="5000€ i više" required /><span>5000€ i više</span></label>
+                  <label><input type="radio" name="budget" value="Budžet nije definiran" required /><span>Nije definiran</span></label>
+                </div>
+              </fieldset>
+
+              <div class="brief-contact-grid">
+                <label>Ime i prezime <input type="text" name="name" autocomplete="name" placeholder="Ana Anić" required /></label>
+                <label>E-mail <input type="email" name="email" autocomplete="email" placeholder="ana@brend.hr" required /></label>
+                <label>Telefon <input type="tel" name="phone" autocomplete="tel" placeholder="+385 ..." /></label>
+              </div>
+
+              <label class="checkbox-label brief-newsletter">
+                <input type="checkbox" name="newsletter" />
+                <span>Želim primiti jedan godišnji newsletter s radovima i novostima.</span>
+              </label>
+              <div class="turnstile-field" aria-label="Sigurnosna provjera">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAEsbYRWDi-VFkhHW" data-theme="dark"></div>
               </div>
             </div>
 
-            <div class="form-steps">
-              <fieldset class="form-step is-active" data-form-step>
-                <legend>Korak 1: Osnovni podaci</legend>
-                <p class="form-step-note">Krenimo s kontakt podacima.</p>
-                <label>
-                  Ime
-                  <input type="text" name="name" autocomplete="name" placeholder="Tvoje ime" required />
-                </label>
-                <label>
-                  Email
-                  <input type="email" name="email" autocomplete="email" placeholder="ime@firma.com" required />
-                </label>
-              </fieldset>
-
-              <fieldset class="form-step" data-form-step hidden>
-                <legend>Korak 2: Opis projekta</legend>
-                <p class="form-step-note">Nekoliko rečenica je dovoljno. Opišite projekt, u kojem formatu i što trebamo postići.</p>
-                <label>
-                  Opis projekta
-                  <textarea name="project" rows="7" placeholder="Opišite projekt." required></textarea>
-                </label>
-                <div class="budget-field" role="radiogroup" aria-labelledby="contactBudgetLabel">
-                  <p class="budget-label" id="contactBudgetLabel">Okvirni budžet</p>
-                  <div class="budget-options">
-                    <label class="budget-option">
-                      <input type="radio" name="budget" value="do 3000€" required />
-                      <span>do 3000€</span>
-                    </label>
-                    <label class="budget-option">
-                      <input type="radio" name="budget" value="3000€ - 5000€" required />
-                      <span>3000€ - 5000€</span>
-                    </label>
-                    <label class="budget-option">
-                      <input type="radio" name="budget" value="5000€ i više" required />
-                      <span>5000€ i više</span>
-                    </label>
-                    <label class="budget-option">
-                      <input type="radio" name="budget" value="Budžet nije definiran" required />
-                      <span>Budžet nije definiran</span>
-                    </label>
-                  </div>
-                </div>
-              </fieldset>
-
-              <fieldset class="form-step" data-form-step hidden>
-                <legend>Korak 3: Pošalji upit</legend>
-                <p class="form-step-note">Još samo jedna sitnica prije slanja.</p>
-                <label class="checkbox-label">
-                  <input type="checkbox" name="newsletter" />
-                  <span>Želim primiti jedan godišnji newsletter s radovima i novostima.</span>
-                </label>
-                <div class="turnstile-field" aria-label="Sigurnosna provjera">
-                  <div class="cf-turnstile" data-sitekey="0x4AAAAAAEsbYRWDi-VFkhHW" data-theme="dark"></div>
-                </div>
-              </fieldset>
-            </div>
-
             <div class="form-actions">
-              <button class="step-button step-button-secondary" type="button" data-form-prev hidden>Natrag</button>
-              <button class="step-button" type="button" data-form-next>Dalje</button>
-              <button class="form-button" type="submit" data-form-submit hidden>Pošalji</button>
+              <button class="form-button" type="submit">Pošalji brief</button>
             </div>
             <div class="form-thanks" data-form-thanks hidden tabindex="-1">
               <span class="form-thanks-kicker">Upit zaprimljen</span>
@@ -378,7 +384,19 @@
         </p>
 
         <h3>2. Koje podatke prikupljamo i u koju svrhu?</h3>
-        <h4>A) Newsletter</h4>
+        <h4>A) Kontakt forma</h4>
+        <p>
+          Kada pošaljete projektni upit, obrađujemo ime i prezime, e-mail adresu, broj telefona ako ga unesete,
+          odabrane podatke o projektu te sadržaj poruke.
+        </p>
+        <p>
+          Svrha: Odgovor na upit, priprema okvirnog plana, termina i procjene te poduzimanje radnji prije
+          sklapanja ugovora.<br />
+          Pravna osnova: Poduzimanje radnji na vaš zahtjev prije sklapanja ugovora i naš legitimni interes za
+          komunikaciju s potencijalnim klijentima.
+        </p>
+
+        <h4>B) Newsletter</h4>
         <p>Ako se prijavite na naš newsletter, prikupljamo isključivo vašu e-mail adresu.</p>
         <p>
           Svrha: Slanje obavijesti o našim projektima, novostima i promotivnih informacija.<br />
@@ -386,7 +404,7 @@
           "Odjava" u dnu svakog e-maila.
         </p>
 
-        <h4>B) Google Analytics (Kolačići)</h4>
+        <h4>C) Google Analytics (Kolačići)</h4>
         <p>Koristimo Google Analytics za analizu posjećenosti naše stranice.</p>
         <p>
           Svrha: Razumijevanje načina na koji posjetitelji koriste stranicu kako bismo poboljšali njezinu
@@ -399,9 +417,10 @@
         <h3>3. Dijeljenje podataka s trećim stranama</h3>
         <p>
           Fundamento Creative Studios j.d.o.o. ne prodaje, ne iznajmljuje niti dijeli vaše osobne podatke s
-          trećim stranama u njihove marketinške svrhe. Vaši podaci su sigurni i koriste se isključivo za gore
-          navedene svrhe. Iznimno, podaci se mogu dostaviti nadležnim javnim tijelima ako je to naša zakonska
-          obveza.
+          trećim stranama u njihove marketinške svrhe. Za tehničku dostavu kontakt obrasca koristimo uslugu
+          FormSubmit, koja podatke iz obrasca obrađuje isključivo radi prosljeđivanja upita na našu e-mail
+          adresu. Podatke mogu obrađivati i pružatelji naše e-mail infrastrukture. Iznimno, podaci se mogu
+          dostaviti nadležnim javnim tijelima ako je to naša zakonska obveza.
         </p>
 
         <h3>4. Kolačići (Cookies)</h3>
@@ -423,8 +442,11 @@
 
         <h3>5. Razdoblje pohrane</h3>
         <p>
-          Vašu e-mail adresu za newsletter čuvamo sve dok ne povučete privolu (odjavite se). Podaci prikupljeni
-          putem Google Analyticsa čuvaju se u skladu s pravilima tog servisa (obično 14 do 26 mjeseci).
+          Kontakt upite čuvamo onoliko dugo koliko je potrebno za odgovor, pripremu ponude i vođenje poslovne
+          komunikacije, odnosno dulje samo kada to zahtijevaju zakonske obveze. FormSubmit tehničke zapise
+          poslanih obrazaca zadržava do 30 dana. Vašu e-mail adresu za newsletter čuvamo sve dok ne povučete
+          privolu (odjavite se). Podaci prikupljeni putem Google Analyticsa čuvaju se u skladu s pravilima tog
+          servisa (obično 14 do 26 mjeseci).
         </p>
 
         <h3>6. Vaša prava prema GDPR-u</h3>
@@ -470,7 +492,7 @@
         document.head.appendChild(script);
       })();
     </script>
-    <script src="app.js?v=form-turnstile-20260910a"></script>
+    <script src="app.js?v=prelaunch-20260921f"></script>
     <script>
       (() => {
         const initMobileMenu = () => {

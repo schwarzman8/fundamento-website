@@ -58,7 +58,7 @@ const highlightProjects = [
 
 const partnerProjects = [
   {
-    title: "FORTE SOLAR",
+    title: "Forte Solar",
     type: "Renewable Energy",
     year: "2025",
     video: "assets/videos/FORTESOLAR_TVC1_16x9_UHD_30fps_TL1_web.mp4",
@@ -67,7 +67,7 @@ const partnerProjects = [
     summary: "Vodeći graditelj solarnih elektrana.",
   },
   {
-    title: "REVITA CLINIC",
+    title: "Revita Clinic",
     type: "Medical Wellness / Hospitality",
     year: "2025",
     video: "assets/videos/project-02.mp4",
@@ -75,7 +75,7 @@ const partnerProjects = [
     summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
   },
   {
-    title: "CENTRAL CAFE",
+    title: "Central Cafe",
     type: "Hospitality",
     year: "2025",
     video: "assets/videos/project-03.mp4",
@@ -85,7 +85,7 @@ const partnerProjects = [
   },
   {
     slug: "vw-bosnic",
-    title: "VOLKSWAGEN BOSNIĆ",
+    title: "Volkswagen Bosnić",
     type: "Automotive",
     year: "2024",
     video: "assets/videos/project-04.mp4",
@@ -94,7 +94,7 @@ const partnerProjects = [
     summary: "Ovlašteni Volkswagen i Škoda servis s više od tri desetljeća iskustva.",
   },
   {
-    title: "HOTEL AMBASADOR",
+    title: "Hotel Ambasador",
     type: "Hospitality",
     year: "2026",
     video: "assets/videos/project-02.mp4",
@@ -174,12 +174,13 @@ let activeProject = getInitialProjectIndex();
 
 const projectWheel = document.querySelector("#projectWheel");
 const projectBento = document.querySelector("#projectBento");
-const heroMedia = document.querySelector(".hero-media-wrap");
-const heroVideo = document.querySelector(".hero-video");
 const PROJECT_RETURN_PENDING_KEY = "fundamento.projectReturnPending";
 const PROJECT_RETURN_SCROLL_KEY = "fundamento.projectReturnScroll";
 const PROJECT_RETURN_URL_KEY = "fundamento.projectReturnUrl";
 const HOME_TOP_QUERY_KEY = "home";
+const HERO_REEL_COUNT = 4;
+const HERO_REEL_DURATION = 5000;
+const HERO_REEL_FADE = 400;
 
 const miniGalleries = [
   [
@@ -397,26 +398,44 @@ function featuredWorkLabel(project) {
 }
 
 function renderWheel() {
-  projectWheel.innerHTML = highlightProjects
+  const stages = highlightProjects
     .map((project, index) => {
       const poster = project.poster || videoPosterFromSrc(project.video);
       return `
         <article class="wheel-project is-hidden" data-index="${index}" aria-label="${project.title}, ${project.type}">
-          <video src="${project.video}"${poster ? ` poster="${poster}"` : ""} playsinline preload="metadata"></video>
-          <button class="wheel-play-button" type="button" aria-label="Pokreni video ${project.title}">
-            <span aria-hidden="true"></span>
-          </button>
+          <div class="wheel-project-media">
+            <video src="${project.video}"${poster ? ` poster="${poster}"` : ""} playsinline preload="metadata"></video>
+            <button class="wheel-play-button" type="button" aria-label="Pokreni video ${project.title}"><span aria-hidden="true"></span></button>
+          </div>
           <div class="wheel-project-info">
-            <strong>${featuredBrandName(project)}</strong>
-            <span class="wheel-project-meta">
-              <small>${featuredWorkLabel(project)}</small>
-              <a class="wheel-project-link" href="${projectUrl(project)}" aria-label="Saznaj više o projektu ${project.title}">Saznaj više <span aria-hidden="true">→</span></a>
-            </span>
+            <div class="wheel-project-meta">
+              <small>N° ${String(index + 1).padStart(3, "0")}</small>
+              <span>${featuredWorkLabel(project)}</span>
+            </div>
+            <div class="wheel-project-copy">
+              <strong>${featuredBrandName(project)}</strong>
+              <p>${project.summary}</p>
+            </div>
+            <a class="wheel-project-link" href="${projectUrl(project)}" aria-label="Saznaj više o projektu ${project.title}">Saznaj više <span aria-hidden="true">→</span></a>
           </div>
         </article>
       `;
     })
     .join("");
+
+  const thumbnails = highlightProjects
+    .map((project, index) => {
+      const poster = project.poster || videoPosterFromSrc(project.video);
+      return `
+        <button class="wheel-thumbnail" type="button" data-wheel-index="${index}" role="tab" aria-selected="false" aria-label="Prikaži ${project.title}">
+          <span class="wheel-thumbnail-media">${poster ? `<img src="${poster}" alt="" />` : ""}</span>
+          <span class="wheel-thumbnail-label"><strong>${featuredBrandName(project)}</strong><small>${String(index + 1).padStart(2, "0")}</small></span>
+        </button>
+      `;
+    })
+    .join("");
+
+  projectWheel.innerHTML = `<div class="wheel-stage">${stages}</div><div class="wheel-thumbnails" role="tablist" aria-label="Odabir projekta">${thumbnails}</div>`;
 
   projectWheel.querySelectorAll(".wheel-project").forEach((card) => {
     const index = Number(card.dataset.index);
@@ -435,11 +454,6 @@ function renderWheel() {
       }
     };
 
-    card.addEventListener("click", (event) => {
-      if (event.target.closest(".wheel-project-link, .wheel-play-button, video")) return;
-      activeProject = index;
-      updateWheel();
-    });
     ["click", "pointerdown"].forEach((eventName) => {
       video.addEventListener(eventName, (event) => {
         event.preventDefault();
@@ -449,23 +463,11 @@ function renderWheel() {
     video.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      if (!card.classList.contains("center")) {
-        activeProject = index;
-        updateWheel();
-        return;
-      }
-
       toggleVideo();
     });
     playButton.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      if (!card.classList.contains("center")) {
-        activeProject = index;
-        updateWheel();
-        return;
-      }
-
       toggleVideo();
     });
     video.addEventListener("play", syncPlayState);
@@ -476,6 +478,13 @@ function renderWheel() {
     });
   });
 
+  projectWheel.querySelectorAll("[data-wheel-index]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeProject = Number(button.dataset.wheelIndex);
+      updateWheel();
+    });
+  });
+
   updateWheel();
 }
 
@@ -483,12 +492,11 @@ function updateWheel() {
   projectWheel.querySelectorAll(".wheel-project").forEach((card) => {
     const index = Number(card.dataset.index);
     const video = card.querySelector("video");
-    const diff = wrapIndex(index - activeProject, highlightProjects.length);
-
     card.classList.remove("center", "side-left", "side-right", "far-left", "far-right", "is-hidden");
 
     if (index === activeProject) {
       card.classList.add("center");
+      card.removeAttribute("aria-hidden");
       video.controls = false;
       video.removeAttribute("controls");
       return;
@@ -499,22 +507,21 @@ function updateWheel() {
     video.pause();
     video.currentTime = 0;
     card.classList.remove("is-playing");
-
-    if (diff === 1) {
-      card.classList.add("side-right");
-    } else if (diff === 2) {
-      card.classList.add("far-right");
-    } else if (diff === highlightProjects.length - 1) {
-      card.classList.add("side-left");
-    } else if (diff === highlightProjects.length - 2) {
-      card.classList.add("far-left");
-    } else {
-      card.classList.add("is-hidden");
-    }
+    card.classList.add("is-hidden");
+    card.setAttribute("aria-hidden", "true");
   });
+
+  projectWheel.querySelectorAll("[data-wheel-index]").forEach((button) => {
+    const isActive = Number(button.dataset.wheelIndex) === activeProject;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+
+  const counter = document.querySelector(".wheel-heading em");
+  if (counter) counter.textContent = `Selekcija projekata · ${String(activeProject + 1).padStart(2, "0")} / ${String(highlightProjects.length).padStart(2, "0")}`;
 }
 
-function renderBento() {
+function renderLegacyBento() {
   const cards = partnerProjects.map((project, index) => {
     const useVideo = index % 2 === 0 && !project.preferImage;
     const poster = project.poster || videoPosterFromSrc(project.video);
@@ -752,6 +759,69 @@ function renderBento() {
   });
 }
 
+function renderBento() {
+  if (!projectBento || !partnerProjects.length) return;
+
+  const partnerMedia = (project) => `<img src="${project.image}" alt="${project.title}" />`;
+  const rows = partnerProjects
+    .map(
+      (project, index) => `
+        <a class="partner-index-row${index === 0 ? " is-active" : ""}" href="${projectUrl(project)}" data-partner-index="${index}">
+          <small>${String(index + 1).padStart(2, "0")}</small>
+          <strong>${project.title}</strong>
+          <span>${project.type}</span>
+          <em>od ${project.year}.</em>
+        </a>
+      `,
+    )
+    .join("");
+
+  projectBento.innerHTML = `
+    <div class="partner-featured" data-partner-featured>
+      <a class="partner-featured-media" href="${projectUrl(partnerProjects[0])}" aria-label="Otvori projekt ${partnerProjects[0].title}">
+        ${partnerMedia(partnerProjects[0])}
+      </a>
+      <div class="partner-featured-copy">
+        <small>${partnerProjects[0].type}</small>
+        <h3>${partnerProjects[0].title}</h3>
+        <p>${partnerProjects[0].summary}</p>
+      </div>
+    </div>
+    <div class="partner-index">
+      <div class="partner-index-head"><small>N°</small><span>Partner</span><span>Industrija</span><span>Partneri od</span></div>
+      ${rows}
+    </div>
+  `;
+
+  const featured = projectBento.querySelector("[data-partner-featured]");
+  const mediaLink = featured.querySelector(".partner-featured-media");
+  const image = mediaLink.querySelector("img");
+  const category = featured.querySelector("small");
+  const title = featured.querySelector("h3");
+  const summary = featured.querySelector("p");
+
+  const setPartner = (index) => {
+    const project = partnerProjects[index];
+    if (!project) return;
+    mediaLink.href = projectUrl(project);
+    mediaLink.setAttribute("aria-label", `Otvori projekt ${project.title}`);
+    image.src = project.image;
+    image.alt = project.title;
+    category.textContent = project.type;
+    title.textContent = project.title;
+    summary.textContent = project.summary;
+    projectBento.querySelectorAll("[data-partner-index]").forEach((row) => {
+      row.classList.toggle("is-active", Number(row.dataset.partnerIndex) === index);
+    });
+  };
+
+  projectBento.querySelectorAll("[data-partner-index]").forEach((row) => {
+    const activate = () => setPartner(Number(row.dataset.partnerIndex));
+    row.addEventListener("mouseenter", activate);
+    row.addEventListener("focus", activate);
+  });
+}
+
 function moveWheel(direction) {
   activeProject = wrapIndex(activeProject + direction);
   updateWheel();
@@ -808,21 +878,198 @@ function setupWheelGestures() {
   });
 }
 
-function setupHeroVideo() {
-  if (!heroMedia || !heroVideo) return;
+function getRandomHeroProjects() {
+  const shuffled = [...highlightProjects];
 
-  heroVideo.muted = true;
-  heroVideo.defaultMuted = true;
-  heroVideo.loop = true;
-  heroVideo.playsInline = true;
-  heroVideo.autoplay = true;
-  heroVideo.controls = false;
-  heroVideo.disablePictureInPicture = true;
-  heroVideo.setAttribute("controlslist", "nodownload nofullscreen noremoteplayback");
-  heroVideo.setAttribute("data-showreel-video", "true");
-  heroVideo.removeAttribute("controls");
-  heroVideo.preload = "auto";
-  heroVideo.play().catch(() => {});
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomValue = window.crypto?.getRandomValues
+      ? window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296
+      : Math.random();
+    const swapIndex = Math.floor(randomValue * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  const uniqueProjects = [];
+  const seenProjects = new Set();
+
+  shuffled.forEach((project) => {
+    const projectKey = project.slug || project.title;
+    if (seenProjects.has(projectKey)) return;
+    seenProjects.add(projectKey);
+    uniqueProjects.push(project);
+  });
+
+  return uniqueProjects.slice(0, Math.min(HERO_REEL_COUNT, uniqueProjects.length));
+}
+
+function setupHeroVideo() {
+  const hero = document.querySelector(".hero-section");
+  const videoSlots = [...document.querySelectorAll("[data-hero-video-slot]")];
+  const progress = document.querySelector("[data-hero-progress]");
+  const currentTitle = document.querySelector("[data-hero-current-title]");
+  const currentMeta = document.querySelector("[data-hero-current-meta]");
+  if (!hero || videoSlots.length < 2 || !progress || !currentTitle || !currentMeta) return;
+
+  const reelProjects = getRandomHeroProjects();
+  if (!reelProjects.length) return;
+
+  hero.style.setProperty("--hero-reel-duration", `${HERO_REEL_DURATION}ms`);
+  hero.style.setProperty("--hero-reel-fade", `${HERO_REEL_FADE}ms`);
+
+  progress.innerHTML = reelProjects
+    .map(
+      (project, index) => `
+        <button class="hero-progress-button" type="button" data-hero-progress-index="${index}" aria-label="Prikaži ${featuredBrandName(project)}">
+          <span class="hero-progress-fill" aria-hidden="true"></span>
+        </button>
+      `,
+    )
+    .join("");
+
+  const progressButtons = [...progress.querySelectorAll("[data-hero-progress-index]")];
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let activeIndex = 0;
+  let activeSlotIndex = 0;
+  let reelTimer = 0;
+  let fadeTimer = 0;
+  let transitionToken = 0;
+
+  const prepareVideo = (video, project) => {
+    if (video.dataset.heroSrc === project.video) return;
+
+    video.pause();
+    video.dataset.heroSrc = project.video;
+    video.src = project.video;
+    if (project.poster) {
+      video.poster = project.poster;
+    } else {
+      const poster = videoPosterFromSrc(project.video);
+      if (poster) video.poster = poster;
+    }
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.autoplay = false;
+    video.controls = false;
+    video.disablePictureInPicture = true;
+    video.setAttribute("controlslist", "nodownload nofullscreen noremoteplayback");
+    video.setAttribute("data-showreel-video", "true");
+    video.removeAttribute("controls");
+    video.preload = "auto";
+    video.load();
+  };
+
+  const setRandomVideoStart = (video) => {
+    const preparedSource = video.dataset.heroSrc;
+    const applyRandomStart = () => {
+      if (video.dataset.heroSrc !== preparedSource) return;
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+
+      const safeSegmentLength = HERO_REEL_DURATION / 1000 + HERO_REEL_FADE / 1000 + 0.35;
+      const latestStart = Math.max(0, video.duration - safeSegmentLength);
+      const randomValue = window.crypto?.getRandomValues
+        ? window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296
+        : Math.random();
+      video.currentTime = latestStart > 0 ? randomValue * latestStart : 0;
+    };
+
+    if (video.readyState >= 1) {
+      applyRandomStart();
+    } else {
+      video.addEventListener("loadedmetadata", applyRandomStart, { once: true });
+    }
+  };
+
+  const updateProgress = () => {
+    progressButtons.forEach((button, index) => {
+      const isActive = index === activeIndex;
+      button.classList.toggle("is-active", isActive);
+      button.classList.toggle("is-complete", index < activeIndex);
+      if (isActive) {
+        button.setAttribute("aria-current", "true");
+      } else {
+        button.removeAttribute("aria-current");
+      }
+    });
+  };
+
+  const updateCurrentProject = (project) => {
+    currentTitle.textContent = featuredBrandName(project);
+    currentMeta.textContent = [featuredWorkLabel(project), project.industry].filter(Boolean).join(" / ");
+  };
+
+  const scheduleNext = () => {
+    window.clearTimeout(reelTimer);
+    reelTimer = window.setTimeout(() => {
+      showProject((activeIndex + 1) % reelProjects.length);
+    }, HERO_REEL_DURATION);
+  };
+
+  const preloadNext = () => {
+    const preloadSlot = videoSlots[1 - activeSlotIndex];
+    const nextProject = reelProjects[(activeIndex + 1) % reelProjects.length];
+    prepareVideo(preloadSlot, nextProject);
+  };
+
+  const showProject = (nextIndex, { immediate = false } = {}) => {
+    window.clearTimeout(reelTimer);
+    window.clearTimeout(fadeTimer);
+    transitionToken += 1;
+    const currentToken = transitionToken;
+    activeIndex = (nextIndex + reelProjects.length) % reelProjects.length;
+    const project = reelProjects[activeIndex];
+    const nextSlotIndex = immediate ? activeSlotIndex : 1 - activeSlotIndex;
+    const nextVideo = videoSlots[nextSlotIndex];
+    const previousVideo = videoSlots[activeSlotIndex];
+
+    prepareVideo(nextVideo, project);
+    setRandomVideoStart(nextVideo);
+    nextVideo.play().catch(() => {});
+
+    updateCurrentProject(project);
+    updateProgress();
+
+    if (immediate) {
+      videoSlots.forEach((video, index) => video.classList.toggle("is-active", index === nextSlotIndex));
+      activeSlotIndex = nextSlotIndex;
+      preloadNext();
+      scheduleNext();
+      return;
+    }
+
+    nextVideo.classList.add("is-active");
+    previousVideo.classList.remove("is-active");
+    activeSlotIndex = nextSlotIndex;
+
+    fadeTimer = window.setTimeout(
+      () => {
+        if (currentToken !== transitionToken) return;
+        previousVideo.pause();
+        preloadNext();
+      },
+      reducedMotion ? 0 : HERO_REEL_FADE,
+    );
+    scheduleNext();
+  };
+
+  progressButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      showProject(Number(button.dataset.heroProgressIndex));
+    });
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    window.clearTimeout(reelTimer);
+    if (document.hidden) {
+      videoSlots[activeSlotIndex].pause();
+      return;
+    }
+    videoSlots[activeSlotIndex].play().catch(() => {});
+    scheduleNext();
+  });
+
+  showProject(0, { immediate: true });
 }
 
 function setupHeroHoverReadiness() {
@@ -1276,6 +1523,7 @@ function setupTiltCards() {
 
 function setupAccordion() {
   const panels = [...document.querySelectorAll(".accordion-panel")];
+  const tabs = [...document.querySelectorAll("[data-process-index]")];
   if (!panels.length) return;
   let scrollTimer = null;
 
@@ -1311,18 +1559,23 @@ function setupAccordion() {
   const openPanel = (panel) => {
     closePanels();
     panel.classList.add("is-open");
+    const activeIndex = panels.indexOf(panel);
+    tabs.forEach((tab, index) => {
+      const isActive = index === activeIndex;
+      tab.classList.toggle("is-active", isActive);
+      tab.setAttribute("aria-selected", String(isActive));
+    });
   };
 
   const syncInitialState = () => {
-    if (isTouchLayout()) {
-      closePanels();
-      return;
-    }
-
     if (!panels.some((panel) => panel.classList.contains("is-open"))) {
       openPanel(panels[0]);
     }
   };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => openPanel(panels[Number(tab.dataset.processIndex)] || panels[0]));
+  });
 
   panels.forEach((panel) => {
     panel.addEventListener("mouseenter", () => {
@@ -1609,6 +1862,10 @@ function setupForms() {
     [
       `Ime: ${values.name}`,
       `Email: ${values.email}`,
+      `Telefon: ${values.phone}`,
+      `Tip sadržaja: ${values.contentType}`,
+      `Model suradnje: ${values.collaboration}`,
+      `Rok: ${values.timeline}`,
       `Opis projekta: ${values.project}`,
       `Okvirni budžet: ${values.budget}`,
       `Newsletter: ${values.newsletter}`,
@@ -1715,7 +1972,7 @@ function setupForms() {
     const panel = form.closest(".contact-panel");
     const thanks = form.querySelector("[data-form-thanks]");
     const progress = form.querySelector(".form-progress");
-    const steps = form.querySelector(".form-steps");
+    const formSections = form.querySelectorAll(".form-steps, .brief-options");
     const actions = form.querySelector(".form-actions");
 
     form.dataset.formSubmitted = isSubmitted ? "true" : "false";
@@ -1729,7 +1986,9 @@ function setupForms() {
     }
 
     if (progress) progress.hidden = isSubmitted;
-    if (steps) steps.hidden = isSubmitted;
+    formSections.forEach((section) => {
+      section.hidden = isSubmitted;
+    });
     if (actions) actions.hidden = isSubmitted;
 
     form
@@ -1856,6 +2115,19 @@ function setupForms() {
     setupTurnstileTokenBridge(form);
     setupTurnstilePreviewState(form);
     setupContactStepper(form);
+
+    const summary = form.closest(".contact-panel")?.querySelector("[data-brief-summary]");
+    const syncBriefSummary = () => {
+      if (!summary) return;
+      const selected = ["content_type", "collaboration", "timeline"].map(
+        (name) => form.querySelector(`input[name="${name}"]:checked`)?.value,
+      );
+      summary.textContent = selected.filter(Boolean).join(" · ");
+    };
+    form.querySelectorAll('input[name="content_type"], input[name="collaboration"], input[name="timeline"]').forEach((input) => {
+      input.addEventListener("change", syncBriefSummary);
+    });
+    syncBriefSummary();
   });
 
   document.querySelectorAll("form").forEach((form) => {
@@ -1908,6 +2180,10 @@ function setupForms() {
       const values = {
         name: form.elements.name?.value.trim() || "",
         email: form.elements.email?.value.trim() || "",
+        phone: form.elements.phone?.value.trim() || "",
+        contentType: form.elements.content_type?.value || "",
+        collaboration: form.elements.collaboration?.value || "",
+        timeline: form.elements.timeline?.value || "",
         project: form.elements.project?.value.trim() || "",
         budget: form.elements.budget?.value || "",
         newsletter: form.elements.newsletter?.checked ? "Da" : "Ne",
@@ -1916,10 +2192,15 @@ function setupForms() {
       const payload = new FormData();
       payload.append("Ime", values.name);
       payload.append("Email", values.email);
+      payload.append("Telefon", values.phone);
+      payload.append("Tip sadržaja", values.contentType);
+      payload.append("Model suradnje", values.collaboration);
+      payload.append("Rok", values.timeline);
       payload.append("Opis projekta", values.project);
       payload.append("Okvirni budžet", values.budget);
       payload.append("Newsletter", values.newsletter);
       payload.append("Stranica", window.location.href);
+      payload.append("_url", window.location.href);
       payload.append("_replyto", values.email);
       payload.append("_subject", "Novi upit preko Fundamento stranice");
       payload.append("_template", "table");
@@ -2109,14 +2390,12 @@ function setupGsap() {
     clearProps: "opacity,transform",
   });
 
-  gsap.from(".hero-media-wrap", {
-    y: 70,
-    scale: 0.9,
+  gsap.from(".hero-showreel", {
     opacity: 0,
     duration: 1.1,
     ease: "power3.out",
     onComplete: () => {
-      gsap.set(".hero-media-wrap", { clearProps: "transform,opacity" });
+      gsap.set(".hero-showreel", { clearProps: "opacity" });
     },
   });
 

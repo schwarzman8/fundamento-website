@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="Projekt studija Fundamento kroz video produkciju, foto sadržaj i vizualne materijale za brendove." />
     <meta name="twitter:image" content="https://www.fundamen.to/assets/brand/fundamento-logo-stacked-light.png" />
     <link rel="icon" type="image/png" href="assets/brand/fundamento-logo-stacked-light.png" />
-    <link rel="stylesheet" href="styles.css?v=contact-success-20260910b" />
+    <link rel="stylesheet" href="styles.css?v=prelaunch-20260921c" />
     <style>
       @font-face {
         font-family: "Aeonik Pro";
@@ -2493,11 +2493,12 @@
 
       /* Forte Solar partner page follows the main-page design standard. */
       body[data-project-kind="partner"].project-detail-page-body {
-        background:
-          radial-gradient(circle at 86% 8%, rgba(232, 160, 53, 0.08), transparent 32rem),
-          radial-gradient(circle at 8% 42%, rgba(243, 239, 231, 0.025), transparent 30rem),
-          var(--brand-dark-image) center top / cover no-repeat,
-          var(--black) !important;
+        background-color: var(--site-surface-color) !important;
+        background-image: var(--site-surface-image) !important;
+        background-position: var(--site-surface-position) !important;
+        background-size: var(--site-surface-size) !important;
+        background-attachment: fixed, fixed, fixed, fixed !important;
+        background-repeat: no-repeat !important;
       }
 
       body[data-project-kind="partner"] .case-page {
@@ -3289,6 +3290,110 @@
         }
       }
 
+      /* Final mobile media correction: photo/BTS galleries stay inside the viewport instead of becoming off-canvas swipe strips. */
+      @media (max-width: 820px) {
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]),
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) {
+          display: grid !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          grid-auto-flow: row !important;
+          grid-auto-rows: auto !important;
+          gap: clamp(10px, 3.2vw, 14px) !important;
+          overflow: visible !important;
+          scroll-snap-type: none !important;
+        }
+
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-item,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-item,
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-item.is-vertical,
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-item.is-square,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-item.is-square {
+          width: 100% !important;
+          max-width: none !important;
+          min-width: 0 !important;
+          flex: none !important;
+          flex-basis: auto !important;
+          grid-column: auto !important;
+          grid-row: auto !important;
+          aspect-ratio: 4 / 5 !important;
+          scroll-snap-align: none !important;
+        }
+
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-item.is-horizontal,
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-item.is-wide,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-item.is-horizontal,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-item.is-wide {
+          grid-column: 1 / -1 !important;
+          aspect-ratio: 16 / 10 !important;
+        }
+
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-item.is-square,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-item.is-square {
+          aspect-ratio: 1 / 1 !important;
+        }
+
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-shell,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-shell,
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-shell img,
+        .project-detail-page-body .frames-grid[data-count]:not([data-count="1"]) .media-shell video,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-shell img,
+        .project-detail-page-body .bts-grid[data-count]:not([data-count="1"]) .media-shell video {
+          height: auto !important;
+          min-height: 0 !important;
+        }
+      }
+
+      .project-detail-page-body .media-section-expand {
+        display: inline-grid !important;
+        grid-column: 1 / -1 !important;
+        justify-self: center !important;
+        align-items: center !important;
+        grid-auto-flow: column !important;
+        gap: 12px !important;
+        min-height: 42px !important;
+        margin-top: clamp(20px, 2vw, 32px) !important;
+        padding: 0 18px !important;
+        border: 1px solid rgba(232, 160, 53, 0.36) !important;
+        border-radius: 0 !important;
+        background: rgba(232, 160, 53, 0.08) !important;
+        color: var(--bone) !important;
+        cursor: pointer !important;
+        transition:
+          background 220ms ease,
+          border-color 220ms ease,
+          opacity 160ms ease,
+          transform 220ms ease !important;
+      }
+
+      .project-detail-page-body .media-section-expand span {
+        color: var(--bone) !important;
+        font-family: var(--font-mono) !important;
+        font-size: clamp(0.62rem, 0.66vw, 0.74rem) !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.16em !important;
+        line-height: 1 !important;
+        text-transform: uppercase !important;
+      }
+
+      .project-detail-page-body .media-section-expand small {
+        color: var(--detail) !important;
+        font-family: var(--font-mono) !important;
+        font-size: clamp(0.62rem, 0.66vw, 0.74rem) !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.12em !important;
+        line-height: 1 !important;
+      }
+
+      .project-detail-page-body .media-section-expand:hover,
+      .project-detail-page-body .media-section-expand:focus-visible {
+        border-color: rgba(232, 160, 53, 0.66) !important;
+        background: rgba(232, 160, 53, 0.16) !important;
+        transform: translateY(-1px) !important;
+      }
+
       /* Final no-cut-corners pass: project pages keep rectangular media and brief cards. */
       .project-detail-page-body .media-shell,
       .project-detail-page-body .case-hero-media,
@@ -3301,6 +3406,571 @@
       body[data-project-kind="partner"] .case-hero-media.is-partner-thumbnail,
       body[data-project-kind="partner"] .partner-brief-grid article {
         clip-path: none !important;
+      }
+
+      /* Editorial case pages: editorial system from the supplied reference. */
+      body.project-detail-page-body {
+        background-color: var(--site-surface-color) !important;
+        background-image: var(--site-surface-image) !important;
+        background-position: var(--site-surface-position) !important;
+        background-size: var(--site-surface-size) !important;
+        background-attachment: fixed, fixed, fixed, fixed !important;
+        background-repeat: no-repeat !important;
+      }
+
+      body.project-detail-page-body .case-page {
+        --partner-shell: min(100% - (2 * var(--layout-gutter)), 1220px);
+        background: transparent !important;
+      }
+
+      body.project-detail-page-body .case-hero {
+        display: block !important;
+        width: var(--partner-shell) !important;
+        min-height: 0 !important;
+        margin: 0 auto !important;
+        padding: calc(var(--nav-height) + clamp(50px, 6vw, 88px)) 0 clamp(42px, 5vw, 72px) !important;
+        overflow: visible !important;
+      }
+
+      body.project-detail-page-body .case-hero::before,
+      body.project-detail-page-body .case-copy::before {
+        display: none !important;
+        content: none !important;
+      }
+
+      body.project-detail-page-body .case-copy {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+      }
+
+      .case-back-link {
+        display: none;
+      }
+
+      body.project-detail-page-body .case-back-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin: 0 0 clamp(26px, 3vw, 42px) !important;
+        color: rgba(243, 239, 231, 0.72) !important;
+        font-size: 0.78rem !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        text-decoration: none !important;
+        transition: color 180ms ease !important;
+      }
+
+      body.project-detail-page-body .case-back-link::before {
+        content: "\2190" !important;
+        font-size: 0.92rem !important;
+      }
+
+      body.project-detail-page-body .case-back-link:hover,
+      body.project-detail-page-body .case-back-link:focus-visible {
+        color: var(--detail) !important;
+      }
+
+      body.project-detail-page-body .case-kicker,
+      body.project-detail-page-body .case-summary,
+      body.project-detail-page-body .case-hero-media,
+      body.project-detail-page-body .case-hero-media.is-partner-thumbnail {
+        display: none !important;
+      }
+
+      body.project-detail-page-body #projectTitle {
+        display: block !important;
+        max-width: 14ch !important;
+        margin: 0 !important;
+        color: #f0eee9 !important;
+        font-family: var(--font-body) !important;
+        font-size: clamp(3.25rem, 5.3vw, 5.7rem) !important;
+        font-weight: 520 !important;
+        letter-spacing: 0 !important;
+        line-height: 0.96 !important;
+        text-transform: none !important;
+        text-wrap: balance !important;
+      }
+
+      body.project-detail-page-body .case-meta {
+        display: grid !important;
+        width: 100% !important;
+        max-width: none !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: clamp(16px, 2vw, 28px) !important;
+        margin: clamp(38px, 4.4vw, 62px) 0 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+      }
+
+      body.project-detail-page-body .case-meta div,
+      body.project-detail-page-body .case-meta div:first-child,
+      body.project-detail-page-body .case-meta div:nth-child(odd) {
+        display: block !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        padding: 16px 0 0 !important;
+        border: 0 !important;
+        border-top: 1px solid rgba(243, 239, 231, 0.14) !important;
+      }
+
+      body.project-detail-page-body .case-meta div[hidden] {
+        display: none !important;
+      }
+
+      body.project-detail-page-body .case-meta dt {
+        margin: 0 0 13px !important;
+        padding: 0 !important;
+        border: 0 !important;
+        color: #c88927 !important;
+        font-family: var(--font-mono) !important;
+        font-size: clamp(0.58rem, 0.58vw, 0.68rem) !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.17em !important;
+        line-height: 1 !important;
+        text-transform: uppercase !important;
+      }
+
+      body.project-detail-page-body .case-meta dd,
+      body.project-detail-page-body .case-meta dd.case-meta-list {
+        display: block !important;
+        margin: 0 !important;
+        color: rgba(243, 239, 231, 0.88) !important;
+        font-size: clamp(1rem, 1.15vw, 1.28rem) !important;
+        font-weight: 500 !important;
+        line-height: 1.26 !important;
+      }
+
+      .partner-materials-nav {
+        display: none;
+      }
+
+      body.project-detail-page-body .partner-materials-nav:not([hidden]) {
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: auto minmax(0, 1fr) !important;
+        align-items: center !important;
+        gap: clamp(28px, 4vw, 64px) !important;
+        padding: 22px max(var(--layout-gutter), calc((100% - 1220px) / 2)) !important;
+        border-top: 1px solid rgba(243, 239, 231, 0.12) !important;
+        border-bottom: 1px solid rgba(243, 239, 231, 0.12) !important;
+      }
+
+      body.project-detail-page-body .partner-materials-nav > span,
+      body.project-detail-page-body .partner-materials-nav a {
+        font-family: var(--font-mono) !important;
+        font-size: clamp(0.56rem, 0.55vw, 0.64rem) !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.16em !important;
+        line-height: 1.2 !important;
+        text-transform: uppercase !important;
+      }
+
+      body.project-detail-page-body .partner-materials-nav > span {
+        color: rgba(243, 239, 231, 0.34) !important;
+      }
+
+      body.project-detail-page-body .partner-materials-links {
+        display: flex !important;
+        min-width: 0 !important;
+        flex-wrap: wrap !important;
+        gap: 12px clamp(22px, 2.8vw, 42px) !important;
+      }
+
+      body.project-detail-page-body .partner-materials-nav a {
+        color: rgba(243, 239, 231, 0.52) !important;
+        text-decoration: none !important;
+        transition: color 180ms ease !important;
+      }
+
+      body.project-detail-page-body .partner-materials-nav a:hover,
+      body.project-detail-page-body .partner-materials-nav a:focus-visible {
+        color: var(--detail) !important;
+      }
+
+      body.project-detail-page-body .case-section {
+        width: var(--partner-shell) !important;
+        margin: 0 auto !important;
+        padding: clamp(42px, 4.5vw, 68px) 0 clamp(46px, 5vw, 76px) !important;
+        border: 0 !important;
+        scroll-margin-top: calc(var(--nav-height) + 24px) !important;
+      }
+
+      body.project-detail-page-body .case-section + .case-section {
+        border-top: 0 !important;
+      }
+
+      body.project-detail-page-body .section-head {
+        position: relative !important;
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: auto minmax(0, 1fr) auto !important;
+        grid-template-areas:
+          "progress line context"
+          "title title title" !important;
+        align-items: center !important;
+        gap: 0 18px !important;
+        margin: 0 0 clamp(34px, 4vw, 58px) !important;
+        padding: 0 !important;
+        border: 0 !important;
+      }
+
+      body.project-detail-page-body .section-head::before {
+        display: block !important;
+        position: static !important;
+        grid-area: progress !important;
+        width: auto !important;
+        height: auto !important;
+        padding-left: 17px !important;
+        background: linear-gradient(var(--detail), var(--detail)) left center / 6px 6px no-repeat !important;
+        color: rgba(243, 239, 231, 0.56) !important;
+        content: attr(data-section-progress) !important;
+        font-family: var(--font-mono) !important;
+        font-size: clamp(0.58rem, 0.58vw, 0.66rem) !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.14em !important;
+        line-height: 1 !important;
+      }
+
+      body.project-detail-page-body .section-head::after {
+        display: block !important;
+        position: static !important;
+        grid-area: context !important;
+        width: auto !important;
+        height: auto !important;
+        background: none !important;
+        color: rgba(243, 239, 231, 0.36) !important;
+        content: attr(data-section-context) !important;
+        font-family: var(--font-mono) !important;
+        font-size: clamp(0.56rem, 0.56vw, 0.64rem) !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.16em !important;
+        line-height: 1 !important;
+        text-transform: uppercase !important;
+        white-space: nowrap !important;
+      }
+
+      body.project-detail-page-body .section-head > div {
+        display: block !important;
+        grid-area: title !important;
+        margin-top: 15px !important;
+        padding-top: clamp(28px, 3.1vw, 46px) !important;
+        border-top: 1px solid rgba(243, 239, 231, 0.13) !important;
+      }
+
+      body.project-detail-page-body .section-head h2 {
+        display: block !important;
+        margin: 0 !important;
+        color: rgba(243, 239, 231, 0.9) !important;
+        font-family: var(--font-body) !important;
+        font-size: clamp(2.25rem, 3.65vw, 4.2rem) !important;
+        font-weight: 470 !important;
+        letter-spacing: 0 !important;
+        line-height: 1 !important;
+        text-transform: none !important;
+        white-space: normal !important;
+      }
+
+      body.project-detail-page-body .section-head h2::before {
+        display: none !important;
+        content: none !important;
+      }
+
+      body.project-detail-page-body .vertical-video-grid {
+        display: grid !important;
+        width: 100% !important;
+        max-width: none !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: clamp(10px, 1.2vw, 18px) !important;
+        overflow: visible !important;
+      }
+
+      body.project-detail-page-body .vertical-video-grid .media-item,
+      body.project-detail-page-body .vertical-video-grid .media-item.is-vertical,
+      body.project-detail-page-body .vertical-video-grid .media-item.is-featured-video {
+        width: 100% !important;
+        max-width: none !important;
+        aspect-ratio: 9 / 16 !important;
+      }
+
+      body.project-detail-page-body .horizontal-video-strip {
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: clamp(10px, 1.2vw, 18px) !important;
+      }
+
+      body.project-detail-page-body .frames-grid,
+      body.project-detail-page-body .bts-grid {
+        gap: clamp(8px, 0.9vw, 14px) !important;
+      }
+
+      body.project-detail-page-body .bts-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        grid-auto-rows: auto !important;
+      }
+
+      body.project-detail-page-body .bts-grid .media-item,
+      body.project-detail-page-body .bts-grid .media-item.is-horizontal,
+      body.project-detail-page-body .bts-grid .media-item.is-vertical,
+      body.project-detail-page-body .bts-grid .media-item.is-square {
+        width: 100% !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        aspect-ratio: 16 / 9 !important;
+      }
+
+      body.project-detail-page-body .media-shell,
+      body.project-detail-page-body .media-item,
+      body.project-detail-page-body .media-shell img,
+      body.project-detail-page-body .media-shell video {
+        border-radius: 0 !important;
+      }
+
+      body.project-detail-page-body .media-section-expand {
+        grid-column: 1 / -1 !important;
+        justify-self: stretch !important;
+        width: 100% !important;
+        min-height: 54px !important;
+        margin-top: clamp(20px, 2.8vw, 38px) !important;
+        border: 0 !important;
+        border-top: 1px solid rgba(243, 239, 231, 0.14) !important;
+        background: transparent !important;
+      }
+
+      body.project-detail-page-body .media-section-expand:hover,
+      body.project-detail-page-body .media-section-expand:focus-visible {
+        background: rgba(243, 239, 231, 0.035) !important;
+        transform: none !important;
+      }
+
+      @media (max-width: 820px) {
+        body.project-detail-page-body .case-page {
+          --partner-shell: min(100% - 32px, 1220px);
+        }
+
+        body.project-detail-page-body .case-hero {
+          padding-top: calc(var(--nav-height) + 46px) !important;
+          padding-bottom: 46px !important;
+        }
+
+        body.project-detail-page-body #projectTitle {
+          max-width: 10ch !important;
+          font-size: clamp(3rem, 14vw, 4.8rem) !important;
+        }
+
+        body.project-detail-page-body .case-meta {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          gap: 26px 16px !important;
+        }
+
+        body.project-detail-page-body .partner-materials-nav:not([hidden]) {
+          grid-template-columns: 1fr !important;
+          gap: 18px !important;
+          padding: 20px 16px !important;
+        }
+
+        body.project-detail-page-body .partner-materials-links {
+          display: grid !important;
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          gap: 14px 20px !important;
+        }
+
+        body.project-detail-page-body .case-section {
+          padding: 42px 0 52px !important;
+        }
+
+        body.project-detail-page-body .section-head::after {
+          white-space: normal !important;
+          text-align: right !important;
+        }
+
+        body.project-detail-page-body .vertical-video-grid,
+        body.project-detail-page-body .project-video-stack > .vertical-video-grid[data-count]:not([data-count="1"]) {
+          display: grid !important;
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          gap: 10px !important;
+          overflow: visible !important;
+        }
+
+        body.project-detail-page-body .bts-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+      }
+
+      @media (max-width: 520px) {
+        body.project-detail-page-body .case-meta {
+          grid-template-columns: 1fr !important;
+        }
+
+        body.project-detail-page-body .partner-materials-links {
+          grid-template-columns: 1fr !important;
+        }
+
+        body.project-detail-page-body .section-head {
+          grid-template-columns: auto minmax(0, 1fr) !important;
+          grid-template-areas:
+            "progress context"
+            "title title" !important;
+        }
+
+        body.project-detail-page-body .section-head::after {
+          justify-self: end !important;
+        }
+
+        body.project-detail-page-body .section-head h2 {
+          font-size: clamp(2rem, 10vw, 3rem) !important;
+        }
+      }
+
+      /* Project pages never use clipped corners. Keep every surface and control rectangular. */
+      body.project-detail-page-body[data-project-kind] *,
+      body.project-detail-page-body[data-project-kind] *::before,
+      body.project-detail-page-body[data-project-kind] *::after {
+        -webkit-clip-path: none !important;
+        clip-path: none !important;
+      }
+
+      body.project-detail-page-body[data-project-kind] .site-nav .nav-cta.ink-button {
+        -webkit-clip-path: none !important;
+        clip-path: none !important;
+      }
+
+      /* Orientation-preserving editorial photo groups. */
+      body.project-detail-page-body .frames-grid[data-count] {
+        --photo-gap: clamp(10px, 1.1vw, 18px);
+        display: flex !important;
+        width: 100% !important;
+        max-width: none !important;
+        flex-wrap: wrap !important;
+        align-items: flex-start !important;
+        gap: var(--photo-gap) !important;
+        overflow: visible !important;
+      }
+
+      body.project-detail-page-body .frames-grid[data-count] > .media-item,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item.is-horizontal,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item.is-vertical,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item.is-square,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item.is-wide,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item.is-small {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        flex: 0 0 calc((100% - (3 * var(--photo-gap))) / 4) !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        aspect-ratio: auto !important;
+      }
+
+      body.project-detail-page-body .frames-grid[data-count] > .media-item.is-horizontal,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item.is-wide {
+        flex-basis: 100% !important;
+      }
+
+      body.project-detail-page-body .frames-grid[data-count] > .media-item > .media-expand,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item > .media-expand > img,
+      body.project-detail-page-body .frames-grid[data-count] > .media-item > img {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        aspect-ratio: auto !important;
+        object-fit: contain !important;
+      }
+
+      body.project-detail-page-body .frames-grid[data-count] > .media-item > .media-expand {
+        position: relative !important;
+        inset: auto !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+      }
+
+      body.project-detail-page-body .frames-grid[data-count] > .media-section-expand {
+        flex: 1 0 100% !important;
+      }
+
+      body.project-detail-page-body .media-collection.is-expanding,
+      body.project-detail-page-body .media-collection.is-expanded {
+        overflow-anchor: none;
+      }
+
+      body.project-detail-page-body .media-collection.is-expanding .media-item,
+      body.project-detail-page-body .media-collection.is-expanded .media-item {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+      }
+
+      body.project-detail-page-body .media-collection.is-expanding .media-item[data-expand-new] {
+        opacity: 0;
+        transform: translate3d(0, 22px, 0);
+        transition:
+          opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: var(--expand-delay, 90ms);
+        will-change: opacity, transform;
+      }
+
+      body.project-detail-page-body .media-collection.is-expanding.is-expand-active .media-item[data-expand-new] {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+
+      body.project-detail-page-body .media-collection.is-expanding .media-section-expand {
+        pointer-events: none;
+      }
+
+      body.project-detail-page-body .media-section-expand.is-dismissing {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translate3d(0, -6px, 0) !important;
+      }
+
+      @media (max-width: 820px) {
+        body.project-detail-page-body .frames-grid[data-count] {
+          --photo-gap: 10px;
+        }
+
+        body.project-detail-page-body .frames-grid[data-count] > .media-item,
+        body.project-detail-page-body .frames-grid[data-count] > .media-item.is-vertical,
+        body.project-detail-page-body .frames-grid[data-count] > .media-item.is-square,
+        body.project-detail-page-body .frames-grid[data-count] > .media-item.is-small {
+          flex-basis: calc((100% - var(--photo-gap)) / 2) !important;
+        }
+
+        body.project-detail-page-body .frames-grid[data-count] > .media-item.is-horizontal,
+        body.project-detail-page-body .frames-grid[data-count] > .media-item.is-wide {
+          flex-basis: 100% !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        body.project-detail-page-body .media-collection.is-expanding,
+        body.project-detail-page-body .media-collection.is-expanding .media-item {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      body.project-detail-page-body .site-footer {
+        background-color: transparent !important;
+        background-image: none !important;
+      }
+
+      @media (max-width: 700px) {
+        body.project-detail-page-body,
+        body[data-project-kind="partner"].project-detail-page-body {
+          background-attachment: scroll !important;
+        }
       }
     </style>
   </head>
@@ -3332,6 +4002,7 @@
     <main class="case-page">
       <section class="case-hero" aria-labelledby="projectTitle">
         <div class="case-copy">
+          <a class="case-back-link" href="index.html#partnerski-brendovi" data-project-back>Radovi</a>
           <p class="case-kicker" id="projectKicker"></p>
           <h1 id="projectTitle"></h1>
           <p class="case-summary" id="projectSummary"></p>
@@ -3357,6 +4028,11 @@
 
         <figure class="case-hero-media media-shell" id="projectHeroMedia"></figure>
       </section>
+
+      <nav class="partner-materials-nav" id="partnerMaterialsNav" aria-label="Materijali projekta" hidden>
+        <span>Materijali</span>
+        <div class="partner-materials-links" id="partnerMaterialsLinks"></div>
+      </nav>
 
       <section class="case-section optional-section" aria-labelledby="socialTitle" id="socialSection">
         <div class="section-head">
@@ -3625,15 +4301,15 @@
         row,
       }));
       const ambassadorPhotos = [
-        ["2G6A9294.webp", "wide", "1 / span 8", "1 / span 4"],
-        ["2G6A9356.webp", "vertical", "9 / span 2", "1 / span 4"],
-        ["2G6A9431.webp", "vertical", "11 / span 2", "1 / span 4"],
-        ["2G6A9446.webp", "horizontal", "1 / span 4", "5 / span 4"],
-        ["2G6A9464.webp", "horizontal", "5 / span 4", "5 / span 4"],
-        ["2G6A9664.webp", "vertical", "9 / span 2", "5 / span 4"],
-        ["2G6A9702.webp", "vertical", "11 / span 2", "5 / span 4"],
-        ["2G6A9721.webp", "wide", "1 / span 6", "9 / span 4"],
-        ["2G6A9727.webp", "wide", "7 / span 6", "9 / span 4"],
+        ["2G6A9294.webp", "vertical", "1 / span 3", "1 / span 4"],
+        ["2G6A9356.webp", "vertical", "4 / span 3", "1 / span 4"],
+        ["2G6A9431.webp", "vertical", "7 / span 3", "1 / span 4"],
+        ["2G6A9446.webp", "vertical", "10 / span 3", "1 / span 4"],
+        ["2G6A9464.webp", "vertical", "1 / span 3", "5 / span 4"],
+        ["2G6A9664.webp", "vertical", "4 / span 3", "5 / span 4"],
+        ["2G6A9702.webp", "vertical", "7 / span 3", "5 / span 4"],
+        ["2G6A9721.webp", "vertical", "10 / span 3", "5 / span 4"],
+        ["2G6A9727.webp", "vertical", "1 / span 3", "9 / span 4"],
       ].map(([file, orientation, column, row]) => ({
         type: "image",
         src: `assets/partners/hotelambasador/Fotografije/${file}`,
@@ -3793,12 +4469,12 @@
           industry,
           summary,
           hero,
-          social: social || verticalContent(slug),
+          social: social || [],
           socialClass,
           horizontal,
           ai,
-          photos: photos || photoContent(slug),
-          bts: bts || btsContent(slug),
+          photos: photos || [],
+          bts: bts || [],
         };
       }
 
@@ -3962,8 +4638,8 @@
           title: "REVITA CLINIC",
           client: "REVITA CLINIC",
           startYear: "2025",
-          services: ["Kratki formati Reels", "TV formati", "AI sadržaj", "Grafike", "Fotografija"],
-          contentTypes: ["Kratki formati Reels", "TV formati", "AI sadržaj", "Grafike", "Fotografija"],
+          services: ["Kratki formati Reels", "Fotografija", "Behind the scene"],
+          contentTypes: ["Kratki formati Reels", "Fotografija", "Behind the scene"],
           industry: "Medicinski turizam / Hoteljerstvo",
           summary: "Medicinski wellness centar smješten u boutique hotelu s pet zvjezdica, specijaliziran za biološku dugovječnost.",
           hero: { type: "image", src: "assets/partners/Revita%20Clinic/optimized/photos/revita-photo-17.jpg", orientation: "horizontal", alt: "Hotel Aleksander fasada" },
@@ -3977,14 +4653,13 @@
           title: "CENTRAL CAFE",
           client: "CENTRAL CAFE",
           startYear: "2025",
-          services: ["Fotografija", "Kratki formati Reels", "AI sadržaj", "Grafike", "Animacija"],
-          contentTypes: ["Fotografija", "Kratki formati Reels", "AI sadržaj", "Grafike", "Animacija"],
+          services: ["Fotografija", "Kratki formati Reels", "Behind the scene"],
+          contentTypes: ["Fotografija", "Kratki formati Reels", "Behind the scene"],
           industry: "Ugostiteljstvo",
           summary: "Kavana i slastičarnica s više od 20 godina iskustva.",
           hero: { type: "image", src: "assets/partners/Central%20Cafe/optimized/photos/central-photo-08.jpg", orientation: "horizontal", alt: "Central Cafe terasa" },
           social: centralVideos.map((src) => ({ type: "video", src, orientation: "vertical" })),
           socialClass: "vertical-video-grid central-reel-grid",
-          ai: [{ type: "video", src: centralAiVideo, orientation: "horizontal" }],
           photos: centralPhotos,
           bts: centralBts,
         }),
@@ -3993,8 +4668,8 @@
           title: "VOLKSWAGEN BOSNIĆ",
           client: "VOLKSWAGEN BOSNIĆ",
           startYear: "2024",
-          services: ["Fotografija", "AI sadržaj", "Kratki formati Reels", "Animacija"],
-          contentTypes: ["Fotografija", "AI sadržaj", "Kratki formati Reels", "Animacija"],
+          services: [],
+          contentTypes: [],
           industry: "Automotive",
           summary: "Ovlašteni Volkswagen i Škoda servis s više od tri desetljeća iskustva.",
           hero: { type: "image", src: vwBosnicThumbnail, orientation: "horizontal", alt: "Volkswagen Bosnić thumbnail" },
@@ -4124,6 +4799,193 @@
         `;
       }
 
+      function shuffleMedia(items) {
+        return [...items]
+          .map((item, index) => ({ item, order: Math.random(), index }))
+          .sort((a, b) => a.order - b.order || a.index - b.index)
+          .map(({ item }) => item);
+      }
+
+      function orderGalleryMedia(items, randomize = false) {
+        const source = randomize ? shuffleMedia(items) : [...items];
+        const horizontal = source.filter((item) => ["horizontal", "wide"].includes(item.orientation));
+        const compact = source.filter((item) => !["horizontal", "wide"].includes(item.orientation));
+        const completeCompact = compact.splice(0, Math.floor(compact.length / 4) * 4);
+        const ordered = [];
+
+        while (horizontal.length || completeCompact.length) {
+          if (horizontal.length) ordered.push(horizontal.shift());
+          if (completeCompact.length) ordered.push(...completeCompact.splice(0, 4));
+        }
+
+        // Incomplete portrait rows belong at the very end and only appear after expansion.
+        ordered.push(...compact);
+        return ordered;
+      }
+
+      function sectionInitialLimit(containerId, media, className = "") {
+        if (media.length <= 1) return media.length;
+        if (containerId === "#projectSocial") return Math.min(media.length, className.includes("revita") ? 4 : 4);
+        if (containerId === "#projectVideos") return Math.min(media.length, 3);
+        if (containerId === "#projectAi") return Math.min(media.length, 3);
+        if (containerId === "#projectFrames") return Math.min(media.length, 10);
+        if (containerId === "#projectBts") return Math.min(media.length, 4);
+        return media.length;
+      }
+
+      function collectionHtml(containerId, media, className, visibleMedia, expanded = false) {
+        if (containerId === "#projectSocial" && project.socialHero) {
+          const reelClassName = className || "vertical-video-grid";
+          return `
+            <div class="project-video-feature">
+              ${mediaMarkup(project.socialHero, project.slug, 0, { allowFullscreenVideo: true })}
+            </div>
+            <div class="${reelClassName}" data-count="${visibleMedia.length}" data-remainder="${visibleMedia.length % 4}">
+              ${visibleMedia.map((item, index) => mediaMarkup(item, project.slug, index + 1, { allowFullscreenVideo: true })).join("")}
+            </div>
+            ${expandButtonHtml(media.length, visibleMedia.length, expanded)}
+          `;
+        }
+
+        if (className.includes("hero-reel-video-grid") && visibleMedia.length > 1) {
+          const [featuredVideo, ...reels] = visibleMedia;
+          return `
+            ${mediaMarkup(featuredVideo, project.slug, 0, { allowFullscreenVideo: containerId !== "#projectBts" })}
+            <div class="hero-reel-video-grid__reels" data-count="${reels.length}" data-remainder="${reels.length % 4}">
+              ${reels.map((item, index) => mediaMarkup(item, project.slug, index + 1, { allowFullscreenVideo: containerId !== "#projectBts" })).join("")}
+            </div>
+            ${expandButtonHtml(media.length, visibleMedia.length, expanded)}
+          `;
+        }
+
+        const renderedMedia =
+          containerId === "#projectFrames"
+            ? visibleMedia.map(({ column, row, ...item }) => item)
+            : visibleMedia;
+
+        return `
+          ${renderedMedia
+            .map((item, index) => mediaMarkup(item, project.slug, index, { allowFullscreenVideo: containerId !== "#projectBts" }))
+            .join("")}
+          ${expandButtonHtml(media.length, visibleMedia.length, expanded)}
+        `;
+      }
+
+      function expandButtonHtml(total, visible, expanded) {
+        if (expanded || total <= visible) return "";
+        return `
+          <button class="media-section-expand" type="button" data-expand-media>
+            <span>Prikaži sve</span>
+            <small>${visible}/${total}</small>
+          </button>
+        `;
+      }
+
+      function waitForExpandedMedia(container, timeout = 1200) {
+        const pendingImages = Array.from(container.querySelectorAll("img")).filter((image) => !image.complete);
+        if (!pendingImages.length) return Promise.resolve();
+
+        const loaded = Promise.allSettled(
+          pendingImages.map(
+            (image) =>
+              new Promise((resolve) => {
+                image.addEventListener("load", resolve, { once: true });
+                image.addEventListener("error", resolve, { once: true });
+              }),
+          ),
+        );
+        const timedOut = new Promise((resolve) => window.setTimeout(resolve, timeout));
+        return Promise.race([loaded, timedOut]);
+      }
+
+      function nextPaint() {
+        return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      }
+
+      async function animateExpandedCollection(container, renderExpanded) {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const trigger = container.querySelector("[data-expand-media]");
+        const previousSources = new Set(
+          Array.from(container.querySelectorAll(".media-item img, .media-item video"))
+            .map((media) => media.getAttribute("src"))
+            .filter(Boolean),
+        );
+
+        if (trigger) {
+          trigger.disabled = true;
+          trigger.setAttribute("aria-busy", "true");
+          trigger.classList.add("is-dismissing");
+          if (!reduceMotion) await new Promise((resolve) => window.setTimeout(resolve, 180));
+        }
+
+        const startHeight = container.getBoundingClientRect().height;
+
+        container.style.height = `${startHeight}px`;
+        container.style.overflow = "hidden";
+        container.classList.add("is-expanding");
+        renderExpanded();
+
+        setupMediaLightbox();
+        setupVideoLightbox();
+        setupVideoCards();
+
+        const addedItems = Array.from(container.querySelectorAll(".media-item")).filter((item) => {
+          const media = item.querySelector("img, video");
+          const source = media?.getAttribute("src");
+          return source && !previousSources.has(source);
+        });
+
+        addedItems.forEach((item, index) => {
+          item.dataset.expandNew = "true";
+          item.style.setProperty("--expand-delay", `${90 + Math.min(index, 10) * 48}ms`);
+        });
+
+        const finish = () => {
+          container.classList.remove("is-expand-active");
+          container.style.removeProperty("height");
+          container.style.removeProperty("overflow");
+          container.style.removeProperty("transition");
+          container.style.removeProperty("will-change");
+          container.classList.remove("is-expanding");
+          addedItems.forEach((item) => {
+            delete item.dataset.expandNew;
+            item.style.removeProperty("--expand-delay");
+          });
+        };
+
+        if (reduceMotion) {
+          finish();
+          return;
+        }
+
+        await waitForExpandedMedia(container);
+        await nextPaint();
+
+        container.style.height = "auto";
+        container.style.overflow = "visible";
+        const endHeight = container.getBoundingClientRect().height;
+        container.style.height = `${startHeight}px`;
+        container.style.overflow = "hidden";
+        container.style.willChange = "height";
+        const distance = Math.max(0, endHeight - startHeight);
+        const duration = Math.min(920, Math.max(600, 560 + distance * 0.08));
+        const revealDuration = 90 + Math.min(Math.max(addedItems.length - 1, 0), 10) * 48 + 520;
+        let completed = false;
+        let completionTimer;
+        const finishOnce = () => {
+          if (completed) return;
+          completed = true;
+          window.clearTimeout(completionTimer);
+          finish();
+        };
+
+        container.style.transition = `height ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+        container.getBoundingClientRect();
+        container.classList.add("is-expand-active");
+        container.style.height = `${endHeight}px`;
+        completionTimer = window.setTimeout(finishOnce, Math.max(duration, revealDuration) + 120);
+      }
+
       function heroMarkup(item) {
         if (item.type === "image") {
           return `<img src="${item.src}" alt="${item.alt || project.title}" />`;
@@ -4150,36 +5012,53 @@
 
         section.hidden = false;
         container.className = className || container.className;
-        container.dataset.count = String(media.length);
-        container.dataset.remainder = String(media.length % 4);
+        container.classList.add("media-collection");
+        const limit = sectionInitialLimit(containerId, media, className);
+        const isPhotoGallery = containerId === "#projectFrames";
+        const mayNeedGalleryOverflow =
+          isPhotoGallery &&
+          media.filter((item) => !["horizontal", "wide"].includes(item.orientation)).length % 4 !== 0;
+        const orderedMedia = isPhotoGallery
+          ? orderGalleryMedia(media, media.length > limit || mayNeedGalleryOverflow)
+          : media.length > limit
+            ? shuffleMedia(media)
+            : media;
+        let visibleLimit = Math.min(limit, orderedMedia.length);
+
+        if (isPhotoGallery) {
+          while (visibleLimit > 0) {
+            const compactVisible = orderedMedia
+              .slice(0, visibleLimit)
+              .filter((item) => !["horizontal", "wide"].includes(item.orientation)).length;
+            if (compactVisible % 4 === 0) break;
+            visibleLimit -= 1;
+          }
+
+          // A tiny portrait-only gallery still needs a useful initial view.
+          if (visibleLimit === 0 && orderedMedia.length <= limit) visibleLimit = orderedMedia.length;
+        }
+
+        const shouldCollapse = orderedMedia.length > visibleLimit;
+        const visibleMedia = shouldCollapse ? orderedMedia.slice(0, visibleLimit) : orderedMedia;
+
         if (containerId === "#projectSocial" && project.socialHero) {
-          const reelClassName = className || "vertical-video-grid";
           container.className = "project-video-stack";
-          container.dataset.count = String(media.length + 1);
-          container.dataset.remainder = String(media.length % 4);
-          container.innerHTML = `
-            <div class="project-video-feature">
-              ${mediaMarkup(project.socialHero, project.slug, 0, { allowFullscreenVideo: true })}
-            </div>
-            <div class="${reelClassName}" data-count="${media.length}" data-remainder="${media.length % 4}">
-              ${media.map((item, index) => mediaMarkup(item, project.slug, index + 1, { allowFullscreenVideo: true })).join("")}
-            </div>
-          `;
-          return;
         }
-        if (container.classList.contains("hero-reel-video-grid") && media.length > 1) {
-          const [featuredVideo, ...reels] = media;
-          container.innerHTML = `
-            ${mediaMarkup(featuredVideo, project.slug, 0, { allowFullscreenVideo: containerId !== "#projectBts" })}
-            <div class="hero-reel-video-grid__reels" data-count="${reels.length}" data-remainder="${reels.length % 4}">
-              ${reels.map((item, index) => mediaMarkup(item, project.slug, index + 1, { allowFullscreenVideo: containerId !== "#projectBts" })).join("")}
-            </div>
-          `;
-          return;
-        }
-        container.innerHTML = media
-          .map((item, index) => mediaMarkup(item, project.slug, index, { allowFullscreenVideo: containerId !== "#projectBts" }))
-          .join("");
+
+        container.dataset.count = String(visibleMedia.length);
+        container.dataset.total = String(media.length);
+        container.dataset.remainder = String(visibleMedia.length % 4);
+        container.innerHTML = collectionHtml(containerId, media, className || container.className, visibleMedia, false);
+
+        container.querySelector("[data-expand-media]")?.addEventListener("click", () => {
+          animateExpandedCollection(container, () => {
+              container.dataset.count = String(orderedMedia.length);
+              container.dataset.total = String(orderedMedia.length);
+              container.dataset.remainder = String(orderedMedia.length % 4);
+              container.classList.add("is-expanded");
+              container.innerHTML = collectionHtml(containerId, orderedMedia, className || container.className, orderedMedia, true);
+            });
+        });
       }
 
       function setupMobileNav() {
@@ -4295,6 +5174,8 @@
         window.addEventListener("orientationchange", syncClose);
 
         document.querySelectorAll("[data-fullscreen-src]").forEach((button) => {
+          if (button.dataset.lightboxBound === "true") return;
+          button.dataset.lightboxBound = "true";
           button.addEventListener("click", () => {
             image.src = button.dataset.fullscreenSrc;
             image.alt = button.querySelector("img")?.alt || "";
@@ -4355,6 +5236,8 @@
         };
 
         document.querySelectorAll(".media-fullscreen[data-fullscreen-video-src]").forEach((button) => {
+          if (button.dataset.videoLightboxBound === "true") return;
+          button.dataset.videoLightboxBound = "true";
           button.addEventListener("click", () => openVideo(button));
         });
 
@@ -4378,6 +5261,8 @@
           const shell = video.closest(".media-shell");
           const playButton = shell?.querySelector(".media-play");
           if (!shell || !playButton) return;
+          if (shell.dataset.videoCardBound === "true") return;
+          shell.dataset.videoCardBound = "true";
 
           const syncState = () => {
             const isPlaying = !video.paused && !video.ended;
@@ -4410,21 +5295,30 @@
       const isPartner = project.kind === "partner";
       document.body.dataset.projectKind = isPartner ? "partner" : "project";
 
+      const partnerDisplayTitles = {
+        "forte-solar": "Forte Solar",
+        "revita-clinic": "Revita Clinic",
+        "central-cafe": "Central Cafe",
+        "vw-bosnic": "Volkswagen Bosnić",
+        "hotel-ambasador": "Hotel Ambasador",
+      };
+
       document.querySelector("#projectKicker").textContent = isPartner ? "Partnerski brend" : `${project.client} / ${project.year}`;
-      document.querySelector("#projectTitle").textContent = project.title;
+      document.querySelector("#projectTitle").textContent = isPartner ? partnerDisplayTitles[project.slug] || project.title : project.title;
       document.querySelector("#projectSummary").textContent = project.summary;
-      document.querySelector("#projectYearLabel").textContent = isPartner ? "Početak suradnje" : "Godina";
-      document.querySelector("#projectTypeLabel").textContent = "Tip";
+      document.querySelector("#projectYearLabel").textContent = "Godina";
+      document.querySelector("#projectTypeLabel").textContent = isPartner ? "Tip projekta" : "Tip";
       document.querySelector("#projectIndustryLabel").textContent = "Industrija";
-      document.querySelector("#projectClientLabel").textContent = isPartner ? "Vrsta sadržaja" : "Klijent";
+      document.querySelector("#projectClientLabel").textContent = "Klijent";
       document.querySelector("#projectYear").textContent = isPartner ? project.startYear : project.year;
       document.querySelector("#projectType").textContent = project.type;
       document.querySelector("#projectIndustry").textContent = project.industry;
-      document.querySelector("#projectIndustry").closest("div").hidden = isPartner;
+      document.querySelector("#projectIndustry").closest("div").hidden = false;
       const projectCollaboration = document.querySelector("#projectCollaboration");
       const partnerContentTypes = isPartner ? project.contentTypes || project.services || [] : [];
-      projectCollaboration.classList.toggle("case-meta-list", Boolean(partnerContentTypes.length));
-      if (partnerContentTypes.length) {
+      projectCollaboration.closest("div").hidden = false;
+      projectCollaboration.classList.toggle("case-meta-list", !isPartner && Boolean(partnerContentTypes.length));
+      if (!isPartner && partnerContentTypes.length) {
         projectCollaboration.replaceChildren(
           ...partnerContentTypes.map((item) => {
             const span = document.createElement("span");
@@ -4443,28 +5337,51 @@
       renderOptionalSection("#aiSection", "#projectAi", project.ai, "horizontal-video-strip");
       renderOptionalSection("#photoSection", "#projectFrames", project.photos, "frames-grid");
       renderOptionalSection("#btsSection", "#projectBts", project.bts, "bts-grid");
-      if (isPartner) {
-        const visibleSections = Array.from(document.querySelectorAll(".optional-section:not([hidden])"));
-        visibleSections.forEach((section, index) => {
-          const head = section.querySelector(".section-head");
-          const heading = section.querySelector(".section-head h2");
-          if (!head || !heading) return;
+      const visibleSections = Array.from(document.querySelectorAll(".optional-section:not([hidden])"));
+      const materialsNav = document.querySelector("#partnerMaterialsNav");
+      const materialsLinks = document.querySelector("#partnerMaterialsLinks");
+      const firstSocialItem = project.socialHero || project.social?.[0];
+      const socialIsVertical = firstSocialItem?.orientation === "vertical" || project.socialClass?.includes("vertical");
+      const sectionContexts = {
+        socialSection: socialIsVertical ? "Vertikalni format · 9:16" : "Video format · 16:9",
+        motionSection: "Horizontalni format · 16:9",
+        aiSection: "Hibridna produkcija",
+        photoSection: "Foto set",
+        btsSection: "Sa seta",
+      };
 
-          const total = visibleSections.length;
-          const label = heading.textContent.replace(/^\d+\s+(OD|—)\s+\d+\s*\/?\s*/i, "").replace(/^\d+\s+—\s+/, "").trim();
-          head.dataset.sectionProgress = String(index + 1).padStart(2, "0");
-          head.style.setProperty("--section-progress-ratio", String((index + 1) / total));
-          heading.textContent = label;
-        });
-      }
+      materialsNav.hidden = visibleSections.length === 0;
+      materialsLinks.replaceChildren(
+        ...visibleSections.map((section) => {
+          const link = document.createElement("a");
+          const heading = section.querySelector(".section-head h2");
+          link.href = `#${section.id}`;
+          link.textContent = heading?.textContent || "Materijal";
+          return link;
+        }),
+      );
+
+      visibleSections.forEach((section, index) => {
+        const head = section.querySelector(".section-head");
+        const heading = section.querySelector(".section-head h2");
+        if (!head || !heading) return;
+
+        const total = visibleSections.length;
+        const label = heading.textContent.replace(/^\d+\s+(OD|—)\s+\d+\s*\/?\s*/i, "").replace(/^\d+\s+—\s+/, "").trim();
+        head.dataset.sectionProgress = String(index + 1).padStart(2, "0");
+        head.dataset.sectionContext = sectionContexts[section.id] || "Materijal";
+        head.style.setProperty("--section-progress-ratio", String((index + 1) / total));
+        heading.textContent = label;
+      });
       setupMobileNav();
       setupMediaLightbox();
       setupVideoLightbox();
       setupVideoCards();
 
       const backLink = document.querySelector("[data-project-back]");
+      backLink.textContent = isPartner ? "Partnerske suradnje" : "Radovi";
+      backLink.href = isPartner ? "index.html#partnerski-brendovi" : "index.html#radovi";
       if (returnUrl && returnScroll && backLink) {
-        backLink.href = returnUrl;
         backLink.addEventListener("click", () => {
           localStorage.setItem("fundamento.projectReturnPending", "true");
         });

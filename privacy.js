@@ -24,14 +24,26 @@ const privacyMarkup = `
       </p>
 
       <h3>2. Koje podatke prikupljamo i u koju svrhu?</h3>
-      <h4>A) Newsletter</h4>
+      <h4>A) Kontakt forma</h4>
+      <p>
+        Kada pošaljete projektni upit, obrađujemo ime i prezime, e-mail adresu, broj telefona ako ga unesete,
+        odabrane podatke o projektu te sadržaj poruke.
+      </p>
+      <p>
+        Svrha: Odgovor na upit, priprema okvirnog plana, termina i procjene te poduzimanje radnji prije
+        sklapanja ugovora.<br />
+        Pravna osnova: Poduzimanje radnji na vaš zahtjev prije sklapanja ugovora i naš legitimni interes za
+        komunikaciju s potencijalnim klijentima.
+      </p>
+
+      <h4>B) Newsletter</h4>
       <p>Ako se prijavite na naš newsletter, prikupljamo isključivo vašu e-mail adresu.</p>
       <p>
         Svrha: Slanje obavijesti o našim projektima, novostima i promotivnih informacija.<br />
         Pravna osnova: Privola. U svakom trenutku se možete odjaviti klikom na poveznicu "Odjava" u dnu svakog e-maila.
       </p>
 
-      <h4>B) Google Analytics (Kolačići)</h4>
+      <h4>C) Google Analytics (Kolačići)</h4>
       <p>Koristimo Google Analytics za analizu posjećenosti naše stranice.</p>
       <p>
         Svrha: Razumijevanje načina na koji posjetitelji koriste stranicu kako bismo poboljšali njezinu
@@ -44,8 +56,10 @@ const privacyMarkup = `
       <h3>3. Dijeljenje podataka s trećim stranama</h3>
       <p>
         Fundamento Creative Studios j.d.o.o. ne prodaje, ne iznajmljuje niti dijeli vaše osobne podatke s
-        trećim stranama u njihove marketinške svrhe. Vaši podaci se koriste isključivo za gore navedene svrhe.
-        Iznimno, podaci se mogu dostaviti nadležnim javnim tijelima ako je to naša zakonska obveza.
+        trećim stranama u njihove marketinške svrhe. Za tehničku dostavu kontakt obrasca koristimo uslugu
+        FormSubmit, koja podatke iz obrasca obrađuje isključivo radi prosljeđivanja upita na našu e-mail
+        adresu. Podatke mogu obrađivati i pružatelji naše e-mail infrastrukture. Iznimno, podaci se mogu
+        dostaviti nadležnim javnim tijelima ako je to naša zakonska obveza.
       </p>
 
       <h3>4. Kolačići (Cookies)</h3>
@@ -66,8 +80,11 @@ const privacyMarkup = `
 
       <h3>5. Razdoblje pohrane</h3>
       <p>
-        Vašu e-mail adresu za newsletter čuvamo sve dok ne povučete privolu. Podaci prikupljeni putem Google
-        Analyticsa čuvaju se u skladu s pravilima tog servisa, obično 14 do 26 mjeseci.
+        Kontakt upite čuvamo onoliko dugo koliko je potrebno za odgovor, pripremu ponude i vođenje poslovne
+        komunikacije, odnosno dulje samo kada to zahtijevaju zakonske obveze. FormSubmit tehničke zapise
+        poslanih obrazaca zadržava do 30 dana. Vašu e-mail adresu za newsletter čuvamo sve dok ne povučete
+        privolu. Podaci prikupljeni putem Google Analyticsa čuvaju se u skladu s pravilima tog servisa, obično
+        14 do 26 mjeseci.
       </p>
 
       <h3>6. Vaša prava prema GDPR-u</h3>
